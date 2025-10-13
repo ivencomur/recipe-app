@@ -1,0 +1,50 @@
+# Django Recipe App - Python Dependencies
+# Python 3.8+ required
+
+# Core Framework
+Django==5.2.7
+
+# Database (SQLite is included with Python)
+# For production, consider PostgreSQL:
+# psycopg2-binary==2.9.9
+
+# Development & Testing
+pytest==8.3.3
+pytest-django==4.9.0
+coverage==7.6.1
+
+# Static Files & Media (for future use)
+Pillow==10.4.0  # For image handling
+whitenoise==6.7.0  # For serving static files in production
+
+# Security & Environment
+python-decouple==3.8  # For environment variables
+django-environ==0.11.2  # Alternative env management
+
+# API (for future development)
+djangorestframework==3.15.2  # If adding API functionality
+
+# Data Analysis & Visualization (Exercise 2.7)
+pandas==2.2.3
+matplotlib==3.9.2
+seaborn==0.13.2
+
+# Forms & UI Enhancements (future)
+django-crispy-forms==2.3
+crispy-bootstrap5==2024.10
+
+# Development Tools
+django-debug-toolbar==4.4.6
+ipython==8.27.0
+
+# Production Dependencies (Exercise 2.8)
+gunicorn==23.0.0  # WSGI server
+dj-database-url==2.2.0  # Database URL parsing
+
+# Code Quality
+black==24.8.0  # Code formatter
+flake8==7.1.1  # Linter
+pylint-django==2.5.5  # Django-specific linting
+
+# Documentation
+sphinx==8.0.2  # For generating documentation

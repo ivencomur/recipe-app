@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learning Journal - Exercise 1.5</title>
+    <style>
+      :root {
+        --primary-color: #20504b;
+        --primary-hover-color: #1a403c;
+        --secondary-color: #f4f4f4;
+        --text-color: #333;
+        --grid-item-bg-color: #2c3e50;
+        --alt-grid-item-text-color: #0056b3;
+        --customized-orange-light-bg: #b46100;
+        --customized-orange-dark-bg: #ffa061;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Lato", sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: #d9e1e5;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 8.5in;
+        margin: 0 auto;
+        background: white;
+        padding: 0.75in;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .page-header {
+        background-color: var(--primary-color);
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        margin: -0.75in -0.75in 30px -0.75in;
+      }
+
+      .page-header h1 {
+        color: #fff;
+        border-bottom: none;
+        margin-bottom: 5px;
+      }
+
+      h1 {
+        color: var(--alt-grid-item-text-color);
+        font-size: 28px;
+        margin-bottom: 10px;
+        border-bottom: 3px solid var(--primary-color);
+        padding-bottom: 10px;
+      }
+
+      .header-info {
+        color: #fff;
+        font-size: 14px;
+        line-height: 1.8;
+      }
+
+      .header-info strong {
+        color: var(--customized-orange-dark-bg);
+      }
+
+      h2 {
+        color: var(--alt-grid-item-text-color);
+        font-size: 20px;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        padding-bottom: 5px;
+        border-bottom: 2px solid var(--primary-color);
+      }
+
+      h3 {
+        color: var(--grid-item-bg-color);
+        font-size: 16px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
+
+      p {
+        margin-bottom: 12px;
+        text-align: justify;
+      }
+
+      ul,
+      ol {
+        margin-left: 25px;
+        margin-bottom: 15px;
+      }
+
+      li {
+        margin-bottom: 8px;
+      }
+
+      .toc {
+        background-color: var(--secondary-color);
+        border: 2px solid var(--primary-color);
+        border-radius: 5px;
+        padding: 20px 30px;
+        margin: 25px 0 40px 0;
+      }
+
+      .toc h2 {
+        margin-top: 0;
+        border-bottom: none;
+        color: var(--primary-color);
+      }
+
+      .toc ol {
+        margin-left: 20px;
+        counter-reset: item;
+        list-style-type: none;
+      }
+
+      .toc li {
+        counter-increment: item;
+        margin-bottom: 8px;
+      }
+
+      .toc li:before {
+        content: counter(item) ") ";
+        font-weight: bold;
+        color: var(--primary-color);
+      }
+
+      .toc a {
+        color: var(--customized-orange-light-bg);
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .toc a:hover {
+        color: var(--primary-hover-color);
+        text-decoration: underline;
+      }
+
+      .code-block {
+        background-color: var(--secondary-color);
+        border-left: 4px solid var(--primary-color);
+        padding: 15px;
+        margin: 15px 0;
+        font-family: "Courier New", monospace;
+        font-size: 13px;
+        overflow-x: auto;
+        border-radius: 3px;
+      }
+
+      .challenge-item {
+        margin-bottom: 20px;
+      }
+
+      .challenge-title {
+        font-weight: bold;
+        color: var(--customized-orange-light-bg);
+        margin-bottom: 5px;
+      }
+
+      .solution {
+        color: var(--primary-color);
+        font-weight: bold;
+      }
+
+      .section {
+        margin-bottom: 35px;
+      }
+
+      .status-box {
+        background-color: var(--secondary-color);
+        border: 2px solid var(--primary-color);
+        border-radius: 5px;
+        padding: 15px;
+        margin: 20px 0;
+        text-align: center;
+        font-weight: bold;
+        color: var(--primary-color);
+      }
+
+      .page-footer {
+        background-color: var(--primary-color);
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        margin: 30px -0.75in -0.75in -0.75in;
+      }
+
+      .page-footer a {
+        color: var(--customized-orange-dark-bg);
+        font-weight: bold;
+        text-decoration: none;
+      }
+
+      .page-footer a:hover {
+        color: #fff;
+        text-decoration: underline;
+      }
+
+      .page-footer .social-links {
+        margin-bottom: 15px;
+        font-size: 14px;
+      }
+
+      .page-footer .social-links a {
+        margin: 0 10px;
+      }
+
+      .page-footer p {
+        text-align: center;
+        margin-bottom: 8px;
+      }
+
+      hr {
+        border: none;
+        border-top: 2px solid var(--primary-color);
+        margin: 30px 0;
+      }
+
+      .floating-nav {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 1000;
+      }
+      .floating-nav a {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 12px;
+        border-radius: 50%;
+        text-decoration: none;
+        font-weight: bold;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        font-size: 20px;
+        text-align: center;
+        width: 50px;
+        height: 50px;
+        line-height: 26px;
+      }
+      .floating-nav a:hover {
+        background-color: var(--customized-orange-dark-bg);
+        color: var(--primary-color);
+        transform: translateY(-2px);
+      }
+
+      @media print {
+        body {
+          background: white;
+          padding: 0;
+        }
+        .container {
+          max-width: 100%;
+          width: 8.5in;
+          padding: 0.75in;
+          box-shadow: none;
+          margin: 0;
+        }
+        @page {
+          size: letter;
+          margin: 0.75in;
+        }
+        h1,
+        h2,
+        h3 {
+          page-break-after: avoid;
+          page-break-inside: avoid;
+        }
+        .section,
+        .code-block,
+        .challenge-item {
+          page-break-inside: avoid;
+        }
+        .toc {
+          page-break-after: always;
+        }
+        a {
+          color: #2980b9;
+          text-decoration: none;
+        }
+        .floating-nav {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="page-header">
+        <h1>Learning Journal – Exercise 1.5</h1>
+        <div class="header-info">
+          <strong>Name:</strong> Ivan Cortes<br />
+          <strong>Course:</strong> CareerFoundry – Python for Web Developers<br />
+          <strong>Exercise:</strong> 1.5 – Object-Oriented Programming in Python<br />
+          <strong>Date:</strong> October 2025
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="toc">
+        <h2>Table of Contents</h2>
+        <ol>
+          <li><a href="#section-1">What This Exercise Was About</a></li>
+          <li><a href="#section-2">What I Learned</a></li>
+          <li><a href="#section-3">What I Built</a></li>
+          <li><a href="#section-4">Problems I Ran Into & Solutions</a></li>
+          <li><a href="#section-5">New Skills Acquired</a></li>
+          <li><a href="#section-6">Key Takeaways</a></li>
+          <li><a href="#section-7">Deliverables</a></li>
+          <li><a href="#section-8">AI Assistance Declaration</a></li>
+        </ol>
+      </div>
+
+      <div class="section" id="section-1">
+        <h2>1) What This Exercise Was About</h2>
+        <p>
+          Exercise 1.5 introduced Object-Oriented Programming (OOP), fundamentally changing how I structure code. Previously, recipes were dictionaries managed by separate functions. Now, recipes are objects containing both data and the methods to manipulate that data. This represents a paradigm shift toward professional software design patterns.
+        </p>
+        <p>
+          Instead of external functions operating on passive data structures, Recipe objects now "know how to" calculate their own difficulty, search their own ingredients, and display themselves. This encapsulation follows the DRY principle and produces cleaner, more maintainable code.
+        </p>
+      </div>
+
+      <div class="section" id="section-2">
+        <h2>2) What I Learned</h2>
+        
+        <h3>Core OOP Concepts</h3>
+        <ul>
+          <li>Classes serve as blueprints; objects are instances created from those blueprints</li>
+          <li>The <code>self</code> parameter represents the current object instance within methods</li>
+          <li>Special methods (<code>__init__</code>, <code>__str__</code>) control automatic Python behaviors</li>
+          <li>Data attributes store information; procedural attributes (methods) define operations</li>
+          <li>Class variables are shared across all instances; instance variables are unique to each object</li>
+        </ul>
+
+        <h3>Implementation Techniques</h3>
+        <ul>
+          <li>Using <code>__init__()</code> for object initialization with default values</li>
+          <li>Implementing getter and setter methods for controlled attribute access</li>
+          <li>Employing <code>*args</code> syntax to accept variable-length arguments</li>
+          <li>Utilizing <code>__str__()</code> to define string representation for objects</li>
+          <li>Creating methods that call other methods within the same class</li>
+        </ul>
+      </div>
+
+      <div class="section" id="section-3">
+        <h2>3) What I Built</h2>
+        
+        <p>The Recipe class contains the following components:</p>
+        
+        <h3>Data Attributes</h3>
+        <ul>
+          <li><code>name</code>: Recipe identifier (string)</li>
+          <li><code>ingredients</code>: List of required ingredients</li>
+          <li><code>cooking_time</code>: Duration in minutes (integer)</li>
+          <li><code>difficulty</code>: Calculated complexity level</li>
+          <li><code>all_ingredients</code>: Class variable tracking all ingredients across recipes</li>
+        </ul>
+
+        <h3>Methods Implemented</h3>
+        <ul>
+          <li><code>__init__(name)</code>: Initialize new recipe with specified name</li>
+          <li><code>get_name()</code> / <code>set_name(name)</code>: Name accessor/mutator methods</li>
+          <li><code>get_cooking_time()</code> / <code>set_cooking_time(time)</code>: Time accessor/mutator methods</li>
+          <li><code>add_ingredients(*ingredients)</code>: Add multiple ingredients via variable arguments</li>
+          <li><code>get_ingredients()</code>: Return ingredients list</li>
+          <li><code>update_all_ingredients()</code>: Synchronize with class-level ingredient tracking</li>
+          <li><code>calculate_difficulty()</code>: Determine recipe complexity</li>
+          <li><code>get_difficulty()</code>: Return difficulty, calculating if necessary</li>
+          <li><code>search_ingredient(ingredient)</code>: Boolean search for ingredient presence</li>
+          <li><code>__str__()</code>: Format recipe for display</li>
+        </ul>
+
+        <h3>Supporting Function</h3>
+        <ul>
+          <li><code>recipe_search(data, search_term)</code>: Standalone function to search multiple recipes</li>
+        </ul>
+
+        <h3>Main Program Execution</h3>
+        <ul>
+          <li>Created four Recipe objects: Tea, Coffee, Cake, Banana Smoothie</li>
+          <li>Populated recipes_list with all instances</li>
+          <li>Executed searches for Water, Sugar, and Bananas</li>
+        </ul>
+      </div>
+
+      <div class="section" id="section-4">
+        <h2>4) Problems I Ran Into & Solutions</h2>
+
+        <div class="challenge-item">
+          <div class="challenge-title">Understanding the self Parameter</div>
+          <p>
+            The <code>self</code> parameter's purpose was initially unclear.<br />
+            <span class="solution">Resolution:</span> Understood that <code>self</code> references the current instance. When tea.get_name() executes, self equals tea. This mechanism enables Python to distinguish which object's data to access.
+          </p>
+        </div>
+
+        <div class="challenge-item">
+          <div class="challenge-title">Function vs Method Placement</div>
+          <p>
+            Incorrectly indented <code>recipe_search()</code> as a class method.<br />
+            <span class="solution">Resolution:</span> Moved function to zero indentation (left margin). It operates on Recipe objects but exists outside the class definition as a standalone utility function.
+          </p>
+        </div>
+
+        <div class="challenge-item">
+          <div class="challenge-title">Class Variables vs Instance Variables</div>
+          <p>
+            Confusion between <code>self.ingredients</code> and <code>Recipe.all_ingredients</code>.<br />
+            <span class="solution">Resolution:</span> Instance variables (<code>self.ingredients</code>) are unique per object. Class variables (<code>Recipe.all_ingredients</code>) are shared across all instances, suitable for aggregate tracking.
+          </p>
+        </div>
+
+        <div class="challenge-item">
+          <div class="challenge-title">Variable-Length Arguments Syntax</div>
+          <p>
+            The <code>*ingredients</code> parameter notation seemed unusual.<br />
+            <span class="solution">Resolution:</span> The asterisk operator enables functions to accept arbitrary argument counts. Python packs all arguments into a tuple for iteration within the method body.
+          </p>
+        </div>
+      </div>
+
+      <div class="section" id="section-5">
+        <h2>5) New Skills Acquired</h2>
+
+        <ul>
+          <li>Defining custom classes using the <code>class</code> keyword</li>
+          <li>Creating multiple object instances from a single class blueprint</li>
+          <li>Implementing initialization methods with <code>__init__()</code></li>
+          <li>Utilizing the <code>self</code> parameter correctly across all instance methods</li>
+          <li>Writing getter and setter methods for controlled attribute access</li>
+          <li>Implementing special methods like <code>__str__()</code> for object representation</li>
+          <li>Using <code>*args</code> for variable-length argument lists</li>
+          <li>Distinguishing between class variables and instance variables</li>
+          <li>Calling methods from within other methods of the same class</li>
+          <li>Passing custom objects as function arguments</li>
+          <li>Storing and iterating through object collections</li>
+        </ul>
+      </div>
+
+      <div class="section" id="section-6">
+        <h2>6) Key Takeaways</h2>
+
+        <h3>Technical Understanding</h3>
+        <ul>
+          <li>OOP encapsulates related data and functionality within cohesive units</li>
+          <li>Objects combine state (attributes) with behavior (methods)</li>
+          <li>The <code>self</code> parameter enables method-instance binding</li>
+          <li>Special methods integrate custom classes with Python's built-in operations</li>
+          <li>Class variables facilitate data sharing across all instances</li>
+        </ul>
+
+        <h3>Design Principles</h3>
+        <ul>
+          <li>Encapsulation: Bundling related data and methods together</li>
+          <li>Abstraction: Hiding implementation complexity behind simple interfaces</li>
+          <li>Reusability: Creating multiple instances from single class definitions</li>
+          <li>Maintainability: Centralizing logic modifications within class definitions</li>
+        </ul>
+
+        <h3>Practical Applications</h3>
+        <ul>
+          <li>Recipe objects now self-manage their difficulty calculations</li>
+          <li>Ingredient searches operate directly on recipe instances</li>
+          <li>String representation occurs automatically via <code>__str__()</code></li>
+          <li>Code organization improved through logical grouping of related functionality</li>
+        </ul>
+      </div>
+
+      <div class="section" id="section-7">
+        <h2>7) Deliverables</h2>
+
+        <h3>Files Created</h3>
+        <ul>
+          <li><code>recipe_oop.py</code>: Complete OOP implementation of recipe management system</li>
+          <li><code>LEARNING_JOURNAL5.html</code>: This documentation</li>
+          <li><code>README5.md</code>: Technical reference documentation</li>
+          <li>Updated <code>index.html</code> with Exercise 1.5 navigation</li>
+        </ul>
+
+        <h3>Screenshots Captured</h3>
+        <p>12 screenshots documenting:</p>
+        <ul>
+          <li>Class structure and initialization</li>
+          <li>Method implementations (getters, setters, ingredient management)</li>
+          <li>Difficulty calculation logic</li>
+          <li>Search functionality</li>
+          <li>Main program execution</li>
+          <li>Terminal output verification</li>
+          <li>Complete code overview</li>
+        </ul>
+      </div>
+
+      <div class="section" id="section-8">
+        <h2>8) AI Assistance Declaration</h2>
+
+        <p>
+          This exercise was completed through structured, checkpoint-based guidance with AI assistance. Object-Oriented Programming introduced fundamentally new concepts requiring systematic explanation and implementation support.
+        </p>
+
+        <h3>AI Assistance Provided</h3>
+        <ul>
+          <li>
+            <strong>Conceptual explanation:</strong> AI clarified abstract OOP concepts (classes vs objects, self parameter, class vs instance variables) through analogies and examples
+          </li>
+          <li>
+            <strong>Structured tutorial:</strong> Checkpoint-based approach broke down complex implementation into manageable steps with verification at each stage
+          </li>
+          <li>
+            <strong>Syntax guidance:</strong> AI explained special method syntax (<code>__init__</code>, <code>__str__</code>) and variable-length arguments (<code>*args</code>)
+          </li>
+          <li>
+            <strong>Code organization:</strong> AI demonstrated proper indentation distinguishing class methods from standalone functions
+          </li>
+          <li>
+            <strong>Debugging support:</strong> AI helped identify and resolve indentation errors and method placement issues
+          </li>
+        </ul>
+
+        <h3>Independent Work Completed</h3>
+        <ul>
+          <li>Manually typed all code following OOP principles</li>
+          <li>Fixed indentation and structural errors through direct debugging</li>
+          <li>Created and tested four recipe objects with varying attributes</li>
+          <li>Verified search functionality across multiple test cases</li>
+          <li>Organized deliverables and captured documentation screenshots</li>
+          <li>Generated comprehensive learning documentation</li>
+        </ul>
+
+        <h3>Learning Methodology</h3>
+        <p>
+          The checkpoint-based tutorial enabled progressive understanding of interconnected OOP concepts while maintaining hands-on implementation throughout. All code was written, executed, and debugged directly. AI served as an interactive reference, similar to technical documentation, while all actual programming work was completed independently.
+        </p>
+      </div>
+
+      <hr />
+
+      <div class="status-box">
+        Exercise 1.5 Complete – Object-Oriented Programming foundations established. Ready for Achievement 1 completion.
+      </div>
+
+      <div class="page-footer">
+        <div class="social-links">
+          <a href="https://ivan-cortes-portfolio-v1.onrender.com/" target="_blank">Portfolio</a>
+          <a href="https://www.linkedin.com/in/ivan-cortes-murcia-22053953/" target="_blank">LinkedIn</a>
+          <a href="https://x.com/IVENCOMUR" target="_blank">Twitter</a>
+          <a href="https://github.com/ivencomur" target="_blank">GitHub</a>
+        </div>
+        <p>
+          <a href="https://github.com/ivencomur/PYTHON_COURSE" target="_blank">Project Repository</a>
+        </p>
+        <p>Python for Web Developers @ CareerFoundry 2025</p>
+      </div>
+    </div>
+
+    <div class="floating-nav">
+      <a href="index.html" title="Go to Home">🏠</a>
+      <a href="javascript:history.back()" title="Go Back">⬅️</a>
+    </div>
+  </body>
+</html>

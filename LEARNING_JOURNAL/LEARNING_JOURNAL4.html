@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learning Journal - Exercise 1.4</title>
+    <style>
+      :root {
+        --primary-color: #20504b;
+        --primary-hover-color: #1a403c;
+        --secondary-color: #f4f4f4;
+        --text-color: #333;
+        --grid-item-bg-color: #2c3e50;
+        --grid-item-text-color: #ffffff;
+        --alt-grid-item-text-color: #0056b3;
+        --customized-orange-light-bg: #b46100;
+        --customized-orange-dark-bg: #ffa061;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Lato", sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: #d9e1e5;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 8.5in;
+        margin: 0 auto;
+        background: white;
+        padding: 0.75in;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .page-header {
+        background-color: var(--primary-color);
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        margin: -0.75in -0.75in 30px -0.75in;
+      }
+
+      .page-header h1 {
+        color: #fff;
+        border-bottom: none;
+        margin-bottom: 5px;
+      }
+
+      h1 {
+        color: var(--alt-grid-item-text-color);
+        font-size: 28px;
+        margin-bottom: 10px;
+        border-bottom: 3px solid var(--primary-color);
+        padding-bottom: 10px;
+      }
+
+      .header-info {
+        color: #fff;
+        font-size: 14px;
+        line-height: 1.8;
+      }
+
+      .header-info strong {
+        color: var(--customized-orange-dark-bg);
+      }
+
+      h2 {
+        color: var(--alt-grid-item-text-color);
+        font-size: 20px;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        padding-bottom: 5px;
+        border-bottom: 2px solid var(--primary-color);
+      }
+
+      h3 {
+        color: var(--grid-item-bg-color);
+        font-size: 16px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
+
+      p {
+        margin-bottom: 12px;
+        text-align: justify;
+      }
+
+      ul,
+      ol {
+        margin-left: 25px;
+        margin-bottom: 15px;
+      }
+
+      li {
+        margin-bottom: 8px;
+      }
+
+      .toc {
+        background-color: var(--secondary-color);
+        border: 2px solid var(--primary-color);
+        border-radius: 5px;
+        padding: 20px 30px;
+        margin: 25px 0 40px 0;
+      }
+
+      .toc h2 {
+        margin-top: 0;
+        border-bottom: none;
+        color: var(--primary-color);
+      }
+
+      .toc ol {
+        margin-left: 20px;
+        counter-reset: item;
+        list-style-type: none;
+      }
+
+      .toc li {
+        counter-increment: item;
+        margin-bottom: 8px;
+      }
+
+      .toc li:before {
+        content: counter(item) ") ";
+        font-weight: bold;
+        color: var(--primary-color);
+      }
+
+      .toc a {
+        color: var(--customized-orange-light-bg);
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .toc a:hover {
+        color: var(--primary-hover-color);
+        text-decoration: underline;
+      }
+
+      .code-block {
+        background-color: var(--secondary-color);
+        border-left: 4px solid var(--primary-color);
+        padding: 15px;
+        margin: 15px 0;
+        font-family: "Courier New", monospace;
+        font-size: 13px;
+        overflow-x: auto;
+        border-radius: 3px;
+      }
+
+      .challenge-item {
+        margin-bottom: 20px;
+      }
+
+      .challenge-title {
+        font-weight: bold;
+        color: var(--customized-orange-light-bg);
+        margin-bottom: 5px;
+      }
+
+      .solution {
+        color: var(--primary-color);
+        font-weight: bold;
+      }
+
+      .section {
+        margin-bottom: 35px;
+      }
+
+      .status-box {
+        background-color: var(--secondary-color);
+        border: 2px solid var(--primary-color);
+        border-radius: 5px;
+        padding: 15px;
+        margin: 20px 0;
+        text-align: center;
+        font-weight: bold;
+        color: var(--primary-color);
+      }
+
+      .page-footer {
+        background-color: var(--primary-color);
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        margin: 30px -0.75in -0.75in -0.75in;
+      }
+
+      .page-footer a {
+        color: var(--customized-orange-dark-bg);
+        font-weight: bold;
+        text-decoration: none;
+      }
+
+      .page-footer a:hover {
+        color: #fff;
+        text-decoration: underline;
+      }
+
+      .page-footer .social-links {
+        margin-bottom: 15px;
+        font-size: 14px;
+      }
+
+      .page-footer .social-links a {
+        margin: 0 10px;
+      }
+
+      .page-footer p {
+        text-align: center;
+        margin-bottom: 8px;
+      }
+
+      hr {
+        border: none;
+        border-top: 2px solid var(--primary-color);
+        margin: 30px 0;
+      }
+
+      .floating-nav {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 1000;
+      }
+      .floating-nav a {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 12px;
+        border-radius: 50%;
+        text-decoration: none;
+        font-weight: bold;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        font-size: 20px;
+        text-align: center;
+        width: 50px;
+        height: 50px;
+        line-height: 26px;
+      }
+      .floating-nav a:hover {
+        background-color: var(--customized-orange-dark-bg);
+        color: var(--primary-color);
+        transform: translateY(-2px);
+      }
+
+      @media print {
+        body {
+          background: white;
+          padding: 0;
+        }
+        .container {
+          max-width: 100%;
+          width: 8.5in;
+          padding: 0.75in;
+          box-shadow: none;
+          margin: 0;
+        }
+        @page {
+          size: letter;
+          margin: 0.75in;
+        }
+        h1,
+        h2,
+        h3 {
+          page-break-after: avoid;
+          page-break-inside: avoid;
+        }
+        .section,
+        .code-block,
+        .challenge-item {
+          page-break-inside: avoid;
+        }
+        .toc {
+          page-break-after: always;
+        }
+        a {
+          color: #2980b9;
+          text-decoration: none;
+        }
+        .floating-nav {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="page-header">
+        <h1>Learning Journal – Exercise 1.4</h1>
+        <div class="header-info">
+          <strong>Name:</strong> Ivan Cortes<br />
+          <strong>Course:</strong> CareerFoundry – Python for Web Developers<br />
+          <strong>Exercise:</strong> 1.4 – File Handling in Python<br />
+          <strong>Date:</strong> October 2025
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="toc">
+        <h2>Table of Contents</h2>
+        <ol>
+          <li><a href="#section-1">What This Exercise Was About</a></li>
+          <li><a href="#section-2">What I Learned</a></li>
+          <li><a href="#section-3">What I Built (Step by Step)</a></li>
+          <li><a href="#section-4">Problems I Ran Into & How I Fixed Them</a></li>
+          <li><a href="#section-5">New Skills I Now Have</a></li>
+          <li><a href="#section-6">How My Code Works</a></li>
+          <li><a href="#section-7">Screenshots & Files</a></li>
+          <li><a href="#section-8">What I'll Remember Most</a></li>
+          <li><a href="#section-9">What's Next</a></li>
+        </ol>
+      </div>
+
+      <div class="section" id="section-1">
+        <h2>1) What This Exercise Was About</h2>
+        <p>
+          This exercise was the game-changer that solved the biggest problem from Exercise 1.3: data loss! In Exercise 1.3, I built a program that collected recipes, but everything vanished when the program ended. Now I learned how to save data permanently to files so it's there when I need it later.
+        </p>
+        <p>
+          I built two programs: <code>recipe_input.py</code> saves recipes to a binary file, and <code>recipe_search.py</code> loads those recipes and lets me search by ingredient. The big concepts were file handling (opening, reading, writing files), pickles (converting Python objects into storable format), and error handling (making programs user-friendly when things go wrong).
+        </p>
+      </div>
+
+      <div class="section" id="section-2">
+        <h2>2) What I Learned</h2>
+        
+        <h3>Working with Files</h3>
+        <ul>
+          <li>How to open files with <code>open()</code> in different modes: 'r' (read), 'w' (write), 'rb' (read binary), 'wb' (write binary)</li>
+          <li>Why files need to be closed with <code>.close()</code> after operations</li>
+          <li>The difference between text files (.txt) and binary files (.bin)</li>
+          <li>How Python can read from and write to files on my computer</li>
+        </ul>
+
+        <h3>Understanding Pickles</h3>
+        <ul>
+          <li>What a pickle is: Python's way of converting complex objects (like dictionaries and lists) into binary format</li>
+          <li>Using <code>pickle.dump()</code> to save data to a binary file</li>
+          <li>Using <code>pickle.load()</code> to retrieve data back from a binary file</li>
+          <li>Why binary files aren't human-readable but are perfect for storing program data</li>
+        </ul>
+
+        <h3>Error Handling with try-except Blocks</h3>
+        <ul>
+          <li>How <code>try:</code> creates a "safe area" to attempt risky code</li>
+          <li>How <code>except:</code> catches specific errors without crashing the program</li>
+          <li>Different exception types: FileNotFoundError, ValueError, IndexError</li>
+          <li>How <code>else:</code> runs only if try succeeded (no errors)</li>
+          <li>How <code>finally:</code> always runs at the end, no matter what happened</li>
+          <li>Using <code>return</code> to exit a function early when errors occur</li>
+        </ul>
+
+        <h3>Advanced List Operations</h3>
+        <ul>
+          <li>Using <code>enumerate()</code> to get both index and value when looping</li>
+          <li>Checking membership with <code>in</code> keyword: "if ingredient in list"</li>
+          <li>Preventing duplicates by checking before adding to lists</li>
+        </ul>
+      </div>
+
+      <div class="section" id="section-3">
+        <h2>3) What I Built (Step by Step)</h2>
+
+        <h3>Part 1: recipe_input.py</h3>
+        <ol>
+          <li>Imported the pickle module</li>
+          <li>Created <code>calc_difficulty()</code> function - same logic from Exercise 1.3</li>
+          <li>Created <code>take_recipe()</code> function to collect recipe info from user</li>
+          <li>Built main code with try-except-else-finally blocks to load existing data or create new</li>
+          <li>Added loop to collect multiple recipes from user</li>
+          <li>Updated all_ingredients list with new ingredients (no duplicates)</li>
+          <li>Saved everything back to binary file using pickle.dump()</li>
+          <li>Tested with 3 sample recipes: Tea, Omelette, and Pasta</li>
+        </ol>
+
+        <h3>Part 2: recipe_search.py</h3>
+        <ol>
+          <li>Imported the pickle module</li>
+          <li>Created <code>display_recipe()</code> function to show one recipe nicely formatted</li>
+          <li>Created <code>search_ingredient()</code> function with try-except for error handling</li>
+          <li>Used enumerate() to display numbered ingredient list</li>
+          <li>Added error handling for invalid input (text instead of number, number too high)</li>
+          <li>Built main code to load data from file</li>
+          <li>Tested searching for "Eggs" - correctly found only Omelette</li>
+        </ol>
+      </div>
+
+      <div class="section" id="section-4">
+        <h2>4) Problems I Ran Into & How I Fixed Them</h2>
+
+        <div class="challenge-item">
+          <div class="challenge-title">Indentation Errors (Again!)</div>
+          <p>
+            Just like in Exercise 1.3, I had problems with spacing. My <code>take_recipe()</code> function wasn't indented properly at first, and later my <code>search_ingredient()</code> function was indented too far, making Python think it was inside the <code>display_recipe()</code> function.<br />
+            <span class="solution">How I fixed it:</span> Made sure all function definitions (lines starting with <code>def</code>) start at the left margin with zero spaces. Everything inside functions gets indented exactly 4 spaces. I learned that consistency is critical in Python!
+          </p>
+        </div>
+
+        <div class="challenge-item">
+          <div class="challenge-title">Understanding try-except Flow</div>
+          <p>
+            At first, I was confused about the order things happen in try-except blocks. Does else run if there's an error? Does finally always run?<br />
+            <span class="solution">How I understood it:</span> The flow is: try → if error happens, jump to matching except → if NO errors, run else → finally ALWAYS runs last no matter what. It's like a safety net with different catches for different problems.
+          </p>
+        </div>
+
+        <div class="challenge-item">
+          <div class="challenge-title">File Not Found Error</div>
+          <p>
+            When I tried to run recipe_search.py, I got "file not found" even though I could see recipes.bin in my folder.<br />
+            <span class="solution">How I fixed it:</span> I was in the wrong directory! I needed to use <code>cd "Exercise 1.4"</code> to navigate into the folder where my files were stored. The terminal needs to be pointing at the same place as your files.
+          </p>
+        </div>
+
+        <div class="challenge-item">
+          <div class="challenge-title">Markdown Code Fences in Python File</div>
+          <p>
+            My recipe_search.py had strange syntax errors at the end. There were lines with ```python that Python couldn't understand.<br />
+            <span class="solution">How I fixed it:</span> These were markdown formatting tags that got accidentally copied into my Python file. I deleted them completely. Python files should only have Python code, no markdown!
+          </p>
+        </div>
+
+        <div class="challenge-item">
+          <div class="challenge-title">When to Use return in Functions</div>
+          <p>
+            I wasn't sure when to use <code>return</code> versus <code>print()</code> in functions.<br />
+            <span class="solution">What I learned:</span> <code>print()</code> just displays something on screen. <code>return</code> sends data back so other parts of the program can use it. The <code>take_recipe()</code> function uses return because I need to get the recipe dictionary back to store it in my list. The <code>search_ingredient()</code> function uses return to exit early when errors occur.
+          </p>
+        </div>
+      </div>
+
+      <div class="section" id="section-5">
+        <h2>5) New Skills I Now Have</h2>
+
+        <h3>File Operations</h3>
+        <ul>
+          <li>I can open files in different modes (read, write, binary)</li>
+          <li>I can save complex data structures to files</li>
+          <li>I can load data back from files</li>
+          <li>I understand when to use text files vs binary files</li>
+          <li>I know to always close files after operations</li>
+        </ul>
+
+        <h3>Using Pickle</h3>
+        <ul>
+          <li>I can convert Python objects (dictionaries, lists) into pickle format</li>
+          <li>I can save pickles to binary files with pickle.dump()</li>
+          <li>I can load pickles from binary files with pickle.load()</li>
+          <li>I understand that pickles preserve the structure of complex data</li>
+        </ul>
+
+        <h3>Error Handling</h3>
+        <ul>
+          <li>I can write try-except blocks to catch specific errors</li>
+          <li>I can handle FileNotFoundError when files don't exist</li>
+          <li>I can handle ValueError when users enter wrong data types</li>
+          <li>I can handle IndexError when users enter numbers out of range</li>
+          <li>I can use else and finally blocks appropriately</li>
+          <li>I can make programs that don't crash on user mistakes</li>
+        </ul>
+
+        <h3>Advanced Techniques</h3>
+        <ul>
+          <li>I can use enumerate() to get index numbers while looping</li>
+          <li>I can check if items exist in lists before adding them</li>
+          <li>I can exit functions early with return when needed</li>
+          <li>I can organize code into separate programs that work together</li>
+        </ul>
+      </div>
+
+      <div class="section" id="section-6">
+        <h2>6) How My Code Works</h2>
+
+        <h3>recipe_input.py Flow</h3>
+        <div class="code-block">
+1. Import pickle module
+2. Define calc_difficulty(cooking_time, ingredients)
+   - Returns: 'Easy', 'Medium', 'Intermediate', or 'Hard'
+3. Define take_recipe()
+   - Get name, cooking time, ingredients from user
+   - Call calc_difficulty() to get difficulty level
+   - Return complete recipe dictionary
+4. Main code:
+   - Ask for filename
+   - Try to load existing data from file
+   - If file doesn't exist, create new empty data structure
+   - Extract recipes_list and all_ingredients from data
+   - Ask how many recipes to enter
+   - Loop to collect recipes:
+     * Call take_recipe() for each recipe
+     * Add new ingredients to all_ingredients
+     * Add recipe to recipes_list
+   - Package everything back into data dictionary
+   - Save to binary file with pickle.dump()
+        </div>
+
+        <h3>recipe_search.py Flow</h3>
+        <div class="code-block">
+1. Import pickle module
+2. Define display_recipe(recipe)
+   - Print recipe name, cooking time, difficulty
+   - Loop through and print each ingredient
+3. Define search_ingredient(data)
+   - Show numbered list of all ingredients using enumerate()
+   - Try to get user's choice:
+     * Convert input to number
+     * Use number to get ingredient from list
+   - Catch errors:
+     * ValueError if they type text
+     * IndexError if number too high
+   - If successful:
+     * Loop through all recipes
+     * If ingredient is in recipe, display it
+4. Main code:
+   - Ask for filename
+   - Try to load data from file
+   - If successful, call search_ingredient(data)
+   - If file not found, show helpful error message
+        </div>
+
+        <h3>Key Patterns Used</h3>
+        <ul>
+          <li><strong>Data persistence:</strong> Load → Modify → Save pattern</li>
+          <li><strong>Error prevention:</strong> Check before adding (no duplicates)</li>
+          <li><strong>User-friendly errors:</strong> Catch mistakes, explain what went wrong</li>
+          <li><strong>Separation of concerns:</strong> Different functions do different jobs</li>
+          <li><strong>Code reuse:</strong> display_recipe() called whenever a recipe needs to be shown</li>
+        </ul>
+      </div>
+
+      <div class="section" id="section-7">
+        <h2>7) Screenshots & Files</h2>
+
+        <h3>Screenshots I Took (15 total):</h3>
+        <ul>
+          <li>01: Initial code setup with recipe creation</li>
+          <li>02: Import pickle and calc_difficulty function</li>
+          <li>03: take_recipe function complete</li>
+          <li>04: Main code with try-except-else-finally blocks</li>
+          <li>05: Collection loop for recipes</li>
+          <li>06: Saving data to file</li>
+          <li>07: Complete recipe_input.py code</li>
+          <li>08: Testing recipe_input.py successfully</li>
+          <li>09: Creating recipe_search.py with import</li>
+          <li>10: display_recipe function</li>
+          <li>11: search_ingredient function</li>
+          <li>12: Main code for recipe_search.py</li>
+          <li>13: Complete recipe_search.py code</li>
+          <li>14: Testing recipe_search.py successfully</li>
+          <li>15: Full search code demonstration</li>
+        </ul>
+
+        <h3>Files I Created:</h3>
+        <ul>
+          <li><code>recipe_input.py</code> - Program to save recipes</li>
+          <li><code>recipe_search.py</code> - Program to search recipes</li>
+          <li><code>recipes.bin</code> - Binary file containing saved recipes</li>
+          <li><code>LEARNING_JOURNAL4.html</code> - This learning journal</li>
+          <li>Updated <code>index.html</code> to include Exercise 1.4</li>
+        </ul>
+      </div>
+
+      <div class="section" id="section-8">
+        <h2>8) What I'll Remember Most</h2>
+
+        <h3>Technical Takeaways:</h3>
+        <ul>
+          <li>Data doesn't have to disappear! Files make data permanent.</li>
+          <li>Pickle is Python's magic tool for saving complex data structures.</li>
+          <li>Binary files aren't human-readable, but that's okay - they're for programs, not people.</li>
+          <li>try-except blocks are how professional programs handle errors gracefully.</li>
+          <li>enumerate() is super useful when you need both the index and the value.</li>
+          <li>Always close files after opening them (or they might get corrupted).</li>
+        </ul>
+
+        <h3>Process Lessons:</h3>
+        <ul>
+          <li>Indentation still matters A LOT (I made the same mistake twice!).</li>
+          <li>Terminal location matters - files have to be in the right directory.</li>
+          <li>Building two programs that work together is more complex but more powerful.</li>
+          <li>Error messages are helpful - they tell you exactly what went wrong and where.</li>
+          <li>Testing as you build catches problems early.</li>
+        </ul>
+
+        <h3>Big Picture Understanding:</h3>
+        <ul>
+          <li><strong>Data persistence is fundamental:</strong> Every real application needs to save data</li>
+          <li><strong>Error handling is professional:</strong> Programs should never crash on user mistakes</li>
+          <li><strong>Programs can communicate:</strong> One saves data, another reads it</li>
+          <li><strong>Breaking problems into functions:</strong> Makes code clearer and reusable</li>
+        </ul>
+      </div>
+
+      <div class="section" id="section-9">
+        <h2>9) What's Next</h2>
+
+        <h3>How This Connects to Real Applications:</h3>
+        <p>
+          Exercise 1.4 taught me the foundation of how every application works: save data, load data, handle errors. Websites save user accounts to databases (similar to my binary file). Mobile apps save your preferences. Games save your progress. This exercise showed me the fundamental pattern all programs follow.
+        </p>
+
+        <h3>Building Toward the Recipe App:</h3>
+        <p>
+          Now I have all the pieces needed for a real Recipe App:
+        </p>
+        <ul>
+          <li>Variables and data types (Exercise 1.1)</li>
+          <li>Data structures - lists and dictionaries (Exercise 1.2)</li>
+          <li>Functions, loops, and conditionals (Exercise 1.3)</li>
+          <li>File handling and error management (Exercise 1.4)</li>
+        </ul>
+
+        <h3>What I Want to Learn Next:</h3>
+        <ul>
+          <li>Object-oriented programming (organizing code with classes)</li>
+          <li>Databases (more powerful than binary files for large amounts of data)</li>
+          <li>Web interfaces (so people can use my programs in a browser)</li>
+          <li>Testing frameworks (automated ways to test code)</li>
+          <li>Django framework (building full web applications)</li>
+        </ul>
+
+        <h3>Coming Up Next:</h3>
+        <ul>
+          <li>Moving from simple files to databases</li>
+          <li>Learning object-oriented programming concepts</li>
+          <li>Building more complex applications</li>
+          <li>Starting with the Django web framework</li>
+        </ul>
+      </div>
+      <div class="section" id="section-10">
+        <h2>10) AI Assistance Declaration</h2>
+
+        <p>
+          This exercise was completed through a guided, step-by-step tutorial approach with AI assistance. Given the complexity of file handling and error management concepts, I used AI as an interactive learning partner to understand and implement the requirements.
+        </p>
+
+        <h3>How AI Helped:</h3>
+        <ul>
+          <li>
+            <strong>Structured learning path:</strong> AI provided a checkpoint-based tutorial that broke down complex concepts (pickle, binary files, try-except blocks) into digestible steps with verification at each stage
+          </li>
+          <li>
+            <strong>Indentation debugging:</strong> When I encountered indentation errors (similar to Exercise 1.3), AI helped me understand exactly where spacing was wrong and why it mattered
+          </li>
+          <li>
+            <strong>Error handling concepts:</strong> AI explained the flow of try-except-else-finally blocks with clear examples and plain-language descriptions
+          </li>
+          <li>
+            <strong>Directory navigation:</strong> When I got "file not found" errors, AI helped me understand I was in the wrong directory and how to navigate properly
+          </li>
+          <li>
+            <strong>Code review:</strong> AI caught markdown formatting accidentally copied into Python files and other syntax issues before they became bigger problems
+          </li>
+          <li>
+            <strong>Concept clarification:</strong> AI rephrased technical concepts using student-friendly terminology when formal explanations were confusing
+          </li>
+        </ul>
+
+        <h3>My Learning Approach:</h3>
+        <p>
+          I worked through this exercise using AI as an interactive tutor, stopping at checkpoints to confirm understanding before proceeding. All code was typed, tested, and debugged by me directly. When errors occurred (indentation issues, file path problems), I worked through fixing them hands-on with AI providing guidance on what to look for and why the errors happened. This checkpoint-based approach ensured I understood each concept before building on it.
+        </p>
+
+        <h3>Why This Approach:</h3>
+        <p>
+          File handling and error management introduced several new, interconnected concepts (binary files, pickles, multiple exception types, file modes). The guided tutorial approach with AI allowed me to build understanding progressively while maintaining the ability to troubleshoot independently. This mirrors how developers learn new frameworks or tools - through structured tutorials with checkpoints and hands-on practice. The key difference from Exercise 1.3 was having real-time feedback and clarification, which accelerated learning while still requiring me to write, test, and understand all code myself.
+        </p>
+
+        <h3>What I Did Independently:</h3>
+        <ul>
+          <li>Typed all code manually (no copy-paste of complete solutions)</li>
+          <li>Fixed indentation errors by understanding Python's spacing rules</li>
+          <li>Debugged file path issues by learning terminal navigation</li>
+          <li>Tested both programs with sample data</li>
+          <li>Organized files and screenshots for submission</li>
+          <li>Created this comprehensive learning journal documenting my process</li>
+        </ul>
+      </div>
+
+      <hr />
+
+      <div class="status-box">
+        Exercise 1.4 Complete! I can now save data permanently, handle errors professionally, and build programs that work together. Achievement 1 foundation complete - ready for the final task!
+      </div>
+
+      <div class="page-footer">
+        <div class="social-links">
+          <a href="https://ivan-cortes-portfolio-v1.onrender.com/" target="_blank">Portfolio</a>
+          <a href="https://www.linkedin.com/in/ivan-cortes-murcia-22053953/" target="_blank">LinkedIn</a>
+          <a href="https://x.com/IVENCOMUR" target="_blank">Twitter</a>
+          <a href="https://github.com/ivencomur" target="_blank">GitHub</a>
+        </div>
+        <p>
+          <a href="https://github.com/ivencomur/PYTHON_COURSE" target="_blank">Project Repository</a>
+        </p>
+        <p>Python for Web Developers @ CareerFoundry 2025</p>
+      </div>
+    </div>
+
+    <div class="floating-nav">
+      <a href="index.html" title="Go to Home">🏠</a>
+      <a href="javascript:history.back()" title="Go Back">⬅️</a>
+    </div>
+  </body>
+</html>
