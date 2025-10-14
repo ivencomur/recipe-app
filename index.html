@@ -315,7 +315,6 @@
           <span class="tech-badge">SQLite</span>
           <span class="tech-badge">HTML5</span>
           <span class="tech-badge">CSS3</span>
-          <span class="tech-badge">Bootstrap</span>
           <span class="tech-badge">Git/GitHub</span>
         </div>
       </div>
@@ -325,27 +324,27 @@
         <div class="status-grid">
           <div class="status-item">
             <strong>Current Exercise:</strong><br>
-            2.2 - Django Project Structure
+            2.4 - Django Views & Templates
           </div>
           <div class="status-item">
             <strong>Progress:</strong><br>
-            2 of 8 exercises complete
+            3 of 8 exercises complete
           </div>
           <div class="status-item">
-            <strong>Models Created:</strong><br>
-            6 (Recipe, Ingredient, Book, etc.)
+            <strong>Views Created:</strong><br>
+            1 (Homepage View)
           </div>
           <div class="status-item">
-            <strong>Apps Developed:</strong><br>
-            5 (recipes, books, sales, customers, salespersons)
+            <strong>Templates Built:</strong><br>
+            1 (Homepage Template)
           </div>
           <div class="status-item">
-            <strong>Tests Written:</strong><br>
-            26 passing tests
+            <strong>URL Patterns:</strong><br>
+            2 (Project & App Level)
           </div>
           <div class="status-item">
             <strong>Next Milestone:</strong><br>
-            Views and Templates
+            Django Forms & User Input
           </div>
         </div>
       </div>
@@ -369,10 +368,9 @@
         <div class="journal-card">
           <h4>📘 Exercise 2.1 - Getting Started with Django</h4>
           <p>
-            Introduction to Django framework, understanding MVT architecture, researching Django's popularity and use cases, 
-            setting up development environment with virtual environments. Learned when to use Django vs simpler solutions.
+            Introduction to the Django framework, understanding MVT architecture vs. MVC, and setting up a professional development environment with virtual environments.
           </p>
-          <p><strong>Key Topics:</strong> Django philosophy, MVT vs MVC, virtual environments, project planning</p>
+          <p><strong>Key Topics:</strong> Django philosophy, MVT, virtual environments, project planning.</p>
           <a href="LEARNING_JOURNAL_2.1.html">📖 Read Full Journal</a>
           <span class="date">October 2025</span>
         </div>
@@ -380,100 +378,66 @@
         <div class="journal-card">
           <h4>📗 Exercise 2.2 - Django Project Structure</h4>
           <p>
-            Created first Django project, understood project vs app distinction, designed database models with relationships, 
-            configured Django admin, wrote comprehensive model tests. Built foundation for Recipe App with 5 apps and 6 models.
+            Created the first Django project and multiple apps, designed database models with relationships, and configured the Django admin interface for data management.
           </p>
-          <p><strong>Key Topics:</strong> Models, migrations, admin interface, many-to-many relationships, testing</p>
+          <p><strong>Key Topics:</strong> Project vs. App, `startproject`, `startapp`, `settings.py`.</p>
           <a href="LEARNING_JOURNAL_2.2.html">📖 Read Full Journal</a>
           <span class="date">October 2025</span>
         </div>
 
-        <div class="journal-card" style="opacity: 0.6;">
-          <h4>📙 Exercise 2.3 - Django Views & Templates</h4>
+        <div class="journal-card">
+          <h4>📙 Exercise 2.3 - Django Models</h4>
           <p>
-            <em>Coming Soon:</em> Creating view functions, building HTML templates, Django template language, 
-            passing data from views to templates, creating recipe list and detail pages.
+            A deep dive into the "M" of MVT. Designed the database schema, defined models with various field types, handled relationships (many-to-many), and used the migration system.
           </p>
-          <p><strong>Upcoming Topics:</strong> Function-based views, template inheritance, context processors</p>
-          <span class="date">Upcoming</span>
+          <p><strong>Key Topics:</strong> Models, ORM, `makemigrations`, `migrate`, Django admin customization.</p>
+          <a href="LEARNING_JOURNAL_2.3.html">📖 Read Full Journal</a>
+          <span class="date">October 2025</span>
+        </div>
+
+        <div class="journal-card">
+          <h4>📕 Exercise 2.4 - Django Views & Templates</h4>
+          <p>
+            Brought the application to life by creating the "V" and "T" of MVT. Built a view to handle requests, a template to structure the HTML, and connected them with URL routing.
+          </p>
+          <p><strong>Key Topics:</strong> Function-Based Views (FBVs), Django Template Language (DTL), context, `render()`, `include()`.</p>
+          <a href="LEARNING_JOURNAL_2.4.html">📖 Read Full Journal</a>
+          <span class="date">October 2025</span>
         </div>
 
         <div class="journal-card" style="opacity: 0.6;">
-          <h4>📕 Exercise 2.4 - Django URLs & Forms</h4>
+          <h4>📔 Exercise 2.5 - Django Forms</h4>
           <p>
-            <em>Coming Soon:</em> URL routing patterns, form creation and validation, CSRF protection, 
-            handling form submissions, creating recipe CRUD operations.
+            <em>Coming Soon:</em> Enabling user interaction by creating forms for data submission, handling GET and POST requests, and validating user input.
           </p>
-          <p><strong>Upcoming Topics:</strong> URLconf, Django forms, validation, POST requests</p>
+          <p><strong>Upcoming Topics:</strong> Django Forms, CSRF protection, form validation, handling POST data.</p>
           <span class="date">Upcoming</span>
         </div>
 
-        <div class="journal-card" style="opacity: 0.6;">
-          <h4>📔 Exercise 2.5 - Django Testing</h4>
-          <p>
-            <em>Coming Soon:</em> Comprehensive testing strategies, unit tests, integration tests, 
-            test coverage, testing views and forms.
-          </p>
-          <p><strong>Upcoming Topics:</strong> TestCase, test client, fixtures, coverage reports</p>
-          <span class="date">Upcoming</span>
         </div>
-
-        <div class="journal-card" style="opacity: 0.6;">
-          <h4>📖 Exercise 2.6 - User Authentication</h4>
-          <p>
-            <em>Coming Soon:</em> Django authentication system, user registration, login/logout, 
-            password management, user profiles, permissions.
-          </p>
-          <p><strong>Upcoming Topics:</strong> Auth system, sessions, decorators, user models</p>
-          <span class="date">Upcoming</span>
-        </div>
-
-        <div class="journal-card" style="opacity: 0.6;">
-          <h4>📓 Exercise 2.7 - Data Analysis & Visualization</h4>
-          <p>
-            <em>Coming Soon:</em> Analyzing recipe data, creating charts and graphs, 
-            statistical analysis, data visualization libraries.
-          </p>
-          <p><strong>Upcoming Topics:</strong> QuerySets, aggregation, charts, data presentation</p>
-          <span class="date">Upcoming</span>
-        </div>
-
-        <div class="journal-card" style="opacity: 0.6;">
-          <h4>📚 Exercise 2.8 - Deployment</h4>
-          <p>
-            <em>Coming Soon:</em> Preparing for production, deployment strategies, 
-            environment variables, static files, database configuration.
-          </p>
-          <p><strong>Upcoming Topics:</strong> Production settings, hosting, CI/CD, monitoring</p>
-          <span class="date">Upcoming</span>
-        </div>
-      </div>
 
       <div class="section" id="roadmap">
         <h2>🗺️ Development Roadmap</h2>
         
         <h3>✅ Completed</h3>
         <ul>
-          <li><strong>Exercise 2.1:</strong> Django setup, research, environment configuration</li>
-          <li><strong>Exercise 2.2:</strong> Project creation, app structure, models, admin interface</li>
+          <li><strong>Exercise 2.1:</strong> Django setup, research, and environment.</li>
+          <li><strong>Exercise 2.2:</strong> Project/app structure, initial models, and admin.</li>
+          <li><strong>Exercise 2.3:</strong> Detailed database modeling, migrations, and testing.</li>
+          <li><strong>Exercise 2.4:</strong> Building the first user-facing page with Views and Templates.</li>
         </ul>
 
         <h3>🚧 In Progress</h3>
         <ul>
-          <li><strong>Exercise 2.3:</strong> Building views and templates for user interface</li>
+          <li><strong>Exercise 2.5:</strong> Implementing forms to allow users to create and edit recipes.</li>
         </ul>
 
         <h3>📅 Upcoming Features</h3>
         <ul>
           <li>Recipe search and filtering functionality</li>
           <li>User authentication and personalized recipe collections</li>
-          <li>Recipe difficulty auto-calculation</li>
           <li>Image uploads for recipes</li>
-          <li>Shopping list generation from recipes</li>
-          <li>Nutritional information tracking</li>
-          <li>Recipe sharing and social features</li>
-          <li>Mobile-responsive design</li>
-          <li>API for mobile app integration</li>
+          <li>Shopping list generation</li>
         </ul>
       </div>
 
@@ -483,17 +447,14 @@
           This Django project builds directly on the foundation from Achievement 1, where I created a command-line Recipe App using core Python. The concepts carry forward:
         </p>
         <ul>
-          <li><strong>Data Models:</strong> Recipe class from Exercise 1.5 → Django Recipe model</li>
-          <li><strong>Database:</strong> SQLite operations from Exercise 1.6 → Django ORM</li>
-          <li><strong>Functions:</strong> Search and filter functions → Django QuerySets</li>
-          <li><strong>Testing:</strong> Unit tests from Exercise 1.7 → Django TestCase</li>
-          <li><strong>Error Handling:</strong> Try/except blocks → Django validation</li>
+          <li><strong>Data Models:</strong> The `Recipe` class from Exercise 1.5 has become the Django `Recipe` model.</li>
+          <li><strong>Database:</strong> Raw SQL and pickle files from Exercise 1.6 are replaced by the powerful Django ORM.</li>
+          <li><strong>Logic:</strong> Python functions for search and calculation are now implemented within Django Views.</li>
         </ul>
-        
         <p>
           <strong>Want to see the CLI version?</strong> Check out the 
           <a href="https://github.com/ivencomur/PYTHON_COURSE" target="_blank">Achievement 1 Repository</a> 
-          to see how this project started as a command-line application.
+          to see how this project started.
         </p>
       </div>
 
@@ -503,18 +464,10 @@
 recipe-app/
 ├── recipe_project/          # Django project configuration
 ├── recipes/                 # Core recipe app
-├── books/                   # Book inventory app
-├── sales/                   # Sales tracking
-├── customers/               # Customer management
-├── salespersons/           # Salesperson profiles
-├── manage.py               # Django management script
-├── requirements.txt        # Python dependencies
-├── README.md              # Project documentation
-├── index.html             # This page
-└── learning_journals/     # Exercise documentation
-    ├── LEARNING_JOURNAL_2.1.html
-    ├── LEARNING_JOURNAL_2.2.html
-    └── ... (more to come)
+├── sales/                   # App for homepage
+├── manage.py                # Django management script
+├── requirements.txt         # Python dependencies
+└── index.html               # This documentation page
         </pre>
       </div>
 
@@ -523,21 +476,18 @@ recipe-app/
         <ol>
           <li><strong>Clone the repository:</strong><br>
             <code>git clone https://github.com/ivencomur/recipe-app.git</code></li>
-          <li><strong>Create virtual environment:</strong><br>
-            <code>python -m venv venv</code></li>
-          <li><strong>Activate environment:</strong><br>
-            <code>source venv/Scripts/activate</code> (Windows Git Bash)<br>
-            <code>source venv/bin/activate</code> (Mac/Linux)</li>
-          <li><strong>Install Django:</strong><br>
-            <code>pip install Django==5.2.7</code></li>
-          <li><strong>Run migrations:</strong><br>
+          <li><strong>Create & Activate Virtual Environment:</strong><br>
+            <code>python -m venv venv && source venv/Scripts/activate</code></li>
+          <li><strong>Install Dependencies:</strong><br>
+            <code>pip install -r requirements.txt</code></li>
+          <li><strong>Run Migrations:</strong><br>
             <code>python manage.py migrate</code></li>
-          <li><strong>Create superuser:</strong><br>
+          <li><strong>Create Superuser:</strong><br>
             <code>python manage.py createsuperuser</code></li>
-          <li><strong>Start development server:</strong><br>
+          <li><strong>Start Development Server:</strong><br>
             <code>python manage.py runserver</code></li>
-          <li><strong>Access admin:</strong><br>
-            Visit <code>http://127.0.0.1:8000/admin</code></li>
+          <li><strong>Access Admin:</strong><br>
+            Visit <code>http://127.0.0.1:8000/admin/</code></li>
         </ol>
       </div>
 

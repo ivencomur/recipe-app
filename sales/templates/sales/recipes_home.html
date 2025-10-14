@@ -5,119 +5,157 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ app_name }}</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .container {
-            background: white;
-            max-width: 800px;
-            width: 100%;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-        
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-        
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.95;
-        }
-        
-        .content {
-            padding: 2rem;
-        }
-        
-        .section {
-            margin-bottom: 2rem;
-        }
-        
-        .section h2 {
-            color: #2d3748;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 0.5rem;
-        }
-        
-        .features {
-            list-style: none;
-        }
-        
-        .features li {
-            padding: 0.75rem;
-            margin-bottom: 0.5rem;
-            background: #f7fafc;
-            border-left: 4px solid #667eea;
-            border-radius: 4px;
-            color: #4a5568;
-            transition: transform 0.2s;
-        }
-        
-        .features li:hover {
-            transform: translateX(5px);
-            background: #edf2f7;
-        }
-        
-        .features li:before {
-            content: "✓";
-            color: #667eea;
-            font-weight: bold;
-            margin-right: 0.75rem;
-            font-size: 1.2rem;
-        }
-        
-        .badge {
-            display: inline-block;
-            background: #48bb78;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-top: 1rem;
-        }
-        
-        .footer {
-            background: #f7fafc;
-            padding: 1.5rem 2rem;
-            text-align: center;
-            color: #718096;
-            font-size: 0.875rem;
-        }
+      :root {
+        --primary-color: #20504b;
+        --primary-hover-color: #1a403c;
+        --secondary-color: #f4f4f4;
+        --text-color: #333;
+        --grid-item-bg-color: #2c3e50;
+        --alt-grid-item-text-color: #0056b3;
+        --customized-orange-light-bg: #b46100;
+        --customized-orange-dark-bg: #ffa061;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        font-family: "Lato", sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: #d9e1e5;
+        padding: 20px;
+      }
+      .container {
+        max-width: 8.5in;
+        margin: 0 auto;
+        background: white;
+        padding: 0.75in;
+        box-shadow: 0 0 10px rgba(0,0,0,.1);
+        overflow: hidden;
+      }
+      .page-header {
+        background-color: var(--primary-color);
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        margin: -0.75in -0.75in 30px -0.75in;
+      }
+      .page-header h1 {
+        color: #fff;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        border-bottom: none;
+      }
+      .header-info {
+        color: #fff;
+        font-size: 14px;
+        line-height: 1.8;
+      }
+      .header-info strong {
+        color: var(--customized-orange-dark-bg);
+      }
+      .content {
+        padding: 1rem 0;
+      }
+      .section h2 {
+        color: var(--alt-grid-item-text-color);
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        border-bottom: 3px solid var(--primary-color);
+        padding-bottom: 0.5rem;
+      }
+       .features {
+        list-style: none;
+        padding: 0;
+      }
+      .features li {
+        padding: 0.75rem;
+        margin-bottom: 0.5rem;
+        background: var(--secondary-color);
+        border-left: 4px solid var(--primary-color);
+        border-radius: 4px;
+        color: #4a5568;
+      }
+      .badge {
+        display: inline-block;
+        background: var(--primary-color);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-top: 1rem;
+      }
+      .page-footer {
+        background-color: var(--primary-color);
+        color: #fff;
+        padding: 1.5rem 2rem;
+        text-align: center;
+        font-size: 0.875rem;
+        margin: 30px -0.75in -0.75in -0.75in;
+      }
+      .page-footer a {
+        color: var(--customized-orange-dark-bg);
+        font-weight: bold;
+        text-decoration: none;
+      }
+      .page-footer a:hover {
+        color: #fff;
+        text-decoration: underline;
+      }
+      .page-footer .social-links {
+        margin-bottom: 15px;
+      }
+      .page-footer .social-links a {
+        margin: 0 10px;
+      }
+      code {
+        background: #edf2f7;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-family: "Courier New", monospace;
+      }
+      .floating-nav {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 1000;
+      }
+      .floating-nav a {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 12px;
+        border-radius: 50%;
+        text-decoration: none;
+        font-weight: bold;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        font-size: 20px;
+        text-align: center;
+        width: 50px;
+        height: 50px;
+        line-height: 26px;
+      }
+      .floating-nav a:hover {
+        background-color: var(--customized-orange-dark-bg);
+        color: var(--primary-color);
+        transform: translateY(-2px);
+      }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
+        <div class="page-header">
             <h1>{{ app_name }}</h1>
-            <p>{{ tagline }}</p>
+            <div class="header-info">
+                <strong>Developer:</strong> Ivan Cortes<br />
+                <strong>Course:</strong> CareerFoundry – Python for Web Developers<br />
+                <strong>Project:</strong> {{ tagline }}
+            </div>
         </div>
-        
+
         <div class="content">
             <div class="section">
                 <h2>Features</h2>
@@ -127,22 +165,38 @@
                     {% endfor %}
                 </ul>
             </div>
-            
+
             <div class="section">
                 <h2>About This Page</h2>
                 <p style="color: #4a5568; line-height: 1.6;">
                     This custom homepage demonstrates Django's <strong>MVT architecture</strong>:
-                    <strong>Model</strong> (data structure), 
-                    <strong>View</strong> (business logic in <code style="background: #edf2f7; padding: 2px 6px; border-radius: 3px;">sales/views.py</code>), 
+                    <strong>Model</strong> (data structure),
+                    <strong>View</strong> (business logic in <code>sales/views.py</code>),
                     and <strong>Template</strong> (this HTML file).
                 </p>
                 <span class="badge">{{ exercise }}</span>
             </div>
         </div>
-        
-        <div class="footer">
-            Built with Django 5.2.7 | Python Achievement 2
+
+        <div class="page-footer">
+            <div class="social-links">
+              <a href="https://ivan-cortes-portfolio-v1.onrender.com/" target="_blank">Portfolio</a>
+              <a href="https://www.linkedin.com/in/ivan-cortes-murcia-22053953/" target="_blank">LinkedIn</a>
+              <a href="https://x.com/IVENCOMUR" target="_blank">Twitter</a>
+              <a href="https://github.com/ivencomur" target="_blank">GitHub</a>
+            </div>
+            <p>
+              <a href="https://github.com/ivencomur/recipe-app" target="_blank">Recipe App Repository</a> ·
+              <a href="https://github.com/ivencomur/PYTHON-ACHIEVEMENT-2" target="_blank">Course Deliverables Repo</a>
+            </p>
+            <p>Python for Web Developers @ CareerFoundry 2025</p>
         </div>
+    </div>
+
+    <div class="floating-nav">
+      <a href="/" title="Go to Home">🏠</a>
+      <a href="javascript:history.back()" title="Go Back">⬅️</a>
+      <a href="https://github.com/ivencomur/PYTHON-ACHIEVEMENT-2" target="_blank" title="View Deliverables Repo">📚</a>
     </div>
 </body>
 </html>

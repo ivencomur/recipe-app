@@ -1,0 +1,185 @@
+html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learning Journal – Exercise 2.4</title>
+    <style>
+      :root {
+        --primary-color: #20504b;
+        --primary-hover-color: #1a403c;
+        --secondary-color: #f4f4f4;
+        --text-color: #333;
+        --grid-item-bg-color: #2c3e50;
+        --alt-grid-item-text-color: #0056b3;
+        --customized-orange-light-bg: #b46100;
+        --customized-orange-dark-bg: #ffa061;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: "Lato", sans-serif; line-height: 1.6; color: var(--text-color); background-color: #d9e1e5; padding: 20px; }
+      .container { max-width: 8.5in; margin: 0 auto; background: white; padding: 0.75in; box-shadow: 0 0 10px rgba(0,0,0,.1); }
+      .page-header { background-color: var(--primary-color); color: #fff; padding: 20px; text-align: center; margin: -0.75in -0.75in 30px -0.75in; }
+      .page-header h1 { color: #fff; border-bottom: none; margin-bottom: 5px; }
+      h1 { color: var(--alt-grid-item-text-color); font-size: 28px; margin-bottom: 10px; border-bottom: 3px solid var(--primary-color); padding-bottom: 10px; }
+      .header-info { color: #fff; font-size: 14px; line-height: 1.8; }
+      .header-info strong { color: var(--customized-orange-dark-bg); }
+      h2 { color: var(--alt-grid-item-text-color); font-size: 20px; margin-top: 30px; margin-bottom: 15px; padding-bottom: 5px; border-bottom: 2px solid var(--primary-color); }
+      h3 { color: var(--grid-item-bg-color); font-size: 16px; margin-top: 20px; margin-bottom: 10px; }
+      p { margin-bottom: 12px; text-align: justify; }
+      ul, ol { margin-left: 25px; margin-bottom: 15px; }
+      li { margin-bottom: 8px; }
+      .toc { background-color: var(--secondary-color); border: 2px solid var(--primary-color); border-radius: 5px; padding: 20px 30px; margin: 25px 0 40px 0; }
+      .toc h2 { margin-top: 0; border-bottom: none; color: var(--primary-color); }
+      .toc ol { margin-left: 20px; counter-reset: item; list-style-type: none; }
+      .toc li { counter-increment: item; margin-bottom: 8px; }
+      .toc li:before { content: counter(item) ") "; font-weight: bold; color: var(--primary-color); }
+      .toc a { color: var(--customized-orange-light-bg); text-decoration: none; font-weight: bold; }
+      .toc a:hover { color: var(--primary-hover-color); text-decoration: underline; }
+      .code-block { background-color: var(--secondary-color); border-left: 4px solid var(--primary-color); padding: 15px; margin: 15px 0; font-family: "Courier New", monospace; font-size: 13px; overflow-x: auto; border-radius: 3px; }
+      .simple-box { background-color: var(--secondary-color); border: 2px solid var(--primary-color); border-radius: 5px; padding: 15px; margin: 20px 0; text-align: center; font-weight: bold; color: var(--primary-color); }
+      .page-footer { background-color: var(--primary-color); color: #fff; padding: 20px; text-align: center; margin: 30px -0.75in -0.75in -0.75in; }
+      .page-footer a { color: var(--customized-orange-dark-bg); font-weight: bold; text-decoration: none; }
+      .page-footer a:hover { color: #fff; text-decoration: underline; }
+      hr { border: none; border-top: 2px solid var(--primary-color); margin: 30px 0; }
+      .floating-nav { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
+      .floating-nav a { background-color: var(--primary-color); color: white; padding: 12px; border-radius: 50%; text-decoration: none; font-weight: bold; box-shadow: 0 4px 8px rgba(0,0,0,.2); transition: all .3s ease; font-size: 20px; text-align: center; width: 50px; height: 50px; line-height: 26px; }
+      .floating-nav a:hover { background-color: var(--customized-orange-dark-bg); color: var(--primary-color); transform: translateY(-2px); }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="page-header">
+        <h1>Learning Journal – Exercise 2.4</h1>
+        <div class="header-info">
+          <strong>Name:</strong> Ivan Cortes<br />
+          <strong>Course:</strong> CareerFoundry – Python for Web Developers<br />
+          <strong>Exercise:</strong> 2.4 – Django Views & Templates<br />
+          <strong>Focus:</strong> MVT Architecture, Function-Based Views, Django Template Language, URL Routing.
+        </div>
+      </div>
+
+      <div class="toc">
+        <h2>Table of Contents</h2>
+        <ol>
+          <li><a href="#about">What This Exercise Was About</a></li>
+          <li><a href="#done">What I Did (Step-by-Step)</a></li>
+          <li><a href="#issues">Issues I Hit & Fixes</a></li>
+          <li><a href="#skills">New Skills Acquired</a></li>
+          <li><a href="#remember">What I’ll Remember</a></li>
+          <li><a href="#next">What’s Next</a></li>
+          <li><a href="#ai">AI Assistance Declaration</a></li>
+        </ol>
+      </div>
+
+      <div id="about" class="section">
+        <h2>What This Exercise Was About</h2>
+        <p>
+            This exercise was the moment the project transformed from a backend structure into a tangible webpage. After setting up the project (2.2) and defining the data models (2.3), this exercise focused on the remaining pieces of the MVT puzzle: the <strong>View</strong> and the <strong>Template</strong>. The primary goal was to replace Django's default "rocket ship" welcome page with a custom homepage for the Recipe App.
+        </p>
+        <p>
+            This involved understanding the complete request-response cycle: how a user's browser request travels through Django's URL routing to trigger a specific view function, which in turn processes data and uses a template to generate the final HTML sent back to the user. It was my first hands-on experience with making Django actually *display* something on a screen.
+        </p>
+      </div>
+
+      <div id="done" class="section">
+        <h2>What I Did (Step-by-Step)</h2>
+        <ol>
+            <li>
+                <strong>Created the View:</strong> In `sales/views.py`, I defined a Python function called `home`. This function, a **Function-Based View (FBV)**, is responsible for handling requests to the homepage. It acts as the "brain" for the page.
+            </li>
+            <li>
+                <strong>Defined the Context:</strong> Inside the `home` view, I created a dictionary named `context`. This dictionary holds all the dynamic data (like titles, taglines, and feature lists) that I want to display on the webpage. This is a key step in separating the application's data from its presentation.
+            </li>
+            <li>
+                <strong>Created the Template Directory Structure:</strong> Following Django's conventions, I created a nested directory path: `sales/templates/sales/`. This **namespacing** is a crucial practice to prevent template name collisions between different apps in a larger project.
+            </li>
+            <li>
+                <strong>Wrote the HTML Template:</strong> Inside the new directory, I created `recipes_home.html`. I wrote the HTML structure and used the **Django Template Language (DTL)** (e.g., `{{ app_name }}` and `{% for feature in features %}`) to dynamically render the data passed in the `context` dictionary.
+            </li>
+            <li>
+                <strong>Configured App-Level URLs:</strong> I created a new file, `sales/urls.py`, to handle all URL routing specific to the `sales` app. Here, I defined a path that maps the app's root URL (`''`) to my `home` view.
+            </li>
+             <li>
+                <strong>Configured Project-Level URLs:</strong> Finally, in the main `recipe_project/urls.py`, I used the `include()` function to delegate all traffic from the website's root URL (`''`) to the `sales/urls.py` file. This makes the project's URL configuration clean, modular, and easy to manage.
+            </li>
+            <li>
+                <strong>Ran the Server and Verified:</strong> I started the development server with `python manage.py runserver`, navigated to `http://127.0.0.1:8000/`, and saw my custom-styled Recipe App homepage appear correctly, successfully replacing the default Django page.
+            </li>
+        </ol>
+      </div>
+
+      <div id="issues" class="section">
+        <h2>Issues I Hit & Fixes</h2>
+        <ul>
+            <li>
+                <strong>`TemplateDoesNotExist` Error:</strong> My first attempt resulted in this common but frustrating error.
+                <strong>Fix:</strong> The issue was twofold. First, I had misspelled the directory name as `template` instead of `templates`. Django is very specific about this folder name. Second, I initially forgot the nested `sales/` subfolder. Correcting the path to the conventional `sales/templates/sales/` resolved the error.
+            </li>
+            <li>
+                **Still Seeing the Default Django Page:** After fixing the template path, the default "rocket ship" page was still showing.
+                <strong>Fix:</strong> This turned out to be a simple browser caching issue. Performing a hard refresh (Ctrl+Shift+R or Cmd+Shift+R) forced the browser to discard the cached version and request the new page from the server, which then displayed my custom homepage correctly.
+            </li>
+             <li>
+                **`ModuleNotFoundError: No module named 'sales.urls'`:** When setting up the project-level `urls.py`.
+                <strong>Fix:</strong> I had forgotten to create the `sales/urls.py` file before trying to include it. Creating the file and adding the basic `urlpatterns` list made the error disappear. This highlighted the importance of creating files before referencing them in other parts of the code.
+            </li>
+        </ul>
+      </div>
+
+      <div id="skills" class="section">
+        <h2>New Skills Acquired</h2>
+        <ul>
+            <li><strong>Function-Based View (FBV) Creation:</strong> I can now write a standard Python function that accepts an `HttpRequest` object and returns a rendered `HttpResponse`, forming the core logic of a webpage.</li>
+            <li><strong>Django Template Language (DTL):</strong> I am now comfortable using `{{ variable }}` to display data and `{% tag %}` for control flow logic like `for` loops directly within an HTML file.</li>
+            <li><strong>Context Data Passing:</strong> I understand the standard pattern of passing data from a Python view to an HTML template via a `context` dictionary and the `render()` function.</li>
+            <li>**Modular URL Routing:** I can confidently configure URL patterns at both the project and app level, using `path()` to define routes and `include()` to delegate routing to specific apps.</li>
+            <li><strong>Template Namespacing:</strong> I now understand and can implement the critical `app/templates/app/` directory structure to ensure my app's templates are self-contained and avoid conflicts.</li>
+            <li>**Tracing the MVT Cycle:** I can mentally trace a user request from the URL, through the project and app `urls.py`, to the correct View, and see how that View uses a Template and context to generate the final HTML response.</li>
+        </ul>
+      </div>
+
+      <div id="remember" class="section">
+        <h2>What I’ll Remember</h2>
+        <p>
+            The most memorable concept is the elegant **separation of concerns** that the MVT pattern enforces. The Python code (the View) has no idea what the final page looks like; it only cares about preparing the data (the context). Conversely, the HTML (the Template) has no idea where the data came from; it only cares about how to display it. This decoupling is incredibly powerful and makes the code so much cleaner and easier to manage than older methods of mixing logic and presentation.
+        </p>
+        <p>
+            The two-tiered URL routing system also clicked for me as a brilliant design choice. The project `urls.py` acts as a switchboard, directing traffic to the right app, while each app manages its own internal "phone book" of URLs. This makes Django apps truly plug-and-play; I could take my `sales` app and drop it into another project with minimal fuss because it's self-contained.
+        </p>
+      </div>
+
+       <div id="next" class="section">
+        <h2>What’s Next</h2>
+        <p>
+          With the foundational loop of URL-to-View-to-Template now established, the next logical step is to make the application interactive. This will involve creating Django Forms to allow users to submit data (like creating a new recipe), processing that data in the views, and saving it to the database models I created in Exercise 2.3. This will complete the full CRUD (Create, Read, Update, Delete) cycle from a user-facing perspective.
+        </p>
+      </div>
+
+      <div id="ai" class="section">
+        <h2>AI Assistance Declaration</h2>
+        <p>
+          To navigate the challenges of a self-paced learning environment, particularly when faced with tight deadlines, outdated course materials, and limited mentor availability, I've leveraged a range of resources to ensure steady progress. This has included using AI as a supplementary tool to help structure my thoughts, generate documentation, and understand core Django concepts. This approach allowed me to focus my time on the hands-on coding and problem-solving aspects of the exercises while efficiently resolving technical hurdles. All code was implemented and debugged directly by me.
+        </p>
+      </div>
+
+      <hr />
+      <div class="simple-box">Exercise 2.4 Complete ✓ — Views, Templates, and URL routing are now in place.</div>
+
+      <div class="page-footer">
+        <div class="social-links">
+          <a href="https://ivan-cortes-portfolio-v1.onrender.com/" target="_blank">Portfolio</a>
+          <a href="https://www.linkedin.com/in/ivan-cortes-murcia-22053953/" target="_blank">LinkedIn</a>
+          <a href="https://x.com/IVENCOMUR" target="_blank">Twitter</a>
+          <a href="https://github.com/ivencomur" target="_blank">GitHub</a>
+        </div>
+        <p>Python for Web Developers @ CareerFoundry 2025</p>
+      </div>
+    </div>
+
+    <div class="floating-nav">
+      <a href="./index.html" title="Go to Home">🏠</a>
+      <a href="javascript:history.back()" title="Go Back">⬅️</a>
+    </div>
+  </body>
+</html>
