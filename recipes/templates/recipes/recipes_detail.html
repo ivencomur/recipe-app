@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ app_name }}</title>
+    <title>{{ object.name }}</title>
     <style>
       :root {
         --primary-color: #20504b;
@@ -45,17 +45,13 @@
         margin-bottom: 0.5rem;
         border-bottom: none;
       }
-      .header-info {
-        color: #fff;
-        font-size: 14px;
-        line-height: 1.8;
-      }
-      .header-info strong {
-        color: var(--customized-orange-dark-bg);
-      }
-      .content {
-        padding: 1rem 0;
-        text-align: center;
+      .content { padding: 1rem 0; }
+      .recipe-detail-img {
+        width: 100%;
+        max-width: 600px;
+        height: auto;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
       }
       .section h2 {
         color: var(--alt-grid-item-text-color);
@@ -63,35 +59,16 @@
         margin-bottom: 1rem;
         border-bottom: 3px solid var(--primary-color);
         padding-bottom: 0.5rem;
-        text-align: left;
       }
-       .features {
-        list-style: none;
-        padding: 0;
-        text-align: left;
-      }
-      .features li {
-        padding: 0.75rem;
-        margin-bottom: 0.5rem;
-        background: var(--secondary-color);
-        border-left: 4px solid var(--primary-color);
-        border-radius: 4px;
-        color: #4a5568;
-      }
-      .cta-button {
+      .back-link {
         display: inline-block;
-        background-color: var(--primary-color);
-        color: white;
-        padding: 12px 24px;
-        border-radius: 5px;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
         text-decoration: none;
-        font-size: 1.1rem;
         font-weight: bold;
-        margin: 2rem 0;
-        transition: background-color 0.2s;
       }
-      .cta-button:hover {
-        background-color: var(--primary-hover-color);
+      .back-link:hover {
+        color: var(--primary-hover-color);
       }
       .page-footer {
         background-color: var(--primary-color);
@@ -117,24 +94,33 @@
 <body>
     <div class="container">
         <div class="page-header">
-            <h1>{{ app_name }}</h1>
-            <div class="header-info">
-                <strong>Developer:</strong> Ivan Cortes<br />
-                <strong>Course:</strong> CareerFoundry – Python for Web Developers<br />
-                <strong>Project:</strong> {{ tagline }}
-            </div>
+            <h1>{{ object.name }}</h1>
         </div>
 
         <div class="content">
-            <a href="{% url 'recipes:list' %}" class="cta-button">View All Recipes</a>
+            <a href="{% url 'recipes:list' %}" class="back-link"><< Back to All Recipes</a>
+            <br>
+            {% if object.pic %}
+                <img src="{{ object.pic.url }}" alt="{{ object.name }}" class="recipe-detail-img">
+            {% endif %}
 
             <div class="section">
-                <h2>Features</h2>
-                <ul class="features">
-                    {% for feature in features %}
-                    <li>{{ feature }}</li>
+                <h2>Details</h2>
+                <p><b>Cooking Time:</b> {{ object.cook_time_minutes }} minutes</p>
+            </div>
+
+            <div class="section">
+                <h2>Ingredients</h2>
+                <ul>
+                    {% for ri in object.recipeingredient_set.all %}
+                        <li>{{ ri.ingredient.name }}: {{ ri.quantity }} {{ ri.unit }}</li>
                     {% endfor %}
                 </ul>
+            </div>
+
+            <div class="section">
+                <h2>Instructions</h2>
+                <p>{{ object.description|linebreaks }}</p>
             </div>
         </div>
 
@@ -149,7 +135,7 @@
             <p>Python for Web Developers @ CareerFoundry 2025</p>
         </div>
     </div>
-
+    
     <div class="floating-nav">
       <a href="/" title="Go to Home">🏠</a>
       <a href="javascript:history.back()" title="Go Back">⬅️</a>

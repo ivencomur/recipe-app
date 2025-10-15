@@ -1,77 +1,113 @@
-# Recipe App - Project Setup Guide
+Recipe App - Project Setup Guide
 
-## 📋 Complete File Structure
+📋 Complete File Structure
 
 This document provides a complete guide to setting up the Recipe App Django project from the repository.
 
-## 🏗️ Required Files
+🏗️ Required Files
 
-### Root Directory Files
-- `manage.py` - Django management script
-- `README.md` - Project documentation
-- `requirements.txt` - Python dependencies
-- `.gitignore` - Git ignore file
-- `index.html` - Learning journey documentation
-- `LEARNING_JOURNAL_2.1.html` - Exercise 2.1 journal
-- `LEARNING_JOURNAL_2.2.html` - Exercise 2.2 journal
+Root Directory Files
 
-### Project Configuration (recipe_project/)
-- `__init__.py` - Package initializer
-- `settings.py` - Django settings
-- `urls.py` - URL configuration
-- `wsgi.py` - WSGI configuration
-- `asgi.py` - ASGI configuration
+manage.py - Django management script
 
-### Apps Structure
+README.md - Project documentation
+
+requirements.txt - Python dependencies
+
+.gitignore - Git ignore file
+
+index.html - Learning journey documentation
+
+LEARNING_JOURNAL/ - Folder containing all journal entries for Achievements 1 & 2.
+
+Project Configuration (recipe_project/)
+
+__init__.py - Package initializer
+
+settings.py - Django settings
+
+urls.py - URL configuration
+
+wsgi.py - WSGI configuration
+
+asgi.py - ASGI configuration
+
+Apps Structure
 
 Each app should have these files:
-- `__init__.py` - Package initializer
-- `apps.py` - App configuration
-- `models.py` - Database models
-- `admin.py` - Admin interface
-- `views.py` - View functions
-- `tests.py` - Unit tests
-- `migrations/` - Migration directory
-  - `__init__.py` - Package initializer
-  - Migration files (auto-generated)
 
-## 📦 App-Specific Files
+__init__.py - Package initializer
 
-### recipes/
-**models.py** - Contains Recipe, Ingredient, RecipeIngredient models  
-**admin.py** - Admin configuration with inline editing  
-**tests.py** - Comprehensive model tests
+apps.py - App configuration
 
-### books/
-**models.py** - Book model with genre and type choices  
-**admin.py** - Book admin with search and filters  
-**tests.py** - Book model validation tests
+models.py - Database models
 
-### sales/
-**models.py** - Sale model linking books, customers, salespersons  
-**admin.py** - Sale admin with date hierarchy  
-**tests.py** - Sale transaction tests
+admin.py - Admin interface
 
-### customers/
-**models.py** - Customer model with notes  
-**admin.py** - Simple customer admin  
-**tests.py** - Customer model tests
+views.py - View functions
 
-### salespersons/
-**models.py** - Salesperson model with unique username  
-**admin.py** - Salesperson admin with search  
-**tests.py** - Salesperson validation tests
+tests.py - Unit tests
 
-## 🚀 Setup Instructions
+migrations/ - Migration directory
 
-### 1. Clone and Navigate
-```bash
-git clone https://github.com/ivencomur/recipe-app.git
+__init__.py - Package initializer
+
+Migration files (auto-generated)
+
+📦 App-Specific Files
+
+recipes/
+
+models.py - Contains Recipe, Ingredient, and RecipeIngredient models.
+
+admin.py - Admin configuration with inline editing.
+
+views.py - Contains RecipeListView and RecipeDetailView.
+
+urls.py - URL routing for the recipes app.
+
+templates/recipes/ - Contains recipes_list.html and recipes_detail.html.
+
+tests.py - Comprehensive model and URL tests.
+
+books/
+
+models.py - Book model with genre and type choices.
+
+admin.py - Book admin with search and filters.
+
+tests.py - Book model validation tests.
+
+sales/
+
+views.py - Contains the home view for the main landing page.
+
+urls.py - URL routing for the sales app (homepage).
+
+templates/sales/ - Contains recipes_home.html.
+
+customers/
+
+models.py - Customer model with notes.
+
+admin.py - Simple customer admin.
+
+salespersons/
+
+models.py - Salesperson model with unique username.
+
+admin.py - Salesperson admin with search.
+
+🚀 Setup Instructions
+
+1. Clone and Navigate
+
+git clone [https://github.com/ivencomur/recipe-app.git](https://github.com/ivencomur/recipe-app.git)
 cd recipe-app
-```
 
-### 2. Create Virtual Environment
-```bash
+
+2. Create Virtual Environment
+
 # Windows
 python -m venv venv
 source venv/Scripts/activate  # Git Bash
@@ -81,141 +117,99 @@ venv\Scripts\activate.bat  # Command Prompt
 # Mac/Linux
 python -m venv venv
 source venv/bin/activate
-```
 
-### 3. Install Dependencies
-```bash
-# Install core dependencies only
-pip install Django==5.2.7
 
-# Or install all dependencies
+3. Install Dependencies
+
 pip install -r requirements.txt
-```
 
-### 4. Apply Missing Files
-If any files are missing from the repository, copy them from the outputs:
-- Copy all `sales_*.py` files to the `sales/` directory
-- Copy all `customers_*.py` files to the `customers/` directory  
-- Copy all `salespersons_*.py` files to the `salespersons/` directory
 
-Rename the files appropriately:
-- `sales_models.py` → `sales/models.py`
-- `sales_admin.py` → `sales/admin.py`
-- etc.
+4. Create and Apply Migrations
 
-### 5. Create and Apply Migrations
-```bash
 # Create migration files for all apps
 python manage.py makemigrations
 
 # Apply migrations to create database tables
 python manage.py migrate
-```
 
-### 6. Create Superuser
-```bash
+
+5. Create Superuser
+
 python manage.py createsuperuser
 # Follow prompts to set username, email, and password
-```
 
-### 7. Run Tests
-```bash
+
+6. Run Tests
+
 # Run all tests
 python manage.py test
 
 # Run tests for specific apps
 python manage.py test recipes
-python manage.py test books
-python manage.py test sales
-python manage.py test customers
-python manage.py test salespersons
-```
 
-### 8. Start Development Server
-```bash
+
+7. Start Development Server
+
 python manage.py runserver
-# Server starts at http://127.0.0.1:8000/
-```
+# Server starts at [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 
-### 9. Access Admin Interface
-1. Navigate to http://127.0.0.1:8000/admin
-2. Login with superuser credentials
-3. Start adding data through the admin interface
 
-## 🧪 Testing the Setup
+8. Access the Application
 
-### Quick Verification Checklist
-- [ ] Virtual environment activated
-- [ ] Django installed (check with `pip show django`)
-- [ ] All apps listed in INSTALLED_APPS
-- [ ] Migrations applied successfully
-- [ ] Admin interface accessible
-- [ ] All models visible in admin
-- [ ] Tests passing for all apps
+Navigate to http://127.0.0.1:8000/ to see the homepage.
 
-### Sample Data Entry
-1. **Add Ingredients**: flour, eggs, milk, sugar, salt
-2. **Create Recipe**: Pancakes with ingredients
-3. **Add Books**: Sample inventory items
-4. **Create Customers**: Test customer profiles
-5. **Add Salespersons**: Sales team members
-6. **Record Sales**: Link books to customers
+Navigate to http://127.0.0.1:8000/recipes/ to see the recipe list.
 
-## 🐛 Common Issues and Solutions
+Navigate to http://127.0.0.1:8000/admin/ to log in and manage data.
 
-### Issue: ModuleNotFoundError
-**Solution**: Ensure virtual environment is activated and Django is installed
+🧪 Testing the Setup
 
-### Issue: No such table error
-**Solution**: Run migrations: `python manage.py makemigrations && python manage.py migrate`
+Quick Verification Checklist
 
-### Issue: Admin not showing models
-**Solution**: Check that models are registered in admin.py and app is in INSTALLED_APPS
+[ ] Virtual environment activated
 
-### Issue: Tests failing
-**Solution**: Ensure test database permissions and check for migration conflicts
+[ ] Django and Pillow installed (check with pip list)
 
-## 📚 Next Steps
+[ ] All apps listed in INSTALLED_APPS
 
-### Exercise 2.3 - Views and Templates
-- Create view functions for recipe listing
-- Build HTML templates with Django template language
-- Implement template inheritance
-- Add CSS styling
+[ ] Migrations applied successfully
 
-### Exercise 2.4 - URLs and Forms
-- Configure URL patterns
-- Create forms for recipe input
-- Implement CRUD operations
-- Add form validation
+[ ] Admin interface accessible
 
-### Exercise 2.5 and Beyond
-- Comprehensive testing
-- User authentication
-- Data visualization
-- Production deployment
+[ ] All models visible in admin
 
-## 📞 Support
+[ ] Tests passing for all apps
 
-If you encounter issues:
-1. Check the learning journals for context
-2. Review Django documentation
-3. Verify all files are in correct locations
-4. Ensure Python version compatibility (3.8+)
-5. Check repository issues on GitHub
+🐛 Common Issues and Solutions
 
-## ✅ Success Indicators
+Issue: ModuleNotFoundError
 
-You know the setup is successful when:
-- ✅ Server runs without errors
-- ✅ Admin interface displays all 5 apps
-- ✅ Models are editable in admin
-- ✅ Tests pass for all apps
-- ✅ Database file (db.sqlite3) is created
-- ✅ You can create and save records
+Solution: Ensure virtual environment is activated and all packages from requirements.txt are installed.
 
----
+Issue: TemplateDoesNotExist
 
-*Last Updated: October 2025*  
-*Course: CareerFoundry - Python for Web Developers*  
-*Repository: https://github.com/ivencomur/recipe-app*
+Solution: Verify the template path is correct: app_name/templates/app_name/template.html.
+
+Issue: 404 Not Found
+
+Solution: Check that the URL is defined in the correct urls.py file (project or app) and that the project urls.py includes the app's URLs.
+
+📚 Next Steps
+
+Exercise 2.6 - Django Forms
+
+Create forms to allow users to add and edit recipes from the front end.
+
+Handle POST requests and validate user input.
+
+Implement CRUD (Create, Read, Update, Delete) functionality.
+
+And Beyond
+
+User authentication
+
+Data analysis and visualization
+
+Production deployment
+
+Last Updated: October 2025 Course: CareerFoundry - Python for Web Developers Repository: https://github.com/ivencomur/recipe-app

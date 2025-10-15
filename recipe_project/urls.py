@@ -1,11 +1,12 @@
-# recipe_project/urls.py
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    # Django admin interface
     path('admin/', admin.site.urls),
-    
-    # Root URL (http://127.0.0.1:8000/) -> delegate to sales app
     path('', include('sales.urls')),
+    path('recipes/', include('recipes.urls')), # <-- ADD THIS LINE
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

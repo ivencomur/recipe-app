@@ -35,3 +35,9 @@ class RecipeModelsTest(TestCase):
     def test_recipe_str(self):
         r = Recipe.objects.create(name="Tomato Soup", cook_time_minutes=30)
         self.assertEqual(str(r), "Tomato Soup")
+
+    def test_get_absolute_url(self):
+        # Create a recipe object to test
+        recipe = Recipe.objects.create(name="Test Cake", cook_time_minutes=30)
+        # Assert that the method returns the expected URL for the recipe with ID (pk) = 1
+        self.assertEqual(recipe.get_absolute_url(), '/recipes/1')

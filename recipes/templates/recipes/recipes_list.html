@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ app_name }}</title>
+    <title>Recipe Collection</title>
     <style>
       :root {
         --primary-color: #20504b;
@@ -45,53 +45,43 @@
         margin-bottom: 0.5rem;
         border-bottom: none;
       }
-      .header-info {
-        color: #fff;
-        font-size: 14px;
-        line-height: 1.8;
-      }
-      .header-info strong {
-        color: var(--customized-orange-dark-bg);
-      }
-      .content {
-        padding: 1rem 0;
-        text-align: center;
-      }
-      .section h2 {
-        color: var(--alt-grid-item-text-color);
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-        border-bottom: 3px solid var(--primary-color);
-        padding-bottom: 0.5rem;
-        text-align: left;
-      }
-       .features {
+      .content { padding: 1rem 0; }
+      .recipe-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
         list-style: none;
         padding: 0;
-        text-align: left;
       }
-      .features li {
-        padding: 0.75rem;
-        margin-bottom: 0.5rem;
+      .recipe-card {
         background: var(--secondary-color);
-        border-left: 4px solid var(--primary-color);
-        border-radius: 4px;
-        color: #4a5568;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        transition: transform 0.2s, box-shadow 0.2s;
       }
-      .cta-button {
-        display: inline-block;
-        background-color: var(--primary-color);
-        color: white;
-        padding: 12px 24px;
-        border-radius: 5px;
+      .recipe-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      }
+      .recipe-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+      .recipe-card-content {
+        padding: 1rem;
+      }
+      .recipe-card-content h3 {
+        margin: 0;
+        font-size: 1.25rem;
+      }
+      .recipe-card-content a {
         text-decoration: none;
-        font-size: 1.1rem;
-        font-weight: bold;
-        margin: 2rem 0;
-        transition: background-color 0.2s;
+        color: var(--primary-color);
       }
-      .cta-button:hover {
-        background-color: var(--primary-hover-color);
+      .recipe-card-content a:hover {
+        color: var(--primary-hover-color);
       }
       .page-footer {
         background-color: var(--primary-color);
@@ -117,25 +107,22 @@
 <body>
     <div class="container">
         <div class="page-header">
-            <h1>{{ app_name }}</h1>
-            <div class="header-info">
-                <strong>Developer:</strong> Ivan Cortes<br />
-                <strong>Course:</strong> CareerFoundry – Python for Web Developers<br />
-                <strong>Project:</strong> {{ tagline }}
-            </div>
+            <h1>Our Recipe Collection</h1>
         </div>
 
         <div class="content">
-            <a href="{% url 'recipes:list' %}" class="cta-button">View All Recipes</a>
-
-            <div class="section">
-                <h2>Features</h2>
-                <ul class="features">
-                    {% for feature in features %}
-                    <li>{{ feature }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
+            <ul class="recipe-grid">
+                {% for object in object_list %}
+                <li class="recipe-card">
+                    {% if object.pic %}
+                        <img src="{{ object.pic.url }}" alt="{{ object.name }}">
+                    {% endif %}
+                    <div class="recipe-card-content">
+                        <h3><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h3>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
         </div>
 
         <div class="page-footer">
