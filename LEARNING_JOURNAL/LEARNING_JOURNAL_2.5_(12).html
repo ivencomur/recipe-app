@@ -1,0 +1,135 @@
+html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learning Journal – Exercise 2.5</title>
+    <style>
+      :root {
+        --primary-color: #20504b;
+        --primary-hover-color: #1a403c;
+        --secondary-color: #f4f4f4;
+        --text-color: #333;
+        --grid-item-bg-color: #2c3e50;
+        --alt-grid-item-text-color: #0056b3;
+        --customized-orange-light-bg: #b46100;
+        --customized-orange-dark-bg: #ffa061;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: "Lato", sans-serif; line-height: 1.6; color: var(--text-color); background-color: #d9e1e5; padding: 20px; }
+      .container { max-width: 8.5in; margin: 0 auto; background: white; padding: 0.75in; box-shadow: 0 0 10px rgba(0,0,0,.1); }
+      .page-header { background-color: var(--primary-color); color: #fff; padding: 20px; text-align: center; margin: -0.75in -0.75in 30px -0.75in; }
+      h1 { color: var(--alt-grid-item-text-color); font-size: 28px; margin-bottom: 10px; border-bottom: 3px solid var(--primary-color); padding-bottom: 10px; }
+      .header-info { color: #fff; font-size: 14px; line-height: 1.8; }
+      .header-info strong { color: var(--customized-orange-dark-bg); }
+      h2 { color: var(--alt-grid-item-text-color); font-size: 20px; margin-top: 30px; margin-bottom: 15px; padding-bottom: 5px; border-bottom: 2px solid var(--primary-color); }
+      p { margin-bottom: 12px; text-align: justify; }
+      ul, ol { margin-left: 25px; margin-bottom: 15px; }
+      li { margin-bottom: 8px; }
+      .toc { background-color: var(--secondary-color); border: 2px solid var(--primary-color); border-radius: 5px; padding: 20px 30px; margin: 25px 0 40px 0; }
+      .toc h2 { margin-top: 0; border-bottom: none; color: var(--primary-color); }
+      .code-block { background-color: var(--secondary-color); border-left: 4px solid var(--primary-color); padding: 15px; margin: 15px 0; font-family: "Courier New", monospace; font-size: 13px; overflow-x: auto; border-radius: 3px; }
+      .simple-box { background-color: var(--secondary-color); border: 2px solid var(--primary-color); border-radius: 5px; padding: 15px; margin: 20px 0; text-align: center; font-weight: bold; color: var(--primary-color); }
+      hr { border: none; border-top: 2px solid var(--primary-color); margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>Learning Journal – Exercise 2.5</h1>
+            <div class="header-info">
+              <strong>Name:</strong> Ivan Cortes<br />
+              <strong>Course:</strong> CareerFoundry – Python for Web Developers<br />
+              <strong>Exercise:</strong> 2.5 – Django MVT Revisited<br />
+              <strong>Focus:</strong> Media Files, Class-Based Views, and Dynamic URL Linking.
+            </div>
+        </div>
+
+        <div id="about" class="section">
+            <h2>What This Exercise Was About</h2>
+            <p>
+                Exercise 2.5 was the milestone where all the individual components of Django—Models, Views, and Templates—truly came together to create a dynamic, interactive part of the application. The focus was on enhancing the project to handle images, display data from the database in a user-friendly way, and create clickable links between pages.
+            </p>
+            <p>
+                This involved configuring the project to manage user-uploaded "media" files, using powerful Class-Based Views (`ListView` and `DetailView`) to reduce boilerplate code, and implementing dynamic URL routing that uses a recipe's unique ID (`pk`) to link from a list to its specific detail page. It felt like graduating from building static pages to creating a real, data-driven web application.
+            </p>
+        </div>
+
+        <div id="done" class="section">
+            <h2>What I Did (Step-by-Step)</h2>
+            <ol>
+                <li>
+                    <strong>Configured Media Files:</strong> I installed the `Pillow` library, created a `media/` directory, and configured `MEDIA_URL` and `MEDIA_ROOT` in `settings.py`. I also updated the project's `urls.py` to serve media files during development.
+                </li>
+                <li>
+                    <strong>Updated the Recipe Model:</strong> I added an `ImageField` to the `Recipe` model to store a picture for each recipe. I then ran `makemigrations` and `migrate` to apply this change to the database.
+                </li>
+                <li>
+                    <strong>Implemented Class-Based Views:</strong> In `recipes/views.py`, I created `RecipeListView` and `RecipeDetailView`. These generic views handle the logic for fetching all recipes and a single recipe, respectively, with just a few lines of code.
+                </li>
+                <li>
+                    <strong>Created Templates:</strong> I created the `recipes_list.html` and `recipes_detail.html` files inside the `recipes/templates/recipes/` directory. I used Django Template Language to loop through `object_list` and display recipe data, including the newly added images (`{{ object.pic.url }}`).
+                </li>
+                <li>
+                    <strong>Set Up URL Routing:</strong> I created `recipes/urls.py` and defined paths for the list and detail views. The detail view path (`<pk>`) captures the recipe's ID from the URL. I then included this app-level URL file in the main project's `urls.py`.
+                </li>
+                <li>
+                    <strong>Enabled Dynamic Linking:</strong> I added the `get_absolute_url` method to the `Recipe` model. This method tells Django how to generate the specific URL for any given recipe object. I then used this in the list template (`<a href="{{ object.get_absolute_url }}">`) to make each recipe title a clickable link to its detail page.
+                </li>
+                <li>
+                    <strong>Wrote Tests:</strong> I added a test to `recipes/tests.py` to verify that the `get_absolute_url` method returns the correct path, ensuring my URL configuration was working as expected.
+                </li>
+                <li>
+                    <strong>Styled the Pages:</strong> I applied a consistent CSS style across the homepage, recipe list, and recipe detail pages for a professional and cohesive user experience.
+                </li>
+            </ol>
+        </div>
+
+        <div id="issues" class="section">
+            <h2>Issues I Hit & Fixes</h2>
+            <ul>
+                <li>
+                    <strong>`IndentationError` in `models.py`:</strong> An early attempt to run migrations failed due to a stray indent on a comment line. **Fix:** Python's sensitivity to whitespace is a constant lesson! I carefully reviewed the file and removed the extra spaces to align the comment correctly with the class attributes.
+                </li>
+                <li>
+                    <strong>Admin Login Failure:</strong> My previous superuser account stopped working. **Fix:** I realized my database file (`db.sqlite3`) must have been reset, wiping out the old users. I ran `python manage.py createsuperuser` to create a new admin account, which immediately solved the problem.
+                </li>
+                <li>
+                    <strong>`TemplateDoesNotExist` Error:</strong> This was the biggest hurdle. My views were working, but Django couldn't find my HTML files. **Fix:** The problem was the folder structure. I had forgotten the crucial nested directory: `recipes/templates/recipes/`. Once I created the second `recipes` folder and moved my templates inside it, Django found them instantly. This hammered home the importance of Django's "convention over configuration" philosophy.
+                </li>
+                 <li>
+                    <strong>Broken Image Links:</strong> My initial seeding script kept failing because the image URLs from Unsplash were expiring. **Fix:** After several failed attempts, I learned to use a more stable image source like **DummyJSON**, which is designed for this purpose. This was a great lesson in the unreliability of hotlinking and the value of using dedicated placeholder services for development.
+                </li>
+            </ul>
+        </div>
+
+        <div id="skills" class="section">
+            <h2>New Skills Acquired</h2>
+            <ul>
+                <li>Configuring Django to serve both static and user-uploaded media files.</li>
+                <li>Using `ImageField` in models and understanding how it interacts with the file system.</li>
+                <li>Implementing Django's powerful Class-Based Views (`ListView`, `DetailView`) to write DRY (Don't Repeat Yourself) code.</li>
+                <li>Passing data from views to templates and rendering it with Django Template Language, including loops and conditionals.</li>
+                <li>Creating dynamic URLs that include object-specific information (like a primary key).</li>
+                <li>Using the `get_absolute_url` model method as the canonical way to link to an object's detail page.</li>
+                <li>Writing tests for URL configurations.</li>
+            </ul>
+        </div>
+
+        <div id="remember" class="section">
+            <h2>What I’ll Remember</h2>
+            <p>
+                The most significant takeaway is the power of Django's conventions. The `recipes/templates/recipes/` structure, the `get_absolute_url` method, and the automatic data passing in `ListView` (`object_list`) all seem magical at first, but they are designed to make development incredibly fast and organized once you learn the patterns.
+            </p>
+            <p>
+                I'll also remember the "Aha!" moment when I linked the list page to the detail page. Seeing the `get_absolute_url` method in the model, the `<pk>` in the URL pattern, and the `<a>` tag in the template all work together to generate the correct link for each recipe was a perfect demonstration of the MVT architecture in action.
+            </p>
+        </div>
+
+        <hr />
+        <div class="simple-box">Exercise 2.5 Complete ✓ — A fully functional, styled, and data-driven section of the app is now live!</div>
+
+    </div>
+</body>
+</html>

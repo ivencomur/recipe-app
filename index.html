@@ -78,18 +78,29 @@
         margin-bottom: 10px;
       }
 
-      p { 
-        margin-bottom: 12px; 
+      p {
+        margin-bottom: 12px;
         text-align: justify;
       }
 
-      ul { 
-        margin-left: 20px; 
-        margin-bottom: 15px;
+      ul {
+        list-style-type: none;
+        padding-left: 0;
       }
 
-      li { 
-        margin-bottom: 8px; 
+      li {
+        margin-bottom: 8px;
+      }
+      
+      .journal-card, .status-item, .tech-badge, .quick-link-btn {
+        border-radius: 5px;
+      }
+
+      .journal-card, .project-status {
+         background-color: var(--secondary-color);
+         padding: 15px;
+         margin: 10px 0;
+         border-left: 5px solid var(--primary-color);
       }
 
       a {
@@ -107,14 +118,6 @@
         margin-bottom: 30px;
       }
 
-      .project-status {
-        background-color: var(--secondary-color);
-        padding: 20px;
-        margin: 20px 0;
-        border-left: 5px solid var(--primary-color);
-        border-radius: 5px;
-      }
-
       .project-status h3 {
         color: var(--primary-color);
         margin-top: 0;
@@ -130,20 +133,11 @@
       .status-item {
         background: white;
         padding: 10px;
-        border-radius: 3px;
         border-left: 3px solid var(--customized-orange-light-bg);
       }
 
       .status-item strong {
         color: var(--primary-color);
-      }
-
-      .journal-card {
-        background: var(--secondary-color);
-        padding: 15px;
-        margin: 10px 0;
-        border-radius: 5px;
-        transition: transform 0.2s, box-shadow 0.2s;
       }
 
       .journal-card:hover {
@@ -179,7 +173,6 @@
         background: var(--primary-color);
         color: white;
         padding: 5px 10px;
-        border-radius: 15px;
         font-size: 12px;
       }
 
@@ -259,7 +252,6 @@
         background: rgba(255, 255, 255, 0.1);
         color: white;
         padding: 10px;
-        border-radius: 5px;
         text-decoration: none;
         transition: background 0.3s;
         display: block;
@@ -324,23 +316,23 @@
         <div class="status-grid">
           <div class="status-item">
             <strong>Current Exercise:</strong><br>
-            2.5 - Django MVT Revisited
+            2.6 - User Authentication
           </div>
           <div class="status-item">
             <strong>Progress:</strong><br>
-            4 of 8 exercises complete
+            5 of 8 exercises complete
           </div>
           <div class="status-item">
             <strong>Views Created:</strong><br>
-            3 (Home, List, Detail)
+            6 (Home, List, Detail, Login, Logout, Logout Success)
           </div>
           <div class="status-item">
             <strong>Templates Built:</strong><br>
-            3 (Home, List, Detail)
+            5 (Home, List, Detail, Login, Logout Success)
           </div>
           <div class="status-item">
             <strong>URL Patterns:</strong><br>
-            4 (Project & App Level)
+            7 (Project & App Level)
           </div>
           <div class="status-item">
             <strong>Next Milestone:</strong><br>
@@ -369,7 +361,7 @@
           <h4>📘 Exercise 2.1 - Getting Started with Django</h4>
           <p>Introduction to the Django framework, MVT architecture, and setting up a professional development environment.</p>
           <p><strong>Key Topics:</strong> MVT, virtual environments, project planning.</p>
-          <a href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.1_(8).html">📖 Read Full Journal</a>
+          <a href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.1_(8).html" target="_blank">📖 Read Full Journal</a>
           <span class="date">October 2025</span>
         </div>
 
@@ -377,7 +369,7 @@
           <h4>📗 Exercise 2.2 - Django Project Structure</h4>
           <p>Created the first Django project and apps, learning the distinction between the two and the overall file structure.</p>
           <p><strong>Key Topics:</strong> Project vs. App, `startproject`, `startapp`, `settings.py`.</p>
-          <a href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.2_(9).html">📖 Read Full Journal</a>
+          <a href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.2_(9).html" target="_blank">📖 Read Full Journal</a>
           <span class="date">October 2025</span>
         </div>
 
@@ -385,7 +377,7 @@
           <h4>📙 Exercise 2.3 - Django Models</h4>
           <p>Designed the database schema, defined models with various field types, handled relationships, and used the migration system.</p>
           <p><strong>Key Topics:</strong> Models, ORM, `makemigrations`, `migrate`, Django admin.</p>
-          <a href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.3_(10).html">📖 Read Full Journal</a>
+          <a href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.3_(10).html" target="_blank">📖 Read Full Journal</a>
           <span class="date">October 2025</span>
         </div>
 
@@ -393,7 +385,7 @@
           <h4>📕 Exercise 2.4 - Django Views & Templates</h4>
           <p>Brought the application to life by building a view to handle requests and a template to structure the HTML homepage.</p>
           <p><strong>Key Topics:</strong> FBVs, DTL, context, `render()`, `include()`.</p>
-          <a href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.4_(11).html">📖 Read Full Journal</a>
+          <a href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.4_(11).html" target="_blank">📖 Read Full Journal</a>
           <span class="date">October 2025</span>
         </div>
 
@@ -401,10 +393,17 @@
           <h4>📔 Exercise 2.5 - Django MVT Revisited</h4>
           <p>Enabled image uploads, displayed database content on the front end, and created dynamic links between pages.</p>
           <p><strong>Key Topics:</strong> Media files, Class-Based Views, `get_absolute_url`.</p>
-          <a href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.5_(12).html">📖 Read Full Journal</a>
+          <a href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.5_(12).html" target="_blank">📖 Read Full Journal</a>
           <span class="date">October 2025</span>
         </div>
 
+        <div class="journal-card">
+            <h4>🔑 Exercise 2.6 - User Authentication</h4>
+            <p>Implemented a secure login/logout system and protected recipe views so they are only accessible to authenticated users.</p>
+            <p><strong>Key Topics:</strong> Auth Views, `LoginRequiredMixin`, `user.is_authenticated`, `LOGIN_URL`.</p>
+            <a href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.6_(13).html" target="_blank">📖 Read Full Journal</a>
+            <span class="date">October 2025</span>
+        </div>
       </div>
 
       <div class="section" id="roadmap">
@@ -412,17 +411,17 @@
         
         <h3>✅ Completed</h3>
         <ul>
-          <li><strong>Exercise 2.1 - 2.5:</strong> Project setup, models, admin, basic views, templates, and media files.</li>
+          <li><strong>Exercise 2.1 - 2.6:</strong> Project setup, models, admin, views, templates, media files, and user authentication.</li>
         </ul>
 
         <h3>🚧 In Progress</h3>
         <ul>
-          <li><strong>Exercise 2.6:</strong> Implementing forms to allow users to create and edit recipes.</li>
+          <li><strong>Exercise 2.7:</strong> Django Forms for user input.</li>
         </ul>
 
         <h3>📅 Upcoming Features</h3>
         <ul>
-          <li>User authentication and personalized recipe collections</li>
+          <li>Personalized recipe collections per user</li>
           <li>Data analysis and visualization</li>
           <li>Deployment to a live server</li>
         </ul>
@@ -479,3 +478,4 @@
     </script>
   </body>
 </html>
+

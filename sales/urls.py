@@ -1,13 +1,11 @@
 # sales/urls.py
-from django.urls import path
-from .views import home
 
-# Namespace for this app's URLs
+from django.urls import path
+from .views import home  # Make sure 'home' is defined in sales/views.py
+
 app_name = 'sales'
 
 urlpatterns = [
-    # Route: '' (empty) maps to root when included at project level
-    # View: home function from views.py
-    # Name: 'home' for reverse URL lookup ({% url 'sales:home' %})
+    # This file should ONLY define the path for the homepage within the sales app.
     path('', home, name='home'),
 ]

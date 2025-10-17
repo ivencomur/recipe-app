@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ object.name }}</title>
+    <title>Login</title>
     <style>
       :root {
         --primary-color: #20504b;
@@ -12,6 +12,7 @@
         --text-color: #333;
         --alt-grid-item-text-color: #0056b3;
         --customized-orange-dark-bg: #ffa061;
+        --error-color: #d9534f;
       }
       * {
         margin: 0;
@@ -39,73 +40,60 @@
         padding: 20px;
         text-align: center;
         margin: -0.75in -0.75in 30px -0.75in;
-        position: relative;
-      }
-      .auth-links {
-        position: absolute;
-        top: 10px;
-        right: 20px;
-      }
-      .auth-links a {
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-        background-color: rgba(255, 255, 255, 0.2);
-        padding: 5px 10px;
-        border-radius: 4px;
-        transition: background-color 0.2s;
-      }
-      .auth-links a:hover {
-        background-color: rgba(255, 255, 255, 0.4);
       }
       .page-header h1 {
         color: #fff;
         font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
         border-bottom: none;
       }
-      .logout-button {
-        display: inline-block;
-        margin-top: 10px;
-        padding: 8px 16px;
-        background-color: var(--customized-orange-dark-bg);
-        color: var(--primary-color);
-        text-decoration: none;
-        border-radius: 5px;
-        font-weight: bold;
-        transition: background-color 0.2s;
-      }
-      .logout-button:hover {
-        background-color: #fff;
-      }
-
       .content {
         padding: 1rem 0;
+        max-width: 400px;
+        margin: 0 auto;
       }
-      .recipe-detail-img {
-        width: 100%;
-        max-width: 600px;
-        height: auto;
-        border-radius: 8px;
-        margin-bottom: 1.5rem;
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
       }
-      .section h2 {
-        color: var(--alt-grid-item-text-color);
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-        border-bottom: 3px solid var(--primary-color);
-        padding-bottom: 0.5rem;
+      form p {
+        display: flex;
+        flex-direction: column;
       }
-      .back-link {
-        display: inline-block;
-        margin-bottom: 1rem;
-        color: var(--primary-color);
-        text-decoration: none;
+      form label {
+        margin-bottom: 5px;
         font-weight: bold;
+        color: var(--primary-color);
       }
-      .back-link:hover {
-        color: var(--primary-hover-color);
+      form input {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1rem;
+        width: 100%;
+      }
+      .login-button {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+      .login-button:hover {
+        background-color: var(--primary-hover-color);
+      }
+      .error-message {
+        color: var(--error-color);
+        background-color: #fddede;
+        border: 1px solid var(--error-color);
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+        text-align: center;
       }
       .page-footer {
         background-color: var(--primary-color);
@@ -164,47 +152,18 @@
   <body>
     <div class="container">
       <div class="page-header">
-        <h1>{{ object.name }}</h1>
-        <a href="{% url 'logout' %}" class="logout-button">Logout</a>
+        <h1>Login to Your Recipe App</h1>
       </div>
 
       <div class="content">
-        <a href="{% url 'recipes:list' %}" class="back-link"
-          ><< Back to All Recipes</a
-        >
-        <br />
-        {% if object.pic %}
-        <img
-          src="{{ object.pic.url }}"
-          alt="{{ object.name }}"
-          class="recipe-detail-img"
-        />
-        {% else %}
-        <img
-          src="https://placehold.co/600x400/EEE/31343C?text=No+Image"
-          alt="No image available"
-          class="recipe-detail-img"
-        />
+        {% if error_message %}
+        <div class="error-message">{{ error_message }}</div>
         {% endif %}
 
-        <div class="section">
-          <h2>Details</h2>
-          <p><b>Cooking Time:</b> {{ object.cook_time_minutes }} minutes</p>
-        </div>
-
-        <div class="section">
-          <h2>Ingredients</h2>
-          <ul>
-            {% for ri in object.recipeingredient_set.all %}
-            <li>{{ ri.ingredient.name }}: {{ ri.quantity }} {{ ri.unit }}</li>
-            {% endfor %}
-          </ul>
-        </div>
-
-        <div class="section">
-          <h2>Instructions</h2>
-          <p>{{ object.description|linebreaks }}</p>
-        </div>
+        <form action="{% url 'login' %}" method="POST">
+          {% csrf_token %} {{ form.as_p }}
+          <button type="submit" class="login-button">Login</button>
+        </form>
       </div>
 
       <div class="page-footer">
@@ -219,6 +178,7 @@
             target="_blank"
             >LinkedIn</a
           >
+          <a href="https://x.com/IVENCOMUR" target="_blank">Twitter</a>
           <a href="https://github.com/ivencomur" target="_blank">GitHub</a>
         </div>
         <p>
@@ -232,7 +192,6 @@
 
     <div class="floating-nav">
       <a href="/" title="Go to Home">🏠</a>
-      <a href="javascript:history.back()" title="Go Back">⬅️</a>
     </div>
   </body>
 </html>

@@ -1,392 +1,315 @@
-Recipe App - Django Web Application
+# Recipe App – Django Web Application
 
-📚 Python for Web Developers - Achievement 2
+_Achievement 2 • CareerFoundry – Python for Web Developers_
 
-Student: Ivan Cortes
+**Student:** Ivan Cortes  
+**Repository:** `recipe-app` (Django-based Recipe Management System)  
+**Last Updated:** October 17, 2025
 
-Course: CareerFoundry - Python for Web Developers
+---
 
-Repository: Django-based Recipe Management System
+## Table of Contents
+1. [Overview](#overview)
+2. [Learning Objectives](#learning-objectives)
+3. [Environment & Specs](#environment--specs)
+4. [Project Structure](#project-structure)
+5. [Installation & Setup (Windows + Git Bash)](#installation--setup-windows--git-bash)
+6. [Running the App](#running-the-app)
+7. [Authentication & Access Control](#authentication--access-control)
+8. [Data Models](#data-models)
+9. [Testing](#testing)
+10. [Development Workflow](#development-workflow)
+11. [Known Issues & TODOs](#known-issues--todos)
+12. [Future Enhancements](#future-enhancements)
+13. [Resources](#resources)
+14. [Deliverables](#deliverables)
+15. [Technical Notes](#technical-notes)
+16. [Author & Links](#author--links)
+17. [AI Assistance Note](#ai-assistance-note)
+18. [Screenshots List](#screenshots-list)
 
-🎯 Project Overview
+---
 
-This Django web application is the evolution of the command-line Recipe App from Achievement 1. It demonstrates the transition from CLI to a full web-based application using Django's MVT architecture.
+## Overview
+This Django web application evolves the command‑line Recipe App from **Achievement 1** into a full web application following Django’s **MVT** (Model–View–Template) architecture. It adds authentication, protected views, image uploads, and model relationships, and includes example apps for a simple bookstore/sales domain to practice multi‑app projects.
 
-Current Features (Exercise 2.5)
+**Current scope (Exercise 2.6):**
+- Project with multiple Django apps
+- Recipe management (with Ingredients via Many‑to‑Many through model)
+- Image uploads for recipes (media handling)
+- Styled pages for recipe list/detail
+- **New:** User authentication (login/logout) and protected recipe views
+- Example domain: Books, Customers, Salespersons, Sales
+- SQLite database, migrations, and configured Django Admin
+- URL and model tests
 
-✅ Django project structure with multiple apps
+---
 
-✅ Recipe management with ingredients (Many-to-Many relationships)
+## Learning Objectives
+By the end of Achievement 2 you will be able to:
+- Explain and implement Django’s **MVT** pattern.
+- Design models with **ForeignKey** and **Many‑to‑Many** (including `through`) relationships.
+- Configure static/media files and handle **image uploads**.
+- Build **Function‑Based Views (FBV)** and **Class‑Based Views (CBV)** (ListView, DetailView).
+- Implement **authentication** (login/logout) and protect views with `LoginRequiredMixin`.
+- Use **URL routing** with namespacing and reverse resolution (`{% url %}`, `redirect()`).
+- Write and run **model/URL tests** using Django’s `TestCase`.
 
-✅ (New) Image uploads for recipes with media file handling
+---
 
-✅ (New) Dynamic, styled front-end pages for recipe lists and details
+## Environment & Specs
+- **Recommended (per course):** Python **3.9.x** (use a virtualenv)
+- **Local dev used here:** Python **3.13.5**, Django **5.2.7** *(project runs on this stack; if following course specs, pin to Python 3.9 and a compatible Django per your tutor’s guidance)*
+- **Database:** SQLite (development)
+- **IDE:** VS Code (recommended)
+- **Version Control:** Git + GitHub
 
-✅ Book inventory system (from bookstore example)
+> If you’re following CareerFoundry’s exact environment guidance, prefer Python **3.9** in a virtual environment.
 
-✅ Sales tracking with customers and salespersons
+---
 
-✅ SQLite database with migrations
-
-✅ Django admin interface configured
-
-✅ Comprehensive model and URL testing
-
-📁 Project Structure
-
+## Project Structure
+```
 recipe-app/
-├── recipe_project/          # Main Django project folder
+├── recipe_project/          # Main project
 │   ├── settings.py
-│   └── urls.py
+│   ├── urls.py
+│   └── views.py             # Project-level auth views (login/logout)
 │
 ├── recipes/                 # Recipe management app
 │   ├── migrations/
-│   ├── templates/recipes/   # HTML templates for the app
+│   ├── templates/recipes/
 │   │   ├── recipes_list.html
 │   │   └── recipes_detail.html
 │   ├── admin.py
 │   ├── models.py
 │   ├── tests.py
-│   ├── urls.py              # App-specific URL routing
+│   ├── urls.py
+│   └── views.py             # Uses LoginRequiredMixin
+│
+├── sales/                   # App for homepage
+│   ├── templates/sales/
+│   │   └── recipes_home.html  # Conditional login/view button
+│   ├── urls.py
 │   └── views.py
 │
-├── media/                   # Stores user-uploaded images
+├── templates/               # Project-level templates
+│   └── auth/
+│       ├── login.html
+│       └── logout_success.html
 │
-├── sales/                   # App for the homepage
+├── media/                   # User-uploaded images
 │
-├── books/                   # (Example app)
-├── customers/               # (Example app)
-├── salespersons/            # (Example app)
+├── books/                   # Example app
+├── customers/               # Example app
+├── salespersons/            # Example app
 │
-├── manage.py                # Django management script
-├── db.sqlite3               # SQLite database
-├── requirements.txt         # Python dependencies
-└── .gitignore               # Git ignore file
+├── manage.py
+├── db.sqlite3
+├── requirements.txt
+└── .gitignore
+```
 
+---
 
-🛠️ Installation & Setup
+## Installation & Setup (Windows + Git Bash)
 
-Prerequisites
-
-Python 3.8 or higher
-
-pip (Python package manager)
-
-Git
-
-Step 1: Clone the Repository
-
-git clone [https://github.com/ivencomur/recipe-app.git](https://github.com/ivencomur/recipe-app.git)
+### 1) Clone the repository
+```bash
+git clone https://github.com/ivencomur/recipe-app.git
 cd recipe-app
+```
 
+> **Tip:** If your local repo was created elsewhere and you need to push to `recipe-app`, add it as a remote:
+```bash
+git remote add origin https://github.com/ivencomur/recipe-app.git
+# or if you already have an 'origin', add a second remote name:
+# git remote add recipe-app https://github.com/ivencomur/recipe-app.git
+```
 
-Step 2: Create Virtual Environment
-
-# Windows (Git Bash)
-python -m venv .venv
+### 2) Create & activate a virtual environment
+**Course‑preferred (Python 3.9):**
+```bash
+python3 -m venv .venv   # or: python -m venv .venv
 source .venv/Scripts/activate
+```
+> If `python3` is not found, use `py -3.9 -m venv .venv` then `source .venv/Scripts/activate`.
 
-
-Step 3: Install Dependencies
-
+### 3) Install dependencies
+```bash
 pip install -r requirements.txt
+```
 
-
-Step 4: Run Migrations
-
+### 4) Apply migrations
+```bash
 python manage.py migrate
+```
 
-
-Step 5: Create Superuser (for Admin Access)
-
+### 5) Create a superuser (for Admin)
+```bash
 python manage.py createsuperuser
+```
 
-
-Step 6: Run Development Server
-
+### 6) Run the development server
+```bash
 python manage.py runserver
+```
+Visit:
+- App home: <http://127.0.0.1:8000/>
+- Admin: <http://127.0.0.1:8000/admin/>
 
+---
 
-Visit: http://127.0.0.1:8000/ and http://127.0.0.1:8000/admin/
+## Running the App
+- Home page is served by the **sales** app’s view/template.
+- Recipes list/detail require login. Use the top‑right link to **Log in**.
+- Uploaded recipe images are saved under `media/` (ensure `MEDIA_URL`/`MEDIA_ROOT` configured in `settings.py`).
 
-📊 Data Models
+---
 
-Recipe App Models
+## Authentication & Access Control
+- Project‑level `login`/`logout` views and templates under `templates/auth/`.
+- `LoginRequiredMixin` protects recipe list/detail views.
+- `LOGIN_URL` is set so unauthenticated users are redirected to login.
+- Templates use `user.is_authenticated` to render login/logout buttons conditionally.
 
-Recipe Model
+---
 
-name: CharField (recipe name)
+## Data Models
+### Recipe Domain
+**Recipe**
+- `name` *(CharField)*
+- `description` *(TextField)*
+- `cook_time_minutes` *(PositiveIntegerField)*
+- `pic` *(ImageField)*
+- `ingredients` *(ManyToManyField through `RecipeIngredient`)*
+- `created_at` *(DateTimeField auto‑added)*
 
-description: TextField (recipe instructions)
+**Ingredient**
+- `name` *(CharField, unique)*
 
-cook_time_minutes: PositiveIntegerField (cooking time)
+**RecipeIngredient** (through model)
+- `recipe` *(ForeignKey → Recipe)*
+- `ingredient` *(ForeignKey → Ingredient)*
+- `quantity` *(FloatField)*
+- `unit` *(CharField)*
 
-pic: ImageField (recipe picture) (New)
+### Book / Sales Examples
+**Book**
+- `name`, `author_name`, `price` *(Float)*, `genre` *(choices)*, `book_type` *(choices)*
 
-ingredients: ManyToManyField (through RecipeIngredient)
+**Customer**
+- `name`, `notes`
 
-created_at: DateTimeField (auto-added)
+**Salesperson**
+- `username`, `name`, `bio`
 
-Ingredient Model
+---
 
-name: CharField (unique ingredient name)
-
-RecipeIngredient Model (Junction Table)
-
-recipe: ForeignKey to Recipe
-
-ingredient: ForeignKey to Ingredient
-
-quantity: FloatField (amount needed)
-
-unit: CharField (measurement unit)
-
-Book Inventory Models
-
-Book Model
-
-name: CharField
-
-author_name: CharField
-
-price: FloatField (in USD)
-
-genre: CharField with choices
-
-book_type: CharField with choices
-
-Customer & Sales Models
-
-Customer: name and notes
-
-Salesperson: username, name, and bio
-
-🧪 Running Tests
-
-Run All Tests
-
+## Testing
+Run all tests:
+```bash
 python manage.py test
-
-
-Run Tests for Specific App
-
+```
+Specific app:
+```bash
 python manage.py test recipes
+```
+**Coverage focus:**
+- Field validations & constraints (incl. `max_length`, validators, unique)
+- Model string representations
+- Default values
+- M2M relationships via `RecipeIngredient`
+- `get_absolute_url()` correctness
+
+---
+
+## Development Workflow
+1. Create a feature branch from `main`.
+2. Make changes and run locally.
+3. Run tests (`python manage.py test`).
+4. Commit with descriptive messages.
+5. Push and open a Pull Request.
+
+---
+
+## Known Issues & TODOs
+- [x] Implement recipe list/detail views
+- [x] Create HTML templates for UI
+- [x] Add URL routing for all apps
+- [x] Implement recipe image uploads
+- [x] Add User Authentication (Login/Logout)
+- [x] Protect Recipe Views
+- [ ] Implement recipe **search**
+- [ ] Create **forms** for recipe creation/editing
+
+---
+
+## Future Enhancements
+- Recipe categories and tags
+- User favorites and ratings
+- Shopping list generation
+- Meal planning features
+- Nutrition information
+
+---
+
+## Resources
+**Documentation**
+- Django Official Docs
+- Django Tutorial
+- Django Models Reference
+- Django Admin Docs
+
+**Course Materials**
+- CareerFoundry – Python for Web Developers (Achievement 2)
+- Exercise materials & course repo
+
+---
+
+## Deliverables
+- Django project with multi‑app structure
+- Protected recipe list & detail pages
+- Working image upload pipeline
+- Admin configured for all models
+- Passing tests for models/URLs
+
+---
+
+## Technical Notes
+- If you need to target the **`recipe-app`** GitHub repo explicitly from a different local folder, add or switch remotes:
+  ```bash
+  git remote -v
+  git remote add recipe-app https://github.com/ivencomur/recipe-app.git
+  # or switch your existing origin
+  git remote set-url origin https://github.com/ivencomur/recipe-app.git
+  ```
+- Media files require proper `MEDIA_URL` and `MEDIA_ROOT` plus development `urlpatterns` to serve media in `DEBUG=True`.
+- For strict course parity, prefer **Python 3.9** and lock Django to the version used in the module; otherwise ensure your installed Django supports your Python runtime (this project also runs on Python 3.13.5 + Django 5.2.7 locally).
+
+---
+
+## Author & Links
+**Author:** Ivan Cortes
+
+- **Portfolio:** ivan-cortes-portfolio-v1.onrender.com  
+- **LinkedIn:** Ivan Cortes Murcia  
+- **GitHub:** @ivencomur  
+- **Twitter:** @IVENCOMUR
+
+> This is a learning project for CareerFoundry’s Python course; feedback and suggestions are welcome!
+
+---
+
+## AI Assistance Note
+Parts of this README and boilerplate scaffolding were organized with the help of an AI assistant for clarity, structure, and consistency. All code and configuration were reviewed and tested locally by the student.
+
+---
+
+## Screenshots List
+Screenshots live in **PYTHON-ACHIEVEMENT-2** (separate repo). For Exercise **2.6**, include (suggested filenames):
+1. `2.6_login_page.png` – Project‑level login screen
+2. `2.6_recipes_list_protected.png` – Protected recipe list view (post‑login)
+3. `2.6_recipe_detail_protected.png` – Protected recipe detail view (post‑login)
+4. `2.6_logout_confirmation.png` – Logout confirmation page
 
-
-Test Coverage
-
-✅ Model field validations
-
-✅ Model string representations
-
-✅ Default values
-
-✅ Field constraints (max_length, validators)
-
-✅ Unique constraints
-
-✅ Many-to-Many relationships
-
-✅ (New) get_absolute_url() method for correct URL generation.
-
-🎓 Learning Journey
-
-Exercise 2.1 - Getting Started with Django
-
-Set up development environment and installed Django.
-
-Learned MVT architecture.
-
-Exercise 2.2 - Django Project Structure
-
-Created Django project and multiple apps.
-
-Designed database models and configured admin.
-
-Exercise 2.3 - Django Models
-
-Implemented models.py for all apps.
-
-Used the migration system (makemigrations, migrate).
-
-Customized the Django admin for a better UI.
-
-Exercise 2.4 - Django Views & Templates
-
-Created a Function-Based View (FBV) and a template for the homepage.
-
-Set up initial project and app URL routing.
-
-Exercise 2.5 - Django MVT Revisited (Current)
-
-Configured the project to handle user-uploaded images (media files).
-
-Implemented Class-Based Views (ListView, DetailView).
-
-Created dynamic templates to display database content.
-
-Enabled clickable links between list and detail pages using get_absolute_url.
-
-Upcoming Exercises
-
-Exercise 2.6: Django Forms
-
-Exercise 2.7: User Authentication
-
-Exercise 2.8: Deployment
-
-💡 Key Django Concepts Applied
-
-MVT Architecture
-
-Models: Database structure (recipes, ingredients, books)
-
-Views: Business logic implemented with Function-Based and Class-Based Views. (Updated)
-
-Templates: HTML presentation with dynamic data via Django Template Language. (Updated)
-
-Django ORM
-
-Model definitions with field types
-
-Model relationships (ForeignKey, ManyToMany)
-
-Migrations for database schema changes
-
-QuerySets for database queries
-
-Django Admin
-
-Automatic admin interface generation
-
-Model registration with customization
-
-List display, search, and filters
-
-Inline editing for related models
-
-🐛 Known Issues & TODOs
-
-Current TODOs
-
-[x] Implement views for recipe listing and details
-
-[x] Create HTML templates for user interface
-
-[x] Add URL routing for all apps
-
-[x] Implement recipe image uploads
-
-[ ] Implement recipe search functionality
-
-[ ] Add recipe difficulty calculation
-
-[ ] Create forms for recipe creation/editing
-
-[ ] Add user authentication
-
-Future Enhancements
-
-Recipe categories and tags
-
-User favorites and ratings
-
-Shopping list generation
-
-Meal planning features
-
-Nutrition information
-
-Recipe sharing functionality
-
-📚 Resources
-
-Documentation
-
-Django Official Documentation
-
-Django Tutorial
-
-Django Models Reference
-
-Django Admin Documentation
-
-Course Materials
-
-CareerFoundry Python for Web Developers
-
-Achievement 2 Exercise Materials
-
-Course Repository
-
-🤝 Contributing
-
-This is a learning project for CareerFoundry's Python course. While it's primarily for educational purposes, feedback and suggestions are welcome!
-
-Development Workflow
-
-Create feature branch from main
-
-Make changes and test locally
-
-Run tests to ensure nothing breaks
-
-Commit with descriptive messages
-
-Push and create pull request
-
-📝 License
-
-This project is part of CareerFoundry's educational curriculum and is for learning purposes.
-
-👤 Author
-
-Ivan Cortes
-
-Portfolio: ivan-cortes-portfolio-v1.onrender.com
-
-LinkedIn: Ivan Cortes Murcia
-
-GitHub: @ivencomur
-
-Twitter: @IVENCOMUR
-
-🙏 Acknowledgments
-
-CareerFoundry for the comprehensive curriculum
-
-Django Software Foundation for the excellent framework
-
-Python community for extensive documentation and support
-
-📸 Screenshots
-
-Django Admin Interface
-
-Coming soon: Screenshots of the admin interface showing recipe and book management
-
-Project Structure in VS Code
-
-Coming soon: IDE view showing the organized project structure
-
-Test Results
-
-Coming soon: Terminal output showing successful test runs
-
-🔧 Technical Stack
-
-Language: Python 3.13.5
-
-Framework: Django 5.2.7
-
-Database: SQLite (development)
-
-Version Control: Git/GitHub
-
-IDE: VS Code
-
-Testing: Django's built-in TestCase
-
-Last Updated: October 2025
-Course: CareerFoundry - Python for Web Developers
-Achievement 2 - Web Development with Django

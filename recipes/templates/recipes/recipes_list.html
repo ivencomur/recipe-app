@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recipe Collection</title>
     <style>
       :root {
@@ -10,12 +10,13 @@
         --primary-hover-color: #1a403c;
         --secondary-color: #f4f4f4;
         --text-color: #333;
-        --grid-item-bg-color: #2c3e50;
-        --alt-grid-item-text-color: #0056b3;
-        --customized-orange-light-bg: #b46100;
         --customized-orange-dark-bg: #ffa061;
       }
-      * { margin: 0; padding: 0; box-sizing: border-box; }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
       body {
         font-family: "Lato", sans-serif;
         line-height: 1.6;
@@ -28,7 +29,7 @@
         margin: 0 auto;
         background: white;
         padding: 0.75in;
-        box-shadow: 0 0 10px rgba(0,0,0,.1);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         overflow: hidden;
       }
       .page-header {
@@ -37,6 +38,24 @@
         padding: 20px;
         text-align: center;
         margin: -0.75in -0.75in 30px -0.75in;
+        position: relative;
+      }
+      .auth-links {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+      }
+      .auth-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        background-color: rgba(255, 255, 255, 0.2);
+        padding: 5px 10px;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+      }
+      .auth-links a:hover {
+        background-color: rgba(255, 255, 255, 0.4);
       }
       .page-header h1 {
         color: #fff;
@@ -45,7 +64,25 @@
         margin-bottom: 0.5rem;
         border-bottom: none;
       }
-      .content { padding: 1rem 0; }
+      /* Add this to the <style> block in recipes_list.html AND recipes_detail.html */
+
+      .logout-button {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 8px 16px;
+        background-color: var(--customized-orange-dark-bg);
+        color: var(--primary-color);
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.2s;
+      }
+      .logout-button:hover {
+        background-color: #fff;
+      }
+      .content {
+        padding: 1rem 0;
+      }
       .recipe-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -57,12 +94,12 @@
         background: var(--secondary-color);
         border-radius: 8px;
         overflow: hidden;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
         transition: transform 0.2s, box-shadow 0.2s;
       }
       .recipe-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
       }
       .recipe-card img {
         width: 100%;
@@ -96,50 +133,102 @@
         font-weight: bold;
         text-decoration: none;
       }
-      .page-footer a:hover { color: #fff; text-decoration: underline; }
-      .page-footer .social-links { margin-bottom: 15px; }
-      .page-footer .social-links a { margin: 0 10px; }
-      .floating-nav { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
-      .floating-nav a { background-color: var(--primary-color); color: white; padding: 12px; border-radius: 50%; text-decoration: none; font-weight: bold; box-shadow: 0 4px 8px rgba(0,0,0,.2); transition: all .3s ease; font-size: 20px; text-align: center; width: 50px; height: 50px; line-height: 26px; }
-      .floating-nav a:hover { background-color: var(--customized-orange-dark-bg); color: var(--primary-color); transform: translateY(-2px); }
+      .page-footer a:hover {
+        color: #fff;
+        text-decoration: underline;
+      }
+      .page-footer .social-links {
+        margin-bottom: 15px;
+      }
+      .page-footer .social-links a {
+        margin: 0 10px;
+      }
+      .floating-nav {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 1000;
+      }
+      .floating-nav a {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 12px;
+        border-radius: 50%;
+        text-decoration: none;
+        font-weight: bold;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        font-size: 20px;
+        text-align: center;
+        width: 50px;
+        height: 50px;
+        line-height: 26px;
+      }
+      .floating-nav a:hover {
+        background-color: var(--customized-orange-dark-bg);
+        color: var(--primary-color);
+        transform: translateY(-2px);
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <div class="page-header">
-            <h1>Our Recipe Collection</h1>
-        </div>
+      <div class="page-header">
+        <h1>Our Recipe Collection</h1>
+        <a href="{% url 'logout' %}" class="logout-button">Logout</a>
+      </div>
 
-        <div class="content">
-            <ul class="recipe-grid">
-                {% for object in object_list %}
-                <li class="recipe-card">
-                    {% if object.pic %}
-                        <img src="{{ object.pic.url }}" alt="{{ object.name }}">
-                    {% endif %}
-                    <div class="recipe-card-content">
-                        <h3><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h3>
-                    </div>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-
-        <div class="page-footer">
-            <div class="social-links">
-              <a href="https://ivan-cortes-portfolio-v1.onrender.com/" target="_blank">Portfolio</a>
-              <a href="https://www.linkedin.com/in/ivan-cortes-murcia-22053953/" target="_blank">LinkedIn</a>
-              <a href="https://x.com/IVENCOMUR" target="_blank">Twitter</a>
-              <a href="https://github.com/ivencomur" target="_blank">GitHub</a>
+      <div class="content">
+        <ul class="recipe-grid">
+          {% for object in object_list %}
+          <li class="recipe-card">
+            {% if object.pic %}
+            <img src="{{ object.pic.url }}" alt="{{ object.name }}" />
+            {% else %}
+            <img
+              src="https://placehold.co/600x400/EEE/31343C?text=No+Image"
+              alt="No image available"
+            />
+            {% endif %}
+            <div class="recipe-card-content">
+              <h3>
+                <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+              </h3>
             </div>
-            <p><a href="https://github.com/ivencomur/recipe-app" target="_blank">Project Repository</a></p>
-            <p>Python for Web Developers @ CareerFoundry 2025</p>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="page-footer">
+        <div class="social-links">
+          <a
+            href="https://ivan-cortes-portfolio-v1.onrender.com/"
+            target="_blank"
+            >Portfolio</a
+          >
+          <a
+            href="https://www.linkedin.com/in/ivan-cortes-murcia-22053953/"
+            target="_blank"
+            >LinkedIn</a
+          >
+          <a href="https://github.com/ivencomur" target="_blank">GitHub</a>
         </div>
+        <p>
+          <a href="https://github.com/ivencomur/recipe-app" target="_blank"
+            >Project Repository</a
+          >
+        </p>
+        <p>Python for Web Developers @ CareerFoundry 2025</p>
+      </div>
     </div>
 
     <div class="floating-nav">
       <a href="/" title="Go to Home">🏠</a>
       <a href="javascript:history.back()" title="Go Back">⬅️</a>
     </div>
-</body>
+  </body>
 </html>

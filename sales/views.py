@@ -4,11 +4,6 @@ from django.shortcuts import render
 def home(request):
     """
     Home page view for Recipe App.
-    
-    This is a Function-Based View (FBV) that:
-    - Accepts an HttpRequest object
-    - Prepares context data for the template
-    - Returns an HttpResponse via render()
     """
     context = {
         'app_name': 'Recipe Collection',
@@ -19,7 +14,7 @@ def home(request):
             'Search and filter your collection',
             'Share recipes with friends'
         ],
-        'exercise': 'Exercise 2.4: Django Views & Templates'
+        'exercise': 'Exercise 2.6: User Authentication' # Updated exercise name
     }
-    
+
     return render(request, 'sales/recipes_home.html', context)
