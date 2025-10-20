@@ -91,7 +91,7 @@
       li {
         margin-bottom: 8px;
       }
-      
+
       .journal-card, .status-item, .tech-badge, .quick-link-btn {
         border-radius: 5px;
       }
@@ -298,7 +298,7 @@
       <div class="section">
         <h2>🎯 Project Overview</h2>
         <p>
-          Welcome to my Recipe App repository! This Django web application represents the evolution of my command-line Recipe App from Achievement 1 into a full-featured web application. Follow my learning journey as I transform Python scripts into a professional Django project with database models, views, templates, and deployment.
+          Welcome to my Recipe App repository! This Django web application represents the evolution of my command-line Recipe App from Achievement 1 into a full-featured web application. Follow my learning journey as I transform Python scripts into a professional Django project with database models, views, templates, user authentication, search, data visualization, and deployment.
         </p>
 
         <div class="tech-stack">
@@ -308,6 +308,10 @@
           <span class="tech-badge">HTML5</span>
           <span class="tech-badge">CSS3</span>
           <span class="tech-badge">Git/GitHub</span>
+          {/* */}
+          <span class="tech-badge">Pandas</span>
+          <span class="tech-badge">Matplotlib</span>
+          {/* */}
         </div>
       </div>
 
@@ -316,27 +320,33 @@
         <div class="status-grid">
           <div class="status-item">
             <strong>Current Exercise:</strong><br>
-            2.6 - User Authentication
+             {/* */}
+            2.7 - Search & Charts
           </div>
           <div class="status-item">
             <strong>Progress:</strong><br>
-            5 of 8 exercises complete
+             {/* */}
+            6 of 8 exercises complete
           </div>
           <div class="status-item">
             <strong>Views Created:</strong><br>
-            6 (Home, List, Detail, Login, Logout, Logout Success)
+             {/* */}
+            7 (Home, List, Detail, Login, Logout, Logout Success, Search)
           </div>
           <div class="status-item">
             <strong>Templates Built:</strong><br>
-            5 (Home, List, Detail, Login, Logout Success)
+             {/* */}
+            6 (Home, List, Detail, Login, Logout Success, Search)
           </div>
           <div class="status-item">
             <strong>URL Patterns:</strong><br>
-            7 (Project & App Level)
+             {/* */}
+            8+ (Project & App Level incl. Search)
           </div>
           <div class="status-item">
             <strong>Next Milestone:</strong><br>
-            Django Forms & User Input
+             {/* */}
+            Deployment (Exercise 2.8)
           </div>
         </div>
       </div>
@@ -357,6 +367,7 @@
           Each journal documents the goals, challenges, solutions, and key takeaways from each exercise. These are written from a beginner's perspective to help others on the same learning path.
         </p>
 
+        {/* --- Existing Journal Cards --- */}
         <div class="journal-card">
           <h4>📘 Exercise 2.1 - Getting Started with Django</h4>
           <p>Introduction to the Django framework, MVT architecture, and setting up a professional development environment.</p>
@@ -404,26 +415,39 @@
             <a href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.6_(13).html" target="_blank">📖 Read Full Journal</a>
             <span class="date">October 2025</span>
         </div>
+        {/* --- END Existing --- */}
+
+        {/* */}
+        <div class="journal-card">
+            <h4>📊 Exercise 2.7 - Django Forms & Data Visualization</h4>
+            <p>Added recipe search functionality using Django Forms and integrated Pandas/Matplotlib for dynamic chart generation based on search results.</p>
+            <p><strong>Key Topics:</strong> `forms.Form`, GET/POST handling, QuerySet filtering (`Q` objects), Matplotlib ('Agg' backend), `BytesIO`, `base64`.</p>
+            <a href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.7_(14).html" target="_blank">📖 Read Full Journal</a>
+            <span class="date">October 2025</span>
+        </div>
+        {/* */}
       </div>
 
       <div class="section" id="roadmap">
         <h2>🗺️ Development Roadmap</h2>
-        
+
         <h3>✅ Completed</h3>
         <ul>
-          <li><strong>Exercise 2.1 - 2.6:</strong> Project setup, models, admin, views, templates, media files, and user authentication.</li>
+          {/* */}
+          <li><strong>Exercise 2.1 - 2.7:</strong> Project setup, models, admin, views, templates, media files, user authentication, search, and charts.</li>
         </ul>
 
         <h3>🚧 In Progress</h3>
         <ul>
-          <li><strong>Exercise 2.7:</strong> Django Forms for user input.</li>
+           {/* */}
+          <li><strong>Exercise 2.8:</strong> Deployment to a live server.</li>
         </ul>
 
         <h3>📅 Upcoming Features</h3>
         <ul>
+          <li>User recipe creation/editing via Forms</li> {/* Clarified */}
           <li>Personalized recipe collections per user</li>
-          <li>Data analysis and visualization</li>
-          <li>Deployment to a live server</li>
+          <li>Data analysis enhancements (more chart types, filtering options)</li>
         </ul>
       </div>
 
@@ -438,12 +462,12 @@
           <li><strong>Logic:</strong> Python functions are now implemented within Django Views.</li>
         </ul>
         <p>
-          <strong>Want to see the CLI version?</strong> Check out the 
-          <a href="https://github.com/ivencomur/PYTHON_COURSE" target="_blank">Achievement 1 Repository</a> 
+          <strong>Want to see the CLI version?</strong> Check out the
+          <a href="https://github.com/ivencomur/PYTHON_COURSE" target="_blank">Achievement 1 Repository</a>
           to see how this project started.
         </p>
       </div>
-      
+
       <div class="page-footer">
         <div class="social-links">
           <a href="https://ivan-cortes-portfolio-v1.onrender.com/" target="_blank">Portfolio</a> ·
@@ -478,4 +502,3 @@
     </script>
   </body>
 </html>
-

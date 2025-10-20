@@ -2,9 +2,12 @@
 
 _Achievement 2 • CareerFoundry – Python for Web Developers_
 
-**Student:** Ivan Cortes  
-**Repository:** `recipe-app` (Django-based Recipe Management System)  
-**Last Updated:** October 17, 2025
+**Student:** Ivan Cortes
+**Repository:** `recipe-app` (Django-based Recipe Management System)
+{/* */}
+**Current Exercise:** 2.8 - Deployment (Next Step)
+{/* */}
+**Last Updated:** October 19, 2025
 
 ---
 
@@ -31,285 +34,236 @@ _Achievement 2 • CareerFoundry – Python for Web Developers_
 ---
 
 ## Overview
-This Django web application evolves the command‑line Recipe App from **Achievement 1** into a full web application following Django’s **MVT** (Model–View–Template) architecture. It adds authentication, protected views, image uploads, and model relationships, and includes example apps for a simple bookstore/sales domain to practice multi‑app projects.
+This Django web application evolves the command‑line Recipe App from **Achievement 1** into a full web application following Django’s **MVT** (Model–View–Template) architecture. This project serves as the practical implementation for Achievement 2 of the CareerFoundry Python for Web Developers course.
 
-**Current scope (Exercise 2.6):**
-- Project with multiple Django apps
-- Recipe management (with Ingredients via Many‑to‑Many through model)
-- Image uploads for recipes (media handling)
-- Styled pages for recipe list/detail
-- **New:** User authentication (login/logout) and protected recipe views
-- Example domain: Books, Customers, Salespersons, Sales
-- SQLite database, migrations, and configured Django Admin
-- URL and model tests
+{/* */}
+**Current scope (Completion of Exercise 2.7):**
+- Project with multiple Django apps (`recipes`, `sales`, `books`, etc.).
+- Recipe Management: Display of recipes with images and ingredients (via Many‑to‑Many `through` model). Media file handling configured.
+- User Authentication: Secure login/logout using Django's auth system. Recipe list, detail, and search views are protected.
+- Search & Filtering: A functional search page (`/recipes/search/`) allows filtering recipes by name, ingredients (OR logic), max cooking time, and difficulty via `RecipeSearchForm`.
+- Data Visualization: Dynamic generation and embedding of charts (bar, pie, line) based on search results using `pandas` and `matplotlib`.
+- Database & Admin: SQLite database managed via ORM and migrations. Models registered in Django Admin.
+- Testing: Unit tests cover models, URLs, forms (Ex 2.7), and views (Ex 2.7).
 
 ---
 
 ## Learning Objectives
-By the end of Achievement 2 you will be able to:
-- Explain and implement Django’s **MVT** pattern.
-- Design models with **ForeignKey** and **Many‑to‑Many** (including `through`) relationships.
-- Configure static/media files and handle **image uploads**.
-- Build **Function‑Based Views (FBV)** and **Class‑Based Views (CBV)** (ListView, DetailView).
-- Implement **authentication** (login/logout) and protect views with `LoginRequiredMixin`.
-- Use **URL routing** with namespacing and reverse resolution (`{% url %}`, `redirect()`).
-- Write and run **model/URL tests** using Django’s `TestCase`.
+By the end of Achievement 2, key objectives include:
+- Implementing Django’s MVT pattern.
+- Designing and migrating database models with relationships.
+- Configuring and handling static and media files.
+- Building FBVs and CBVs (`ListView`, `DetailView`).
+- Implementing user authentication and view protection.
+- Mastering URL routing including namespacing and dynamic URLs.
+{/* */}
+- Creating and processing Django Forms.
+- Integrating data visualization libraries.
+- Writing comprehensive tests for various components.
+{/* */}
+- Upcoming: Deploying a Django application to a live server.
 
 ---
 
 ## Environment & Specs
-- **Recommended (per course):** Python **3.9.x** (use a virtualenv)
-- **Local dev used here:** Python **3.13.5**, Django **5.2.7** *(project runs on this stack; if following course specs, pin to Python 3.9 and a compatible Django per your tutor’s guidance)*
+- **Python:** 3.13.5 (Virtual environment `.venv`)
+- **Django:** 5.2.7
 - **Database:** SQLite (development)
-- **IDE:** VS Code (recommended)
-- **Version Control:** Git + GitHub
+{/* */}
+- **Key Libraries:** `Pillow`, `pandas`, `matplotlib`
+- **OS/Shell:** Windows / Git Bash
+- **IDE:** VS Code
+- **Version Control:** Git / GitHub
 
-> If you’re following CareerFoundry’s exact environment guidance, prefer Python **3.9** in a virtual environment.
+> Activate virtual environment: `source .venv/Scripts/activate`
 
 ---
 
 ## Project Structure
-```
+```text
 recipe-app/
-├── recipe_project/          # Main project
+├── .venv/
+├── recipe_project/
 │   ├── settings.py
 │   ├── urls.py
-│   └── views.py             # Project-level auth views (login/logout)
+│   └── views.py (auth)
 │
-├── recipes/                 # Recipe management app
+├── recipes/
 │   ├── migrations/
-│   ├── templates/recipes/
-│   │   ├── recipes_list.html
-│   │   └── recipes_detail.html
+{/* */}
+│   ├── templates/recipes/ (list, detail, search)
+{/* */}
+│   ├── tests/ (incl. test_forms.py, test_views.py)
 │   ├── admin.py
-│   ├── models.py
-│   ├── tests.py
-│   ├── urls.py
-│   └── views.py             # Uses LoginRequiredMixin
+{/* */}
+│   ├── forms.py (RecipeSearchForm)
+{/* */}
+│   ├── models.py (Recipe incl. difficulty)
+{/* */}
+│   ├── urls.py (incl. search)
+{/* */}
+│   └── views.py (ListView, DetailView, recipe_search, generate_recipe_chart)
 │
-├── sales/                   # App for homepage
-│   ├── templates/sales/
-│   │   └── recipes_home.html  # Conditional login/view button
-│   ├── urls.py
-│   └── views.py
+├── sales/ (homepage)
+│   └── ...
 │
-├── templates/               # Project-level templates
+├── templates/ (project-level auth)
 │   └── auth/
-│       ├── login.html
-│       └── logout_success.html
 │
-├── media/                   # User-uploaded images
+├── media/ (user uploads)
 │
-├── books/                   # Example app
-├── customers/               # Example app
-├── salespersons/            # Example app
+├── books/, customers/, salespersons/ (example apps)
 │
-├── manage.py
+├── .gitignore
 ├── db.sqlite3
-├── requirements.txt
-└── .gitignore
-```
+├── manage.py
+├── README.md
+{/* */}
+└── requirements.txt (incl. pandas, matplotlib)
 
----
+# LEARNING_JOURNAL/ (Sibling directory likely)
+#   ├── LEARNING_JOURNAL_2.7_(14).html
+#   └── ...
 
-## Installation & Setup (Windows + Git Bash)
+# PYTHON-ACHIEVEMENT-2/ (Separate repo likely)
+#   └── Exercise 2.7/screenshots/
+#       └── ...
+(Structure reflects completed Exercise 2.7)
 
-### 1) Clone the repository
-```bash
-git clone https://github.com/ivencomur/recipe-app.git
-cd recipe-app
-```
+Installation & Setup (Windows + Git Bash)
+git clone https://github.com/ivencomur/recipe-app.git && cd recipe-app
 
-> **Tip:** If your local repo was created elsewhere and you need to push to `recipe-app`, add it as a remote:
-```bash
-git remote add origin https://github.com/ivencomur/recipe-app.git
-# or if you already have an 'origin', add a second remote name:
-# git remote add recipe-app https://github.com/ivencomur/recipe-app.git
-```
+python -m venv .venv
 
-### 2) Create & activate a virtual environment
-**Course‑preferred (Python 3.9):**
-```bash
-python3 -m venv .venv   # or: python -m venv .venv
-source .venv/Scripts/activate
-```
-> If `python3` is not found, use `py -3.9 -m venv .venv` then `source .venv/Scripts/activate`.
+source .venv/Scripts/activate {/* */}
 
-### 3) Install dependencies
-```bash
-pip install -r requirements.txt
-```
+pip install -r requirements.txt (Ensure pandas & matplotlib are listed)
 
-### 4) Apply migrations
-```bash
 python manage.py migrate
-```
 
-### 5) Create a superuser (for Admin)
-```bash
 python manage.py createsuperuser
-```
 
-### 6) Run the development server
-```bash
 python manage.py runserver
-```
-Visit:
-- App home: <http://127.0.0.1:8000/>
-- Admin: <http://127.0.0.1:8000/admin/>
 
----
+Running the App
+Homepage: http://127.0.0.1:8000/
 
-## Running the App
-- Home page is served by the **sales** app’s view/template.
-- Recipes list/detail require login. Use the top‑right link to **Log in**.
-- Uploaded recipe images are saved under `media/` (ensure `MEDIA_URL`/`MEDIA_ROOT` configured in `settings.py`).
+Login: http://127.0.0.1:8000/login/
 
----
+Recipe List: http://127.0.0.1:8000/recipes/ (Login required)
 
-## Authentication & Access Control
-- Project‑level `login`/`logout` views and templates under `templates/auth/`.
-- `LoginRequiredMixin` protects recipe list/detail views.
-- `LOGIN_URL` is set so unauthenticated users are redirected to login.
-- Templates use `user.is_authenticated` to render login/logout buttons conditionally.
+Recipe Detail: e.g., http://127.0.0.1:8000/recipes/1/ (Login required) {/* */}
 
----
+Recipe Search: http://127.0.0.1:8000/recipes/search/ (Login required)
 
-## Data Models
-### Recipe Domain
-**Recipe**
-- `name` *(CharField)*
-- `description` *(TextField)*
-- `cook_time_minutes` *(PositiveIntegerField)*
-- `pic` *(ImageField)*
-- `ingredients` *(ManyToManyField through `RecipeIngredient`)*
-- `created_at` *(DateTimeField auto‑added)*
+Admin: http://127.0.0.1:8000/admin/
 
-**Ingredient**
-- `name` *(CharField, unique)*
+Authentication & Access Control
+Uses django.contrib.auth.
 
-**RecipeIngredient** (through model)
-- `recipe` *(ForeignKey → Recipe)*
-- `ingredient` *(ForeignKey → Ingredient)*
-- `quantity` *(FloatField)*
-- `unit` *(CharField)*
+Project-level views handle /login/, /logout/. {/* */}
 
-### Book / Sales Examples
-**Book**
-- `name`, `author_name`, `price` *(Float)*, `genre` *(choices)*, `book_type` *(choices)*
+RecipeListView, RecipeDetailView, recipe_search are protected (LoginRequiredMixin or @login_required).
 
-**Customer**
-- `name`, `notes`
+LOGIN_URL = '/login/' redirects unauthenticated users.
 
-**Salesperson**
-- `username`, `name`, `bio`
+Templates use user.is_authenticated for conditional display.
 
----
+Data Models
+(Primary models)
 
-## Testing
-Run all tests:
-```bash
-python manage.py test
-```
-Specific app:
-```bash
-python manage.py test recipes
-```
-**Coverage focus:**
-- Field validations & constraints (incl. `max_length`, validators, unique)
-- Model string representations
-- Default values
-- M2M relationships via `RecipeIngredient`
-- `get_absolute_url()` correctness
+Recipe: Includes name, description, cook_time_minutes, pic, ingredients (M2M via RecipeIngredient), difficulty, created_at.
 
----
+Ingredient: Includes name (unique).
 
-## Development Workflow
-1. Create a feature branch from `main`.
-2. Make changes and run locally.
-3. Run tests (`python manage.py test`).
-4. Commit with descriptive messages.
-5. Push and open a Pull Request.
+RecipeIngredient: Links Recipe and Ingredient with quantity and unit. unique_together constraint.
 
----
+Testing
+Run with: python manage.py test recipes (or python manage.py test recipes.tests) {/* */}
 
-## Known Issues & TODOs
-- [x] Implement recipe list/detail views
-- [x] Create HTML templates for UI
-- [x] Add URL routing for all apps
-- [x] Implement recipe image uploads
-- [x] Add User Authentication (Login/Logout)
-- [x] Protect Recipe Views
-- [ ] Implement recipe **search**
-- [ ] Create **forms** for recipe creation/editing
+Covers models (validation, relationships, get_absolute_url), forms (Ex 2.7), and views (auth, filtering, context - Ex 2.7).
 
----
+Development Workflow
+(Standard Git flow: branch -> code -> test -> commit -> push -> merge)
 
-## Future Enhancements
-- Recipe categories and tags
-- User favorites and ratings
-- Shopping list generation
-- Meal planning features
-- Nutrition information
+Known Issues & TODOs
+{/* */}
 
----
+[x] Implement recipe list/detail views (Ex 2.5)
 
-## Resources
-**Documentation**
-- Django Official Docs
-- Django Tutorial
-- Django Models Reference
-- Django Admin Docs
+[x] Create HTML templates for UI (Ex 2.4, 2.5, 2.7)
 
-**Course Materials**
-- CareerFoundry – Python for Web Developers (Achievement 2)
-- Exercise materials & course repo
+[x] Add URL routing for all apps (Ex 2.4, 2.5, 2.6, 2.7)
 
----
+[x] Implement recipe image uploads (Ex 2.5)
 
-## Deliverables
-- Django project with multi‑app structure
-- Protected recipe list & detail pages
-- Working image upload pipeline
-- Admin configured for all models
-- Passing tests for models/URLs
+[x] Add User Authentication & Protect Views (Ex 2.6)
 
----
+[x] Add difficulty field to Recipe model (Ex 2.7)
 
-## Technical Notes
-- If you need to target the **`recipe-app`** GitHub repo explicitly from a different local folder, add or switch remotes:
-  ```bash
-  git remote -v
-  git remote add recipe-app https://github.com/ivencomur/recipe-app.git
-  # or switch your existing origin
-  git remote set-url origin https://github.com/ivencomur/recipe-app.git
-  ```
-- Media files require proper `MEDIA_URL` and `MEDIA_ROOT` plus development `urlpatterns` to serve media in `DEBUG=True`.
-- For strict course parity, prefer **Python 3.9** and lock Django to the version used in the module; otherwise ensure your installed Django supports your Python runtime (this project also runs on Python 3.13.5 + Django 5.2.7 locally).
+[x] Create RecipeSearchForm (Ex 2.7)
 
----
+[x] Implement recipe_search view with filtering (Ex 2.7)
 
-## Author & Links
-**Author:** Ivan Cortes
+[x] Integrate data visualization charts (Ex 2.7)
 
-- **Portfolio:** ivan-cortes-portfolio-v1.onrender.com  
-- **LinkedIn:** Ivan Cortes Murcia  
-- **GitHub:** @ivencomur  
-- **Twitter:** @IVENCOMUR
+[x] Write tests for search form and view (Ex 2.7)
 
-> This is a learning project for CareerFoundry’s Python course; feedback and suggestions are welcome!
+[ ] To Do (Ex 2.8): Configure for deployment (settings, static files).
 
----
+[ ] To Do (Ex 2.8): Deploy application to a PaaS (e.g., Render).
 
-## AI Assistance Note
-Parts of this README and boilerplate scaffolding were organized with the help of an AI assistant for clarity, structure, and consistency. All code and configuration were reviewed and tested locally by the student.
+[ ] Implement recipe creation/editing via forms (Future Exercise).
 
----
+Future Enhancements
+(Unchanged)
 
-## Screenshots List
-Screenshots live in **PYTHON-ACHIEVEMENT-2** (separate repo). For Exercise **2.6**, include (suggested filenames):
-1. `2.6_login_page.png` – Project‑level login screen
-2. `2.6_recipes_list_protected.png` – Protected recipe list view (post‑login)
-3. `2.6_recipe_detail_protected.png` – Protected recipe detail view (post‑login)
-4. `2.6_logout_confirmation.png` – Logout confirmation page
+Resources
+(Unchanged)
 
+Deliverables
+{/* */}
+
+Completed Django project source code for Exercises 2.1 - 2.7.
+
+Functional search page with filtering and dynamic chart generation.
+
+Passing unit tests for models, URLs, forms, and views.
+
+Updated README.md and LEARNING_JOURNAL entries.
+
+Required screenshots documenting functionality and testing.
+
+Technical Notes
+{/* */}
+
+pandas and matplotlib added to requirements.txt.
+
+Matplotlib uses 'Agg' backend in views.py.
+
+Charts embedded via base64 data URIs.
+
+Ingredient search uses Q objects for OR logic.
+
+Author & Links
+(Unchanged)
+
+AI Assistance Note
+(Unchanged)
+
+Screenshots List
+(Required screenshots per exercise, stored in PYTHON-ACHIEVEMENT-2 repo)
+
+Exercise 2.1: ...
+
+Exercise 2.2: ...
+
+Exercise 2.3: ...
+
+Exercise 2.4: ...
+
+Exercise 2.5: ...
+
+Exercise 2.6: ... {/* */}
+
+Exercise 2.7: Empty search form, search results table, bar chart, pie chart, line chart, passing tests (test recipes.tests).

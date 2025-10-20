@@ -1,3 +1,4 @@
+# recipes/models.py
 from django.db import models
 from django.core.validators import MinValueValidator
 from django.shortcuts import reverse
@@ -25,6 +26,21 @@ class Recipe(models.Model):
         "Ingredient", through="RecipeIngredient", related_name="recipes"
     )
     created_at = models.DateTimeField(auto_now_add=True)
+
+    # --- ADDED FOR EXERCISE 2.7 ---
+    DIFFICULTY_CHOICES = (
+        ("Easy", "Easy"),
+        ("Medium", "Medium"),
+        ("Hard", "Hard"),
+    )
+
+    difficulty = models.CharField(
+        max_length=10,
+        choices=DIFFICULTY_CHOICES,
+        default="Medium",
+        help_text="Overall difficulty rating"
+    )
+    
 
     class Meta:
         ordering = ["name"]

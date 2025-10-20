@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search Recipes</title>
+
+    {# Bootstrap 5 CSS #}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    {# Optional: Font Awesome CSS for icons #}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+    <style>
+        /* Inherited styles from Learning Journal for consistency */
+        :root {
+            --primary-color: #20504b;
+            --primary-hover-color: #1a403c;
+            --secondary-color: #f4f4f4;
+            --text-color: #333;
+            --alt-grid-item-text-color: #0056b3;
+            --customized-orange-light-bg: #b46100;
+            --customized-orange-dark-bg: #ffa061;
+        }
+
+        body {
+            font-family: "Lato", sans-serif; line-height: 1.6; color: var(--text-color);
+            background-color: #d9e1e5; padding: 20px; padding-bottom: 100px;
+        }
+        .content-container {
+             max-width: 8.5in; margin: 0 auto; background: white;
+             /* Removed negative margin padding, use standard padding */
+             padding: 30px; /* Standard padding */
+             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); overflow: hidden;
+        }
+         /* Simplified Page Header Styling */
+        .page-header-block { /* Use a standard block, not negative margins */
+            background-color: var(--primary-color); color: #fff;
+            padding: 20px; text-align: center;
+            margin-bottom: 30px; /* Space below header */
+            border-radius: 5px; /* Optional rounding */
+        }
+        .page-header-block h1 {
+            color: #fff; font-size: 2.5rem; margin-bottom: 0; border-bottom: none;
+        }
+        /* Consistent H1 inside content */
+        h1.content-h1 {
+            color: var(--alt-grid-item-text-color); font-size: 28px; margin-bottom: 10px;
+            border-bottom: 3px solid var(--primary-color); padding-bottom: 10px;
+        }
+        .card-header h5 { color: var(--primary-color); }
+        .results-header h5 { color: var(--alt-grid-item-text-color); }
+        .chart-header h5 { color: var(--customized-orange-light-bg); }
+        .card { border-left-width: 5px; border-left-style: solid; }
+        .search-card { border-left-color: var(--primary-color); background-color: var(--secondary-color); }
+        .results-card { border-left-color: var(--alt-grid-item-text-color); }
+        .chart-card { border-left-color: var(--customized-orange-dark-bg); }
+        .card-header { background-color: transparent; border-bottom-width: 1px; border-bottom-style: solid; }
+        .search-card .card-header { border-bottom-color: var(--primary-color); }
+        .results-card .card-header { border-bottom-color: var(--alt-grid-item-text-color); }
+        .chart-card .card-header { border-bottom-color: var(--customized-orange-dark-bg); }
+        .form-label { font-weight: bold; color: var(--primary-color); }
+        .table th, .table td { vertical-align: middle; }
+        .table thead { background-color: var(--secondary-color); }
+        .table a { color: var(--customized-orange-light-bg); font-weight: bold; text-decoration: none; }
+        .table a:hover { color: var(--primary-hover-color); text-decoration: underline; }
+        .btn-primary-custom { background-color: var(--primary-color); color: white; }
+        .btn-primary-custom:hover { background-color: var(--primary-hover-color); }
+        .btn-secondary-custom { background-color: var(--secondary-color); color: var(--primary-color); border: 1px solid var(--primary-color); }
+        .btn-secondary-custom:hover { background-color: #e2e6ea; border-color: var(--primary-hover-color); color: var(--primary-hover-color);}
+        .btn-info-custom { background-color: var(--customized-orange-light-bg); color: white; border-color: var(--customized-orange-light-bg); }
+        .btn-info-custom:hover{ background-color: #a35600; border-color: #a35600; }
+        .btn-details-custom { background-color: var(--primary-color); color: white; }
+        .btn-details-custom:hover { background-color: var(--primary-hover-color); }
+        .chart-container img { max-width: 100%; height: auto; border: 1px solid #dee2e6; margin-top: 1rem; }
+        .floating-nav { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
+        .floating-nav a { background-color: var(--primary-color); color: white; padding: 12px; border-radius: 50%; text-decoration: none; font-weight: bold; box-shadow: 0 4px 8px rgba(0,0,0,.2); transition: all .3s ease; font-size: 20px; text-align: center; width: 50px; height: 50px; line-height: 26px; }
+        .floating-nav a:hover { background-color: var(--customized-orange-dark-bg); color: var(--primary-color); transform: translateY(-2px); }
+        @media print { /* (Print styles unchanged) */ }
+    </style>
+</head>
+<body>
+
+    {# Simplified Header Block #}
+    <div class="page-header-block">
+       <h1>Recipe Search</h1> 
+    </div>
+
+    <div class="content-container py-4">
+        <h1 class="content-h1 mb-4 pb-2">Recipe Search & Analytics</h1>
+
+        {# Search Form Card #}
+        <div class="card search-card mb-4 shadow-sm">
+            <div class="card-header">
+                <h5 class="mb-0">Search Criteria</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{% url 'recipes:search' %}">
+                    {% csrf_token %}
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label for="{{ form.recipe_name.id_for_label }}" class="form-label">{{ form.recipe_name.label }}</label>
+                            {{ form.recipe_name }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="{{ form.ingredients.id_for_label }}" class="form-label">{{ form.ingredients.label }}</label>
+                            {{ form.ingredients }}
+                        </div>
+                        <div class="col-md-4">
+                            <label for="{{ form.max_cook_time.id_for_label }}" class="form-label">{{ form.max_cook_time.label }}</label>
+                            {{ form.max_cook_time }}
+                        </div>
+                        <div class="col-md-4">
+                            <label for="{{ form.difficulty.id_for_label }}" class="form-label">{{ form.difficulty.label }}</label>
+                            {{ form.difficulty }}
+                        </div>
+                        <div class="col-md-4">
+                            <label for="{{ form.chart_type.id_for_label }}" class="form-label">{{ form.chart_type.label }}</label>
+                            {{ form.chart_type }}
+                        </div>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2 mt-3">
+                        <button type="submit" class="btn btn-primary-custom">
+                           <i class="fas fa-search me-1"></i> Search
+                        </button>
+                        <a class="btn btn-secondary-custom" href="{% url 'recipes:search' %}">
+                           <i class="fas fa-undo me-1"></i> Reset
+                        </a>
+                        <button type="submit" name="show_all" value="true" class="btn btn-info-custom ms-auto">
+                           <i class="fas fa-list me-1"></i> Show All Recipes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {# Results Section (Unchanged) #}
+        {% if recipes is not None %}
+        <div class="card results-card mb-4 shadow-sm">
+            <div class="card-header results-header">
+                <h5 class="mb-0">Search Results ({{ recipes|length }})</h5>
+            </div>
+            <div class="card-body table-responsive p-0">
+                {% if recipes %}
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                    <tr>
+                        <th scope="col">Name</th><th scope="col">Time (min)</th><th scope="col">Difficulty</th><th scope="col" class="text-end">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for recipe in recipes %}
+                    <tr>
+                        <td><a href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></td>
+                        <td>{{ recipe.cook_time_minutes }}</td><td>{{ recipe.difficulty }}</td>
+                        <td class="text-end">
+                            <a class="btn btn-sm btn-details-custom" href="{{ recipe.get_absolute_url }}">
+                               <i class="fas fa-eye me-1"></i> Details
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                    <p class="text-muted text-center p-3 mb-0">No recipes found matching your criteria.</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        {# Chart Section (Unchanged) #}
+        {% if chart %}
+        <div class="card chart-card shadow-sm">
+             <div class="card-header chart-header">
+                <h5 class="mb-0">Visualization</h5>
+            </div>
+            <div class="card-body text-center chart-container">
+                <img src="data:image/png;base64,{{ chart }}" class="img-fluid rounded" alt="Generated Chart">
+            </div>
+        </div>
+        {% endif %}
+
+    </div>{# End content-container #}
+
+    {# --- Floating Nav Section (Unchanged) --- #}
+    <div class="floating-nav">
+        <a href="{% url 'sales:home' %}" title="Go to Home">🏠</a>
+        <a href="javascript:history.back()" title="Go Back">⬅️</a>
+    </div>
+    {# --- End Floating Nav Section --- #}
+
+    {# Bootstrap 5 JS Bundle #}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    {# Optional: Font Awesome JS #}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
+
+</body>
+</html>

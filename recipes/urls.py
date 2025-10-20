@@ -1,14 +1,22 @@
 # recipes/urls.py
 
 from django.urls import path
-from .views import RecipeListView, RecipeDetailView
+# Import all necessary views from the views module
+from .views import RecipeListView, RecipeDetailView, recipe_search
 
-app_name = 'recipes'
+app_name = 'recipes' # Define the namespace for this app
 
 urlpatterns = [
-    # Example: /recipes/
+    # Path for the recipe list page (e.g., /recipes/)
     path('', RecipeListView.as_view(), name='list'),
 
-    # Example: /recipes/1/
-    path('<pk>', RecipeDetailView.as_view(), name='detail'),
+    # Path for the recipe search page (e.g., /recipes/search/) - NEW
+    path('search/', recipe_search, name='search'),
+
+    # Path for the recipe detail page (e.g., /recipes/1/)
+   
+    path('<int:pk>/', RecipeDetailView.as_view(), name='detail'),
+
+    # but your views.py uses a Class-Based View RecipeDetailView.
+ 
 ]

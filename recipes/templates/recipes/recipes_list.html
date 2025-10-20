@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recipe Collection</title>
     <style>
+      
       :root {
         --primary-color: #20504b;
         --primary-hover-color: #1a403c;
@@ -12,173 +13,62 @@
         --text-color: #333;
         --customized-orange-dark-bg: #ffa061;
       }
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        font-family: "Lato", sans-serif;
-        line-height: 1.6;
-        color: var(--text-color);
-        background-color: #d9e1e5;
-        padding: 20px;
-      }
-      .container {
-        max-width: 8.5in;
-        margin: 0 auto;
-        background: white;
-        padding: 0.75in;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-      }
-      .page-header {
-        background-color: var(--primary-color);
-        color: #fff;
-        padding: 20px;
-        text-align: center;
-        margin: -0.75in -0.75in 30px -0.75in;
-        position: relative;
-      }
-      .auth-links {
-        position: absolute;
-        top: 10px;
-        right: 20px;
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: "Lato", sans-serif; line-height: 1.6; color: var(--text-color); background-color: #d9e1e5; padding: 20px; }
+      .container { max-width: 8.5in; margin: 0 auto; background: white; padding: 0.75in; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); overflow: hidden; }
+      .page-header { background-color: var(--primary-color); color: #fff; padding: 20px; text-align: center; margin: -0.75in -0.75in 30px -0.75in; position: relative; } 
+      .auth-links { 
+          position: absolute; top: 15px; right: 20px; display: flex; gap: 10px; 
       }
       .auth-links a {
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-        background-color: rgba(255, 255, 255, 0.2);
-        padding: 5px 10px;
-        border-radius: 4px;
-        transition: background-color 0.2s;
+          color: white; text-decoration: none; font-weight: bold;
+          background-color: rgba(255, 255, 255, 0.2); padding: 5px 10px;
+          border-radius: 4px; transition: background-color 0.2s;
+          font-size: 0.9rem; 
+          line-height: 1.5; 
       }
-      .auth-links a:hover {
-        background-color: rgba(255, 255, 255, 0.4);
-      }
-      .page-header h1 {
-        color: #fff;
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-        border-bottom: none;
-      }
-      /* Add this to the <style> block in recipes_list.html AND recipes_detail.html */
+      .auth-links a:hover { background-color: rgba(255, 255, 255, 0.4); }
+      .page-header h1 { color: #fff; font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; border-bottom: none; }
+     
+      .logout-button { display: inline-block; padding: 5px 10px;  background-color: var(--customized-orange-dark-bg); color: var(--primary-color); text-decoration: none; border-radius: 4px; font-weight: bold; transition: background-color 0.2s; font-size: 0.9rem; line-height: 1.5; border: none; cursor: pointer; }
+      .logout-button:hover { background-color: #fff; }
+     
+       .search-button { display: inline-block; padding: 5px 10px; background-color: rgba(255, 255, 255, 0.2); color: white; text-decoration: none; border-radius: 4px; font-weight: bold; transition: background-color 0.2s; font-size: 0.9rem; line-height: 1.5; }
+      .search-button:hover { background-color: rgba(255, 255, 255, 0.4); }
 
-      .logout-button {
-        display: inline-block;
-        margin-top: 10px;
-        padding: 8px 16px;
-        background-color: var(--customized-orange-dark-bg);
-        color: var(--primary-color);
-        text-decoration: none;
-        border-radius: 5px;
-        font-weight: bold;
-        transition: background-color 0.2s;
-      }
-      .logout-button:hover {
-        background-color: #fff;
-      }
-      .content {
-        padding: 1rem 0;
-      }
-      .recipe-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1.5rem;
-        list-style: none;
-        padding: 0;
-      }
-      .recipe-card {
-        background: var(--secondary-color);
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-        transition: transform 0.2s, box-shadow 0.2s;
-      }
-      .recipe-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-      }
-      .recipe-card img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-      }
-      .recipe-card-content {
-        padding: 1rem;
-      }
-      .recipe-card-content h3 {
-        margin: 0;
-        font-size: 1.25rem;
-      }
-      .recipe-card-content a {
-        text-decoration: none;
-        color: var(--primary-color);
-      }
-      .recipe-card-content a:hover {
-        color: var(--primary-hover-color);
-      }
-      .page-footer {
-        background-color: var(--primary-color);
-        color: #fff;
-        padding: 1.5rem 2rem;
-        text-align: center;
-        font-size: 0.875rem;
-        margin: 30px -0.75in -0.75in -0.75in;
-      }
-      .page-footer a {
-        color: var(--customized-orange-dark-bg);
-        font-weight: bold;
-        text-decoration: none;
-      }
-      .page-footer a:hover {
-        color: #fff;
-        text-decoration: underline;
-      }
-      .page-footer .social-links {
-        margin-bottom: 15px;
-      }
-      .page-footer .social-links a {
-        margin: 0 10px;
-      }
-      .floating-nav {
-        position: fixed;
-        bottom: 25px;
-        right: 25px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        z-index: 1000;
-      }
-      .floating-nav a {
-        background-color: var(--primary-color);
-        color: white;
-        padding: 12px;
-        border-radius: 50%;
-        text-decoration: none;
-        font-weight: bold;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease;
-        font-size: 20px;
-        text-align: center;
-        width: 50px;
-        height: 50px;
-        line-height: 26px;
-      }
-      .floating-nav a:hover {
-        background-color: var(--customized-orange-dark-bg);
-        color: var(--primary-color);
-        transform: translateY(-2px);
-      }
+      .content { padding: 1rem 0; }
+      .recipe-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; list-style: none; padding: 0; }
+      .recipe-card { background: var(--secondary-color); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); transition: transform 0.2s, box-shadow 0.2s; }
+      .recipe-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); }
+      .recipe-card img { width: 100%; height: 200px; object-fit: cover; }
+      .recipe-card-content { padding: 1rem; }
+      .recipe-card-content h3 { margin: 0; font-size: 1.25rem; }
+      .recipe-card-content a { text-decoration: none; color: var(--primary-color); }
+      .recipe-card-content a:hover { color: var(--primary-hover-color); }
+      .page-footer { background-color: var(--primary-color); color: #fff; padding: 1.5rem 2rem; text-align: center; font-size: 0.875rem; margin: 30px -0.75in -0.75in -0.75in; }
+      .page-footer a { color: var(--customized-orange-dark-bg); font-weight: bold; text-decoration: none; }
+      .page-footer a:hover { color: #fff; text-decoration: underline; }
+      .page-footer .social-links { margin-bottom: 15px; }
+      .page-footer .social-links a { margin: 0 10px; }
+      .floating-nav { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
+      .floating-nav a { background-color: var(--primary-color); color: white; padding: 12px; border-radius: 50%; text-decoration: none; font-weight: bold; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; font-size: 20px; text-align: center; width: 50px; height: 50px; line-height: 26px; }
+      .floating-nav a:hover { background-color: var(--customized-orange-dark-bg); color: var(--primary-color); transform: translateY(-2px); }
     </style>
   </head>
   <body>
     <div class="container">
       <div class="page-header">
         <h1>Our Recipe Collection</h1>
-        <a href="{% url 'logout' %}" class="logout-button">Logout</a>
+       
+        <div class="auth-links">
+           
+            <a href="{% url 'recipes:search' %}" class="search-button">Search Recipes</a>
+            
+            <form action="{% url 'logout' %}" method="post" style="display: inline;"> 
+                {% csrf_token %}
+                <button type="submit" class="logout-button">Logout</button>
+            </form>
+        </div>
       </div>
 
       <div class="content">
@@ -188,10 +78,7 @@
             {% if object.pic %}
             <img src="{{ object.pic.url }}" alt="{{ object.name }}" />
             {% else %}
-            <img
-              src="https://placehold.co/600x400/EEE/31343C?text=No+Image"
-              alt="No image available"
-            />
+            <img src="https://placehold.co/600x400/EEE/31343C?text=No+Image" alt="No image available" />
             {% endif %}
             <div class="recipe-card-content">
               <h3>
@@ -199,36 +86,30 @@
               </h3>
             </div>
           </li>
+          {% empty %} {# Added empty state #}
+            <p>No recipes found.</p>
           {% endfor %}
         </ul>
       </div>
 
       <div class="page-footer">
         <div class="social-links">
-          <a
-            href="https://ivan-cortes-portfolio-v1.onrender.com/"
-            target="_blank"
-            >Portfolio</a
-          >
-          <a
-            href="https://www.linkedin.com/in/ivan-cortes-murcia-22053953/"
-            target="_blank"
-            >LinkedIn</a
-          >
+          <a href="https://ivan-cortes-portfolio-v1.onrender.com/" target="_blank">Portfolio</a>
+          <a href="https://www.linkedin.com/in/ivan-cortes-murcia-22053953/" target="_blank">LinkedIn</a>
           <a href="https://github.com/ivencomur" target="_blank">GitHub</a>
         </div>
-        <p>
-          <a href="https://github.com/ivencomur/recipe-app" target="_blank"
-            >Project Repository</a
-          >
-        </p>
+        <p><a href="https://github.com/ivencomur/recipe-app" target="_blank">Project Repository</a></p>
         <p>Python for Web Developers @ CareerFoundry 2025</p>
       </div>
     </div>
 
     <div class="floating-nav">
-      <a href="/" title="Go to Home">🏠</a>
+      {# Link to homepage #}
+      <a href="{% url 'sales:home' %}" title="Go to Home">🏠</a>
       <a href="javascript:history.back()" title="Go Back">⬅️</a>
     </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
