@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+{% load image_chain %}
+{% load recipe_extras %}
+{% block content %}
+<div class="container my-4">
+  <a class="btn btn-link" href="{% url 'recipes:recipe_list' %}">&laquo; Back to All Recipes</a>
+  <div class="row g-4">
+    <div class="col-md-6">
+      <img class="img-fluid rounded shadow-sm" {{ recipe|img_src_attrs|safe }} alt="{{ recipe.name }}" onerror="window.__imgChain(this)">
+    </div>
+    <div class="col-md-6">
+      <h1 class="mb-2">{{ recipe.name }}</h1>
+      {% if recipe.cook_time_minutes %}<p class="text-muted">Cooking Time: {{ recipe.cook_time_minutes }} minutes</p>{% endif %}
+      <h4 class="mt-4">Ingredients</h4>
+      <ul class="mb-3">
+        {% for ri in recipe.recipeingredient_set.all %}
+          <li>{{ ri|ingredient_line }}</li>
+        {% empty %}<li>No ingredients for this recipe.</li>{% endfor %}
+      </ul>
+      {% if recipe.instructions %}
+        <h4>Instructions</h4>
+        <div>{{ recipe.instructions|linebreaks }}</div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

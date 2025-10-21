@@ -14,7 +14,7 @@ def login_view(request):
 
     if request.method == 'POST':
         # Form bound with user's POST data
-        form = AuthenticationForm(data=request.POST)
+        form = AuthenticationForm(request, data=request.POST)
 
         if form.is_valid():
             username = form.cleaned_data.get('username')
@@ -49,3 +49,14 @@ def logout_success_view(request):
     Displays a success message after the user logs out.
     """
     return render(request, 'auth/logout_success.html')
+
+def about_me_view(request):
+    """
+    Displays the About Me page with developer information.
+    """
+    return render(request, 'about_me.html', {
+        'developer_name': 'Ivan Cortes',
+        'portfolio_url': 'https://ivan-cortes-portfolio-v1.onrender.com/',
+        'github_url': 'https://github.com/ivencomur',
+        'linkedin_url': 'https://www.linkedin.com/in/ivan-cortes-murcia-22053953/',
+    })

@@ -1,0 +1,223 @@
+{% load static recipe_extras %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Me - Recipe App</title>
+    <style>
+      :root {
+        --primary-color: #20504b;
+        --primary-hover-color: #1a403c;
+        --secondary-color: #f4f4f4;
+        --text-color: #333;
+        --grid-item-bg-color: #2c3e50;
+        --alt-grid-item-text-color: #0056b3;
+        --customized-orange-light-bg: #b46100;
+        --customized-orange-dark-bg: #ffa061;
+        --error-color: #d9534f;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Lato", sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: #d9e1e5;
+        padding: 20px;
+      }
+      .container {
+        max-width: 8.5in;
+        margin: 0 auto;
+        background: white;
+        padding: 0.75in;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+      .page-header {
+        background-color: var(--primary-color);
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        margin: -0.75in -0.75in 30px -0.75in;
+        position: relative;
+      }
+      .page-header h1 {
+        color: #fff;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        border-bottom: none;
+      }
+      .page-header p {
+        color: #fff;
+        font-size: 0.875rem;
+        margin: 0;
+      }
+      h2 {
+        color: var(--alt-grid-item-text-color);
+        font-size: 20px;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        padding-bottom: 5px;
+        border-bottom: 2px solid var(--primary-color);
+      }
+      p {
+        margin-bottom: 12px;
+        text-align: justify;
+      }
+      ul {
+        margin-left: 25px;
+        margin-bottom: 15px;
+      }
+      li {
+        margin-bottom: 8px;
+      }
+      .section {
+        margin-bottom: 35px;
+      }
+      .feature-list {
+        list-style: none;
+        padding: 0;
+        margin: 1rem 0;
+      }
+      .feature-list li {
+        padding: 0.5rem 0;
+        padding-left: 2rem;
+        position: relative;
+      }
+      .feature-list li:before {
+        content: "OK";
+        position: absolute;
+        left: 0;
+        color: var(--customized-orange-dark-bg);
+        font-weight: bold;
+        font-size: 14px;
+      }
+      .page-footer {
+        background-color: var(--primary-color);
+        color: #fff;
+        padding: 1.5rem 2rem;
+        text-align: center;
+        font-size: 0.875rem;
+        margin: 30px -0.75in -0.75in -0.75in;
+      }
+      .page-footer a {
+        color: var(--customized-orange-dark-bg);
+        font-weight: bold;
+        text-decoration: none;
+      }
+      .page-footer a:hover {
+        color: #fff;
+        text-decoration: underline;
+      }
+      .page-footer .social-links {
+        margin-bottom: 15px;
+      }
+      .page-footer .social-links a {
+        margin: 0 10px;
+      }
+      .page-footer p {
+        text-align: center;
+        margin-bottom: 12px;
+      }
+      hr {
+        border: none;
+        border-top: 2px solid var(--primary-color);
+        margin: 30px 0;
+      }
+      .floating-nav {
+        position: fixed;
+        bottom: 95px;
+        right: 35px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 1000;
+      }
+      .floating-nav a {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 12px;
+        border-radius: 50%;
+        text-decoration: none;
+        font-weight: bold;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        font-size: 20px;
+        text-align: center;
+        width: 50px;
+        height: 50px;
+        line-height: 26px;
+      }
+      .floating-nav a:hover {
+        background-color: var(--customized-orange-dark-bg);
+        color: var(--primary-color);
+        transform: translateY(-2px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="page-header">
+        <h1>About the Developer</h1>
+        <p>{{ developer_name }}</p>
+      </div>
+
+      <div class="section">
+        <h2>Developer Information</h2>
+        <p>
+          This Recipe App demonstrates proficiency in Django, testing,
+          analytics, and modern deployment practices.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>About This Project</h2>
+        <p>
+          Built as part of the Python for Web Developers course at
+          CareerFoundry, this application showcases practical,
+          professional-grade web development skills.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>Project Features</h2>
+        <ul class="feature-list">
+          <li>Full-stack Django development</li>
+          <li>Database modeling and migrations</li>
+          <li>User authentication and authorization</li>
+          <li>Search and filtering functionality</li>
+          <li>Data visualization with charts</li>
+          <li>Testing and quality assurance</li>
+          <li>Production deployment</li>
+        </ul>
+      </div>
+
+      <hr />
+
+      <div class="page-footer">
+        <div class="social-links">
+          <a href="{{ portfolio_url }}" target="_blank">Portfolio</a> .
+          <a href="{{ linkedin_url }}" target="_blank">LinkedIn</a> .
+          <a href="https://x.com/IVENCOMUR" target="_blank">Twitter</a> .
+          <a href="{{ github_url }}" target="_blank">GitHub</a>
+        </div>
+        <p>
+          <a href="https://github.com/ivencomur/recipe-app" target="_blank"
+            >Recipe App Repository</a
+          >
+        </p>
+        <p>Python for Web Developers @ CareerFoundry 2025</p>
+      </div>
+    </div>
+
+    <div class="floating-nav">
+      <a href="/" title="Home">🏠</a>
+      <a href="javascript:history.back()" title="Back">⬅️</a>
+    </div>
+  </body>
+</html>

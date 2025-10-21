@@ -31,7 +31,6 @@ ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,.herokuap
 # Application definition
 
 INSTALLED_APPS = [
-    # "cloudinary", "django_cloudinary_storage",  # uncomment if using Cloudinary
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

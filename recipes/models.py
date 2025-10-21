@@ -19,7 +19,7 @@ class Recipe(models.Model):
         validators=[MinValueValidator(1)],
         help_text="Total cooking time in minutes",
     )
-    pic = models.ImageField(upload_to='recipes', default='no_picture.jpg')
+    pic = models.CharField(max_length=255, default='/static/img/no_picture.jpg')
 
     # Many-to-many via a join model so we can store quantity and unit
     ingredients = models.ManyToManyField(

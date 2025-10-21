@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ app_name }}</title>
     <style>
-      /* Styles unchanged from your original file */
       :root {
         --primary-color: #20504b;
         --primary-hover-color: #1a403c;
@@ -27,12 +27,7 @@
       .section h2 { color: var(--alt-grid-item-text-color); font-size: 1.5rem; margin-bottom: 1rem; border-bottom: 3px solid var(--primary-color); padding-bottom: 0.5rem; text-align: left; }
       .features { list-style: none; padding: 0; text-align: left; }
       .features li { padding: 0.75rem; margin-bottom: 0.5rem; background: var(--secondary-color); border-left: 4px solid var(--primary-color); border-radius: 4px; color: #4a5568; }
-      .cta-button {
-          display: inline-block; background-color: var(--primary-color); color: white;
-          padding: 12px 24px; border-radius: 5px; text-decoration: none;
-          font-size: 1.1rem; font-weight: bold; margin: 1rem 0.5rem; /* Adjusted margin */
-          transition: background-color 0.2s;
-      }
+      .cta-button { display: inline-block; background-color: var(--primary-color); color: white; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-size: 1.1rem; font-weight: bold; margin: 1rem 0.5rem; transition: background-color 0.2s; }
       .cta-button:hover { background-color: var(--primary-hover-color); }
       .page-footer { background-color: var(--primary-color); color: #fff; padding: 1.5rem 2rem; text-align: center; font-size: 0.875rem; margin: 30px -0.75in -0.75in -0.75in; }
       .page-footer a { color: var(--customized-orange-dark-bg); font-weight: bold; text-decoration: none; }
@@ -57,11 +52,9 @@
 
       <div class="content">
         {% if user.is_authenticated %}
-          {# Show View All and Search buttons if logged in #}
           <a href="{% url 'recipes:list' %}" class="cta-button">View All Recipes</a>
-          <a href="{% url 'recipes:search' %}" class="cta-button">Search Recipes</a> {# ADDED SEARCH BUTTON #}
+          <a href="{% url 'recipes:search' %}" class="cta-button">Search Recipes</a>
         {% else %}
-          {# Show Login button if logged out #}
           <a href="{% url 'login' %}" class="cta-button">Login to View Recipes</a>
         {% endif %}
 
@@ -69,7 +62,7 @@
           <h2>Features</h2>
           <ul class="features">
             {% for feature in features %}
-            <li>{{ feature }}</li>
+              <li>{{ feature }}</li>
             {% endfor %}
           </ul>
         </div>
@@ -88,7 +81,6 @@
     </div>
 
     <div class="floating-nav">
-      {# Link button to root URL served by this app #}
       <a href="{% url 'sales:home' %}" title="Go to Home">🏠</a>
       <a href="javascript:history.back()" title="Go Back">⬅️</a>
     </div>

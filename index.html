@@ -90,17 +90,28 @@
 
       li {
         margin-bottom: 8px;
+        margin-left: 20px;
       }
 
-      .journal-card, .status-item, .tech-badge, .quick-link-btn {
+      .journal-card,
+      .status-item,
+      .tech-badge,
+      .quick-link-btn {
         border-radius: 5px;
       }
 
-      .journal-card, .project-status {
-         background-color: var(--secondary-color);
-         padding: 15px;
-         margin: 10px 0;
-         border-left: 5px solid var(--primary-color);
+      .journal-card,
+      .project-status {
+        background-color: var(--secondary-color);
+        padding: 15px;
+        margin: 10px 0;
+        border-left: 5px solid var(--primary-color);
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      
+      .journal-card.highlight {
+        border-left-color: var(--customized-orange-light-bg);
+        background-color: #fffaf0;
       }
 
       a {
@@ -183,6 +194,12 @@
         text-align: center;
         margin: 30px -0.75in -0.75in -0.75in;
       }
+      
+      /* --- THIS RULE IS NEW --- */
+      .page-footer p {
+        text-align: center; /* Overrides the global 'text-align: justify' for footer paragraphs */
+      }
+      /* --- END OF NEW RULE --- */
 
       .page-footer a {
         color: var(--customized-orange-dark-bg);
@@ -228,7 +245,11 @@
       }
 
       .quick-links {
-        background: linear-gradient(135deg, var(--primary-color), var(--primary-hover-color));
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--primary-hover-color)
+        );
         color: white;
         padding: 20px;
         margin: 20px -0.75in;
@@ -244,7 +265,7 @@
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         gap: 10px;
-        max-width: 600px;
+        max-width: 800px; /* Increased width for new button */
         margin: 0 auto;
       }
 
@@ -253,25 +274,52 @@
         color: white;
         padding: 10px;
         text-decoration: none;
-        transition: background 0.3s;
+        transition: background 0.3s, transform 0.2s;
         display: block;
       }
 
       .quick-link-btn:hover {
         background: rgba(255, 255, 255, 0.2);
         color: var(--customized-orange-dark-bg);
+        transform: translateY(-2px);
+      }
+      
+      .quick-link-btn.main-action {
+        background-color: var(--customized-orange-dark-bg);
+        color: var(--primary-color);
+        font-weight: bold;
+        grid-column: 1 / -1; /* Make it span the full width */
+        font-size: 1.1em;
+      }
+      
+       .quick-link-btn.main-action:hover {
+        background-color: #ffb17a;
+        color: var(--primary-hover-color);
       }
 
       code {
         background-color: #f0f0f0;
         padding: 2px 5px;
         border-radius: 3px;
-        font-family: 'Courier New', monospace;
+        font-family: "Courier New", monospace;
         font-size: 14px;
       }
 
+      .deployment-badge {
+        display: inline-block;
+        background: #4caf50;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-size: 12px;
+        margin-top: 5px;
+      }
+
       @media print {
-        body { background: white; padding: 0; }
+        body {
+          background: white;
+          padding: 0;
+        }
         .container {
           max-width: 100%;
           width: 8.5in;
@@ -279,8 +327,13 @@
           box-shadow: none;
           margin: 0;
         }
-        @page { size: letter; margin: 0.75in; }
-        .floating-nav { display: none; }
+        @page {
+          size: letter;
+          margin: 0.75in;
+        }
+        .floating-nav {
+          display: none;
+        }
       }
     </style>
   </head>
@@ -291,62 +344,56 @@
         <div class="header-info">
           <strong>Developer:</strong> Ivan Cortes ·
           <strong>Course:</strong> CareerFoundry — Python for Web Developers ·
-          <strong>Achievement 2:</strong> Django Web Development
+          <strong>Status:</strong> Achievement 2 Complete
         </div>
       </div>
 
       <div class="section">
         <h2>🎯 Project Overview</h2>
         <p>
-          Welcome to my Recipe App repository! This Django web application represents the evolution of my command-line Recipe App from Achievement 1 into a full-featured web application. Follow my learning journey as I transform Python scripts into a professional Django project with database models, views, templates, user authentication, search, data visualization, and deployment.
+          Welcome to the project hub for my Recipe App! This repository documents the entire development journey, from a simple command-line script in Achievement 1 to a full-stack, deployed web application in Achievement 2. Below you can find the project status, links to key resources, and a complete log of my learning through the individual and comprehensive journals.
         </p>
 
         <div class="tech-stack">
           <span class="tech-badge">Python 3.13.5</span>
           <span class="tech-badge">Django 5.2.7</span>
-          <span class="tech-badge">SQLite</span>
-          <span class="tech-badge">HTML5</span>
-          <span class="tech-badge">CSS3</span>
+          <span class="tech-badge">PostgreSQL</span>
+          <span class="tech-badge">HTML5/CSS3</span>
           <span class="tech-badge">Git/GitHub</span>
-          {/* */}
           <span class="tech-badge">Pandas</span>
           <span class="tech-badge">Matplotlib</span>
-          {/* */}
+          <span class="tech-badge">Gunicorn</span>
+          <span class="tech-badge">WhiteNoise</span>
+          <span class="tech-badge">Heroku</span>
         </div>
       </div>
 
       <div class="project-status">
-        <h3>📊 Current Project Status</h3>
+        <h3>📊 Final Project Status</h3>
         <div class="status-grid">
           <div class="status-item">
-            <strong>Current Exercise:</strong><br>
-             {/* */}
-            2.7 - Search & Charts
+            <strong>Final Status:</strong><br />
+            ✅ Deployed & Complete
           </div>
           <div class="status-item">
-            <strong>Progress:</strong><br>
-             {/* */}
-            6 of 8 exercises complete
+            <strong>Progress:</strong><br />
+            All exercises complete
           </div>
           <div class="status-item">
-            <strong>Views Created:</strong><br>
-             {/* */}
-            7 (Home, List, Detail, Login, Logout, Logout Success, Search)
+            <strong>Views Created:</strong><br />
+            8 (Home, List, Detail, Login, Logout, Logout Success, Search, About Me)
           </div>
           <div class="status-item">
-            <strong>Templates Built:</strong><br>
-             {/* */}
-            6 (Home, List, Detail, Login, Logout Success, Search)
+            <strong>Templates Built:</strong><br />
+            7+ (All app pages, auth flow, and journals)
           </div>
           <div class="status-item">
-            <strong>URL Patterns:</strong><br>
-             {/* */}
-            8+ (Project & App Level incl. Search)
+            <strong>URL Patterns:</strong><br />
+            9+ (Project & App Level)
           </div>
           <div class="status-item">
-            <strong>Next Milestone:</strong><br>
-             {/* */}
-            Deployment (Exercise 2.8)
+            <strong>Production Status:</strong><br />
+            Live on Heroku <span class="deployment-badge">Deployed</span>
           </div>
         </div>
       </div>
@@ -354,130 +401,201 @@
       <div class="quick-links">
         <h3>Quick Access</h3>
         <div class="quick-links-grid">
+          <a href="./LEARNING_JOURNAL/FINAL_LEARNING_JOURNAL.html" class="quick-link-btn main-action">🏆 View Comprehensive Journal</a>
           <a href="https://github.com/ivencomur/recipe-app" class="quick-link-btn">📁 GitHub Repo</a>
-          <a href="#journals" class="quick-link-btn">📚 Learning Journals</a>
-          <a href="#roadmap" class="quick-link-btn">🗺️ Roadmap</a>
+          <a href="https://recipe-app-ivan-cortes-8d505e6123c3.herokuapp.com/" class="quick-link-btn">🚀 Live App</a>
+          <a href="#journals" class="quick-link-btn">📚 Individual Journals</a>
+          <a href="#roadmap" class="quick-link-btn">🗺️ Project Roadmap</a>
           <a href="#achievement1" class="quick-link-btn">🔙 Achievement 1</a>
         </div>
       </div>
 
       <div class="section" id="journals">
-        <h2>📚 Learning Journals - Achievement 2</h2>
+        <h2>📚 Learning Journals - Project Log</h2>
         <p>
-          Each journal documents the goals, challenges, solutions, and key takeaways from each exercise. These are written from a beginner's perspective to help others on the same learning path.
+          Each journal documents the goals, challenges, solutions, and key takeaways from each exercise, providing a detailed look at the development process.
         </p>
 
-        {/* --- Existing Journal Cards --- */}
+        <!-- --- NEW COMPREHENSIVE JOURNAL CARD --- -->
+        <div class="journal-card highlight">
+            <h4>🏆 Comprehensive Project Journal (Achievements 1 & 2)</h4>
+            <p>This is the master journal, synthesizing the entire project journey from a simple Python script to a fully deployed Django web application. It tells the complete story of development, challenges, and learning.</p>
+            <a href="./LEARNING_JOURNAL/FINAL_LEARNING_JOURNAL.html" target="_blank">📖 Read the Full Story</a>
+            <span class="date">October 2025</span>
+        </div>
+        <!-- --- END NEW CARD --- -->
+
         <div class="journal-card">
-          <h4>📘 Exercise 2.1 - Getting Started with Django</h4>
-          <p>Introduction to the Django framework, MVT architecture, and setting up a professional development environment.</p>
-          <p><strong>Key Topics:</strong> MVT, virtual environments, project planning.</p>
-          <a href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.1_(8).html" target="_blank">📖 Read Full Journal</a>
+          <h4>🚀 Exercise 2.8 - Deployment & Production Configuration</h4>
+          <p>
+            Configured the Django application for production, managed environment variables, handled static files with WhiteNoise, and deployed to Heroku with a PostgreSQL database.
+          </p>
+          <a
+            href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.8_(15).html"
+            target="_blank"
+            >📖 Read Full Journal</a
+          >
+          <span class="date">October 21, 2025</span>
+        </div>
+
+        <div class="journal-card">
+          <h4>📊 Exercise 2.7 - Django Forms & Data Visualization</h4>
+          <p>
+            Added recipe search functionality using Django Forms and integrated Pandas/Matplotlib for dynamic chart generation based on search results.
+          </p>
+          <a
+            href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.7_(14).html"
+            target="_blank"
+            >📖 Read Full Journal</a
+          >
           <span class="date">October 2025</span>
         </div>
 
         <div class="journal-card">
-          <h4>📗 Exercise 2.2 - Django Project Structure</h4>
-          <p>Created the first Django project and apps, learning the distinction between the two and the overall file structure.</p>
-          <p><strong>Key Topics:</strong> Project vs. App, `startproject`, `startapp`, `settings.py`.</p>
-          <a href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.2_(9).html" target="_blank">📖 Read Full Journal</a>
-          <span class="date">October 2025</span>
-        </div>
-
-        <div class="journal-card">
-          <h4>📙 Exercise 2.3 - Django Models</h4>
-          <p>Designed the database schema, defined models with various field types, handled relationships, and used the migration system.</p>
-          <p><strong>Key Topics:</strong> Models, ORM, `makemigrations`, `migrate`, Django admin.</p>
-          <a href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.3_(10).html" target="_blank">📖 Read Full Journal</a>
-          <span class="date">October 2025</span>
-        </div>
-
-        <div class="journal-card">
-          <h4>📕 Exercise 2.4 - Django Views & Templates</h4>
-          <p>Brought the application to life by building a view to handle requests and a template to structure the HTML homepage.</p>
-          <p><strong>Key Topics:</strong> FBVs, DTL, context, `render()`, `include()`.</p>
-          <a href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.4_(11).html" target="_blank">📖 Read Full Journal</a>
+          <h4>🔑 Exercise 2.6 - User Authentication</h4>
+          <p>
+            Implemented a secure login/logout system and protected recipe views
+            so they are only accessible to authenticated users.
+          </p>
+          <a
+            href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.6_(13).html"
+            target="_blank"
+            >📖 Read Full Journal</a
+          >
           <span class="date">October 2025</span>
         </div>
 
         <div class="journal-card">
           <h4>📔 Exercise 2.5 - Django MVT Revisited</h4>
-          <p>Enabled image uploads, displayed database content on the front end, and created dynamic links between pages.</p>
-          <p><strong>Key Topics:</strong> Media files, Class-Based Views, `get_absolute_url`.</p>
-          <a href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.5_(12).html" target="_blank">📖 Read Full Journal</a>
+          <p>
+            Enabled image uploads, displayed database content on the front end,
+            and created dynamic links between pages using Class-Based Views.
+          </p>
+          <a
+            href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.5_(12).html"
+            target="_blank"
+            >📖 Read Full Journal</a
+          >
           <span class="date">October 2025</span>
         </div>
 
         <div class="journal-card">
-            <h4>🔑 Exercise 2.6 - User Authentication</h4>
-            <p>Implemented a secure login/logout system and protected recipe views so they are only accessible to authenticated users.</p>
-            <p><strong>Key Topics:</strong> Auth Views, `LoginRequiredMixin`, `user.is_authenticated`, `LOGIN_URL`.</p>
-            <a href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.6_(13).html" target="_blank">📖 Read Full Journal</a>
-            <span class="date">October 2025</span>
+          <h4>📕 Exercise 2.4 - Django Views & Templates</h4>
+          <p>
+            Brought the application to life by building a view to handle
+            requests and a template to structure the HTML homepage.
+          </p>
+          <a
+            href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.4_(11).html"
+            target="_blank"
+            >📖 Read Full Journal</a
+          >
+          <span class="date">October 2025</span>
         </div>
-        {/* --- END Existing --- */}
 
-        {/* */}
         <div class="journal-card">
-            <h4>📊 Exercise 2.7 - Django Forms & Data Visualization</h4>
-            <p>Added recipe search functionality using Django Forms and integrated Pandas/Matplotlib for dynamic chart generation based on search results.</p>
-            <p><strong>Key Topics:</strong> `forms.Form`, GET/POST handling, QuerySet filtering (`Q` objects), Matplotlib ('Agg' backend), `BytesIO`, `base64`.</p>
-            <a href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.7_(14).html" target="_blank">📖 Read Full Journal</a>
-            <span class="date">October 2025</span>
+          <h4>📙 Exercise 2.3 - Django Models</h4>
+          <p>
+            Designed the database schema, defined models with various field
+            types, handled relationships, and used the migration system.
+          </p>
+          <a
+            href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.3_(10).html"
+            target="_blank"
+            >📖 Read Full Journal</a
+          >
+          <span class="date">October 2025</span>
         </div>
-        {/* */}
+
+        <div class="journal-card">
+          <h4>📗 Exercise 2.2 - Django Project Structure</h4>
+          <p>
+            Created the first Django project and apps, learning the distinction
+            between the two and the overall file structure.
+          </p>
+          <a
+            href="LEARNING_JOURNAL/LEARNING_JOURNAL_2.2_(9).html"
+            target="_blank"
+            >📖 Read Full Journal</a
+          >
+          <span class="date">October 2025</span>
+        </div>
+
+        <div class="journal-card">
+          <h4>📘 Exercises 1.1 - 1.7 (Achievement 1)</h4>
+          <p>The foundation of the project: learning core Python, file handling, OOP, and connecting to a MySQL database with raw SQL and SQLAlchemy.</p>
+           <a href="LEARNING_JOURNAL/LEARNING_JOURNAL7.html" target="_blank">📖 Read Full Journal (1.7)</a>
+           <span class="date">October 2025</span>
+        </div>
+
       </div>
 
       <div class="section" id="roadmap">
         <h2>🗺️ Development Roadmap</h2>
-
         <h3>✅ Completed</h3>
         <ul>
-          {/* */}
-          <li><strong>Exercise 2.1 - 2.7:</strong> Project setup, models, admin, views, templates, media files, user authentication, search, and charts.</li>
+          <li><strong>Achievement 1:</strong> Core Python, File I/O, OOP, and Database connection (MySQL, SQLAlchemy).</li>
+          <li><strong>Achievement 2:</strong> Full-stack development with Django, including models, views, templates, auth, forms, charts, testing, and production deployment.</li>
         </ul>
-
-        <h3>🚧 In Progress</h3>
+        <h3>🎓 Course Complete</h3>
         <ul>
-           {/* */}
-          <li><strong>Exercise 2.8:</strong> Deployment to a live server.</li>
-        </ul>
-
-        <h3>📅 Upcoming Features</h3>
-        <ul>
-          <li>User recipe creation/editing via Forms</li> {/* Clarified */}
-          <li>Personalized recipe collections per user</li>
-          <li>Data analysis enhancements (more chart types, filtering options)</li>
+          <li>All exercises completed.</li>
+          <li>Professional, portfolio-ready application deployed live.</li>
+          <li>Comprehensive documentation and testing in place.</li>
         </ul>
       </div>
 
       <div class="section" id="achievement1">
         <h2>🔙 Connection to Achievement 1</h2>
         <p>
-          This Django project builds directly on the foundation from Achievement 1, where I created a command-line Recipe App using core Python. The concepts carry forward:
+          This Django project builds directly on the foundation from Achievement
+          1, where a command-line Recipe App was created using core Python. The
+          concepts carried forward and evolved:
         </p>
         <ul>
-          <li><strong>Data Models:</strong> The `Recipe` class has become the Django `Recipe` model.</li>
-          <li><strong>Database:</strong> Raw SQL and pickle files are replaced by the powerful Django ORM.</li>
-          <li><strong>Logic:</strong> Python functions are now implemented within Django Views.</li>
+          <li>
+            <strong>Data Models:</strong> The `Recipe` class from OOP became the Django `Recipe` model.
+          </li>
+          <li>
+            <strong>Database:</strong> Raw SQL and SQLAlchemy were replaced by the powerful and integrated Django ORM.
+          </li>
+          <li>
+            <strong>Logic:</strong> Python functions that handled user input are now implemented within Django Views that handle web requests.
+          </li>
         </ul>
         <p>
-          <strong>Want to see the CLI version?</strong> Check out the
-          <a href="https://github.com/ivencomur/PYTHON_COURSE" target="_blank">Achievement 1 Repository</a>
+          <strong>Want to see the original CLI version?</strong> Check out the
+          <a href="https://github.com/ivencomur/PYTHON_COURSE" target="_blank"
+            >Achievement 1 Repository</a
+          >
           to see how this project started.
         </p>
       </div>
 
       <div class="page-footer">
         <div class="social-links">
-          <a href="https://ivan-cortes-portfolio-v1.onrender.com/" target="_blank">Portfolio</a> ·
-          <a href="https://www.linkedin.com/in/ivan-cortes-murcia-22053953/" target="_blank">LinkedIn</a> ·
-          <a href="https://x.com/IVENCOMUR" target="_blank">Twitter</a> ·
+          <a
+            href="https://ivan-cortes-portfolio-v1.onrender.com/"
+            target="_blank"
+            >Portfolio</a
+          >
+          ·
+          <a
+            href="https://www.linkedin.com/in/ivan-cortes-murcia-22053953/"
+            target="_blank"
+            >LinkedIn</a
+          >
+          · <a href="https://x.com/IVENCOMUR" target="_blank">Twitter</a> ·
           <a href="https://github.com/ivencomur" target="_blank">GitHub</a>
         </div>
         <p>
-          <a href="https://github.com/ivencomur/recipe-app" target="_blank">Recipe App Repository</a> ·
-          <a href="https://github.com/ivencomur/PYTHON_COURSE" target="_blank">Achievement 1 Repository</a>
+          <a href="https://github.com/ivencomur/recipe-app" target="_blank"
+            >Recipe App Repository</a
+          >
+          ·
+          <a href="https://github.com/ivencomur/PYTHON_COURSE" target="_blank"
+            >Achievement 1 Repository</a
+          >
         </p>
         <p>Python for Web Developers @ CareerFoundry 2025</p>
       </div>
@@ -490,15 +608,16 @@
 
     <script>
       // Smooth scrolling for anchor links
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
           e.preventDefault();
-          const target = document.querySelector(this.getAttribute('href'));
+          const target = document.querySelector(this.getAttribute("href"));
           if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
+            target.scrollIntoView({ behavior: "smooth" });
           }
         });
       });
     </script>
   </body>
 </html>
+

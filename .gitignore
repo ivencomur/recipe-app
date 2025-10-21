@@ -196,7 +196,7 @@ secrets.json
 *.db
 *.sqlite
 *.sqlite3
-migrations/
+
 
 # Node (if using any JavaScript tools)
 node_modules/
@@ -233,3 +233,13 @@ site/
 /staticfiles/
 local_settings.py
 *.local.py
+
+.env
+.env.local
+*.env
+staticfiles/
+/static/
+
+# allow recipe placeholder
+!static/img/
+!static/img/**

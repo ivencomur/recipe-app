@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% load image_chain %}
+{% block content %}
+<div class="container my-4">
+  <h1 class="mb-3">All Recipes</h1>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for recipe in recipes %}
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <img class="card-img-top" {{ recipe|img_src_attrs|safe }} alt="{{ recipe.name }}" onerror="window.__imgChain(this)">
+        <div class="card-body">
+          <h5 class="card-title"><a href="{% url 'recipes:recipe_detail' recipe.id %}">{{ recipe.name }}</a></h5>
+          {% if recipe.cook_time_minutes %}<p class="card-text text-muted">Cooking Time: {{ recipe.cook_time_minutes }} minutes</p>{% endif %}
+        </div>
+      </div>
+    </div>
+    {% empty %}<p>No recipes yet.</p>{% endfor %}
+  </div>
+</div>
+{% endblock %}

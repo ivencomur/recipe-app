@@ -1,0 +1,141 @@
+/* static/css/style.css */
+:root {
+  --primary: #20504b;
+  --primary-hover: #1a403c;
+  --accent: #ffa061;
+  --bg: #d9e1e5;
+  --text: #333;
+  --shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 0 0 90px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 24px;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  width: 100%;
+  flex-grow: 1;
+}
+
+.navbar-custom {
+  background: var(--primary);
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link {
+  color: #fff;
+}
+
+.navbar-custom .nav-link:hover {
+  color: var(--accent);
+}
+
+.btn-logout {
+  background: var(--accent);
+  border: none;
+  color: #000;
+  font-weight: 600;
+}
+
+.btn-logout:hover {
+  background: #ff8f42;
+  color: #000;
+}
+
+.footer-custom {
+  margin-top: auto;
+  background: var(--primary);
+  color: #fff;
+  text-align: center;
+  padding: 18px;
+  font-size: 14px;
+}
+
+.footer-custom a {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.footer-custom a:hover {
+  text-decoration: underline;
+}
+
+h1.content-h1 {
+  font-size: 28px;
+  margin: 0 0 12px;
+  border-bottom: 3px solid var(--primary);
+  padding-bottom: 8px;
+}
+
+.floating-nav {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.floating-nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.floating-nav a:hover {
+  background: var(--accent);
+  color: #000;
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .content-container {
+    padding: 16px;
+  }
+
+  h1.content-h1 {
+    font-size: 24px;
+  }
+
+  .floating-nav {
+    bottom: 10px;
+    right: 10px;
+    gap: 5px;
+  }
+
+  .floating-nav a {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+  }
+}
