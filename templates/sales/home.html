@@ -1,3 +1,4 @@
+@"
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -132,6 +133,14 @@
         background-color: #ff8f4d;
         transform: translateY(-1px);
       }
+      .btn-search {
+        background-color: #17a2b8;
+        color: white;
+      }
+      .btn-search:hover {
+        background-color: #138496;
+        transform: translateY(-1px);
+      }
       .page-footer {
         background-color: var(--primary-color);
         color: #fff;
@@ -174,7 +183,11 @@
           
           <div class="auth-buttons">
             <a href="{% url 'recipes:list' %}" class="btn btn-recipes">View All Recipes</a>
-            <a href="{% url 'logout' %}" class="btn btn-secondary">Logout</a>
+            <a href="{% url 'recipes:search' %}" class="btn btn-search">🔍 Search Recipes</a>
+            <form method="post" action="{% url 'logout' %}" style="display: inline;">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-secondary">Logout</button>
+            </form>
           </div>
         {% else %}
           <!-- Content for visitors (not logged in) -->
@@ -193,12 +206,12 @@
 
       <div class="page-footer">
         <div class="social-links">
-          <a
+          
             href="https://ivan-cortes-portfolio-v1.onrender.com/"
             target="_blank"
             >Portfolio</a
           >
-          <a
+          
             href="https://www.linkedin.com/in/ivan-cortes-murcia-22053953/"
             target="_blank"
             >LinkedIn</a
@@ -216,3 +229,16 @@
     </div>
   </body>
 </html>
+"@ | Out-File -FilePath "templates/sales/home.html" -Encoding UTF8
+
+Write-Host "✅ Updated home.html with Search Recipes button!" -ForegroundColor Green
+Write-Host ""
+Write-Host "Changes made:" -ForegroundColor Cyan
+Write-Host "  • Added 'Search Recipes' button (🔍) for logged-in users" -ForegroundColor White
+Write-Host "  • Converted logout link to proper form with button" -ForegroundColor White
+Write-Host "  • Added teal styling for search button" -ForegroundColor White
+Write-Host ""
+Write-Host "Now deploy:" -ForegroundColor Yellow
+Write-Host "  git add templates/sales/home.html" -ForegroundColor White
+Write-Host "  git commit -m 'Add Search Recipes button to home page'" -ForegroundColor White
+Write-Host "  git push origin main" -ForegroundColor White
