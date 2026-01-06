@@ -1,20 +1,37 @@
-# sales/views.py
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
+
 
 def home(request):
     """
-    Home page view for Recipe App.
+    Display the home page
     """
-    context = {
-        'app_name': 'Recipe Collection',
-        'tagline': 'Organize, Cook, and Share Your Favorite Recipes',
-        'features': [
-            'Store unlimited recipes',
-            'Track cooking times and difficulty',
-            'Search and filter your collection',
-            'Share recipes with friends'
-        ],
-        'exercise': 'Exercise 2.6: User Authentication' # Updated exercise name
-    }
+    return render(request, 'sales/home.html')
 
-    return render(request, 'sales/recipes_home.html', context)
+
+def register_view(request):
+    """
+    Handle user registration
+    """
+    if request.user.is_authenticated:
+        return redirect('recipes:list')
+    
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            login(request, user)
+            messages.success(
+                request, 
+                f'Welcome to Recipe App, {username}! Your account has been created successfully.'
+            )
+            return redirect('recipes:list')
+        else:
+            messages.error(request, 'Please correct the errors below.')
+    else:
+        form = UserCreationForm()
+    
+    return render(request, 'auth/register.html', {'form': form})

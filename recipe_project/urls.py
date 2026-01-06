@@ -20,6 +20,8 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('logout/success/', logout_success_view, name='logout_success'),
     path('about/', about_me_view, name='about_me'),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
