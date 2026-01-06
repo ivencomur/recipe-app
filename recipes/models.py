@@ -1,4 +1,4 @@
-# recipes/models.py
+﻿# recipes/models.py
 from django.db import models
 from django.core.validators import MinValueValidator
 from django.shortcuts import reverse
@@ -50,6 +50,15 @@ class Recipe(models.Model):
         
     def get_absolute_url(self):
         return reverse('recipes:detail', kwargs={'pk': self.pk})
+    def get_image_url(self):
+        '''
+        Get dynamic image URL from Unsplash API or return stored pic.
+        If pic is default placeholder, fetch fresh image from Unsplash.
+        '''
+        if self.pic == '/static/img/no_picture.jpg' or not self.pic:
+            from .utils import get_recipe_image_url
+            return get_recipe_image_url(self.name)
+        return self.pic
 
 class RecipeIngredient(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
