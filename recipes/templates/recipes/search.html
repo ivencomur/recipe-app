@@ -53,7 +53,11 @@
 <body>
 
     <div class="page-header-block">
-       <h1>Recipe Search</h1> 
+       <h1>Recipe Search</h1>
+       <form method="post" action="{% url 'logout' %}" style="display: inline;">
+    {% csrf_token %}
+    <button type="submit" style="background:none; border:none; color:#ffa061; cursor:pointer;">Logout</button>
+</form> 
     </div>
 
     <div class="content-container py-4">
