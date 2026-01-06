@@ -2,26 +2,227 @@
 {% load static %}
 {% load image_chain %}
 {% load recipe_extras %}
+
 {% block content %}
-<div class="container my-4">
-  <a class="btn btn-link" href="{% url 'recipes:recipe_list' %}">&laquo; Back to All Recipes</a>
-  <div class="row g-4">
-    <div class="col-md-6">
-      <img class="img-fluid rounded shadow-sm" {{ recipe|img_src_attrs|safe }} alt="{{ recipe.name }}" onerror="window.__imgChain(this)">
-    </div>
-    <div class="col-md-6">
-      <h1 class="mb-2">{{ recipe.name }}</h1>
-      {% if recipe.cook_time_minutes %}<p class="text-muted">Cooking Time: {{ recipe.cook_time_minutes }} minutes</p>{% endif %}
-      <h4 class="mt-4">Ingredients</h4>
-      <ul class="mb-3">
-        {% for ri in recipe.recipeingredient_set.all %}
-          <li>{{ ri|ingredient_line }}</li>
-        {% empty %}<li>No ingredients for this recipe.</li>{% endfor %}
-      </ul>
-      {% if recipe.instructions %}
-        <h4>Instructions</h4>
-        <div>{{ recipe.instructions|linebreaks }}</div>
-      {% endif %}
+<style>
+  .recipe-detail-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .back-link {
+    color: #20504b;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    transition: color 0.3s ease;
+  }
+
+  .back-link:hover {
+    color: #ffa061;
+  }
+
+  .logout-btn {
+    background: none;
+    border: none;
+    color: #ffa061;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    float: right;
+  }
+
+  .logout-btn:hover {
+    background-color: #ffa061;
+    color: white;
+  }
+
+  .recipe-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-top: 1rem;
+  }
+
+  .recipe-image-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    background: #f8f9fa;
+  }
+
+  .recipe-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .recipe-info {
+    padding: 2rem;
+  }
+
+  .recipe-title {
+    color: #20504b;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .cooking-time {
+    color: #6c757d;
+    font-size: 1rem;
+    display: inline-block;
+    background: #f8f9fa;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+  }
+
+  .cooking-time::before {
+    content: "⏱️ ";
+  }
+
+  .section-title {
+    color: #20504b;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid #ffa061;
+    display: inline-block;
+  }
+
+  .ingredients-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+  }
+
+  .ingredients-list li {
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    background: #f8f9fa;
+    border-left: 4px solid #ffa061;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+
+  .ingredients-list li:hover {
+    background: #e9ecef;
+    transform: translateX(5px);
+  }
+
+  .instructions-content {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    line-height: 1.8;
+    color: #333;
+  }
+
+  .instructions-content p {
+    margin-bottom: 1rem;
+  }
+
+  .difficulty-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #20504b;
+    color: white;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .recipe-title {
+      font-size: 2rem;
+    }
+
+    .recipe-image-container {
+      height: 300px;
+    }
+
+    .recipe-info {
+      padding: 1.5rem;
+    }
+
+    .logout-btn {
+      float: none;
+      display: block;
+      margin-top: 1rem;
+    }
+  }
+</style>
+
+<div class="recipe-detail-container">
+  <!-- Navigation Header -->
+  <div style="clear: both; overflow: hidden;">
+    <a class="back-link" href="{% url 'recipes:recipe_list' %}">
+      &laquo; Back to All Recipes
+    </a>
+    
+    <form method="post" action="{% url 'logout' %}" style="display: inline;">
+      {% csrf_token %}
+      <button type="submit" class="logout-btn">Logout</button>
+    </form>
+  </div>
+
+  <!-- Recipe Card -->
+  <div class="recipe-card">
+    <div class="row g-0">
+      <!-- Image Section -->
+      <div class="col-md-5">
+        <div class="recipe-image-container">
+          <img {{ recipe|img_src_attrs|safe }} 
+               alt="{{ recipe.name }}" 
+               onerror="window.__imgChain(this)">
+        </div>
+      </div>
+
+      <!-- Info Section -->
+      <div class="col-md-7">
+        <div class="recipe-info">
+          <h1 class="recipe-title">{{ recipe.name }}</h1>
+          
+          {% if recipe.difficulty %}
+          <span class="difficulty-badge">{{ recipe.get_difficulty_display }}</span>
+          {% endif %}
+          
+          {% if recipe.cook_time_minutes %}
+          <div class="cooking-time">
+            {{ recipe.cook_time_minutes }} minutes
+          </div>
+          {% endif %}
+
+          <!-- Ingredients -->
+          <h4 class="section-title">Ingredients</h4>
+          <ul class="ingredients-list">
+            {% for ri in recipe.recipeingredient_set.all %}
+              <li>{{ ri|ingredient_line }}</li>
+            {% empty %}
+              <li>No ingredients for this recipe.</li>
+            {% endfor %}
+          </ul>
+
+          <!-- Instructions -->
+          {% if recipe.instructions %}
+          <h4 class="section-title">Instructions</h4>
+          <div class="instructions-content">
+            {{ recipe.instructions|linebreaks }}
+          </div>
+          {% endif %}
+        </div>
+      </div>
     </div>
   </div>
 </div>
