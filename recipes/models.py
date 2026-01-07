@@ -52,14 +52,17 @@ class Recipe(models.Model):
         return reverse('recipes:detail', kwargs={'pk': self.pk})
     def get_image_url(self):
         '''Get dynamic image URL from Unsplash API or return stored pic'''
-        # If pic is default placeholder, missing, or a local file path, fetch from Unsplash
-        if (not self.pic or 
-            self.pic == '/static/img/no_picture.jpg' or 
-            self.pic.startswith('recipes/') or
-            self.pic.endswith(('.jpg', '.jpeg', '.png', '.webp', '.gif'))):
+        # Convert to string and check for old file paths
+        pic_value = str(self.pic) if self.pic else ''
+        
+        # If pic is default, empty, or an old file path, fetch from Unsplash
+        if (not pic_value or 
+            pic_value == '/static/img/no_picture.jpg' or 
+            'recipes/' in pic_value or
+            pic_value.endswith(('.jpg', '.jpeg', '.png', '.webp', '.gif'))):
             from .utils import get_recipe_image_url
             return get_recipe_image_url(self.name)
-        return self.pic
+        return pic_value
 
 class RecipeIngredient(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
