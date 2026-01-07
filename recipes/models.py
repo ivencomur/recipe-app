@@ -71,3 +71,4 @@ class RecipeIngredient(models.Model):
         unique_together = ("recipe", "ingredient")
 
 
+
