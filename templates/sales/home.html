@@ -60,6 +60,61 @@
             text-align: center;
         }
 
+        /* Login Form Styles */
+        .login-form {
+            max-width: 400px;
+            margin: 2rem auto;
+        }
+
+        .login-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .login-form form p {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-form label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #20504b;
+        }
+
+        .login-form input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .register-link p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .register-link a {
+            color: #20504b;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            color: #ffa061;
+            text-decoration: underline;
+        }
+
+        /* Button Styles */
         .button-group {
             display: flex;
             gap: 1rem;
@@ -111,12 +166,52 @@
             color: white;
         }
 
+        .login-button {
+            background-color: #20504b;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .login-button:hover {
+            background-color: #2d7067;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(32, 80, 75, 0.4);
+        }
+
+        /* Footer Styles */
         .footer {
             background-color: rgba(0,0,0,0.2);
             color: white;
             text-align: center;
             padding: 2rem;
             margin-top: auto;
+        }
+
+        .footer .social-links {
+            margin-bottom: 15px;
+        }
+
+        .footer .social-links a {
+            color: #ffa061;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        .footer .social-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .footer p {
+            margin-top: 10px;
         }
 
         .footer a {
@@ -126,6 +221,16 @@
 
         .footer a:hover {
             text-decoration: underline;
+        }
+
+        .error-message {
+            color: #d9534f;
+            background-color: #fddede;
+            border: 1px solid #d9534f;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            text-align: center;
         }
     </style>
 </head>
@@ -151,20 +256,36 @@
                 </div>
             {% else %}
                 <p class="welcome-message">Welcome to Recipe App! </p>
-                <p style="text-align: center; margin-bottom: 2rem;">Login to explore our collection of amazing recipes.</p>
+                <p style="text-align: center; margin-bottom: 1rem; color: #666;">Login to explore our collection of amazing recipes</p>
                 
-                <div class="button-group">
-                    <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+                <div class="login-form">
+                    {% if error_message %}
+                    <div class="error-message">{{ error_message }}</div>
+                    {% endif %}
+
+                    <form action="{% url 'login' %}" method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="login-button">Login</button>
+                    </form>
+
+                    <div class="register-link">
+                        <p>Don't have an account? <a href="{% url 'sales:register' %}">Register here</a></p>
+                    </div>
                 </div>
             {% endif %}
         </div>
     </div>
 
     <div class="footer">
+        <div class="social-links">
+            <a href="https://ivan-cortes-portfolio-v1.onrender.com/" target="_blank">Portfolio</a>
+            <a href="https://www.linkedin.com/in/ivan-cortes-murcia-22053953/" target="_blank">LinkedIn</a>
+            <a href="https://x.com/IVENCOMUR" target="_blank">Twitter</a>
+            <a href="https://github.com/ivencomur" target="_blank">GitHub</a>
+        </div>
         <p>
-            <a href="https://ivan-cortes-portfolio-v1.onrender.com/" target="_blank">Portfolio</a> |
-            <a href="https://www.linkedin.com/in/ivan-cortes-murcia-22053953/" target="_blank">LinkedIn</a> |
-            <a href="https://github.com/ivencomur/recipe-app" target="_blank">GitHub Repository</a>
+            <a href="https://github.com/ivencomur/recipe-app" target="_blank">Project Repository</a>
         </p>
         <p style="margin-top: 1rem;">Python for Web Developers @ CareerFoundry 2025</p>
     </div>
