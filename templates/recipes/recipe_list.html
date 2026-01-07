@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 {% load static %}
 {% load image_chain %}
 
@@ -124,7 +124,7 @@
   }
 
   .cooking-time::before {
-    content: "⏱️";
+    content: "â±ï¸";
     font-size: 1.1rem;
   }
 
@@ -197,7 +197,7 @@
     {% for recipe in recipes %}
     <div class="recipe-card">
       <div class="recipe-image-wrapper">
-        <img {{ recipe|img_src_attrs|safe }} 
+        <img src="{{ recipe.get_image_url }}" 
              alt="{{ recipe.name }}" 
              onerror="window.__imgChain(this)">
       </div>
