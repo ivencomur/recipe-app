@@ -197,7 +197,7 @@
     {% for recipe in recipes %}
     <div class="recipe-card">
       <div class="recipe-image-wrapper">
-        <img src="{{ recipe.get_image_url }}" 
+        <img src="{% if recipe.get_image_url %}{{ recipe.get_image_url }}{% else %}/static/img/no_picture.jpg{% endif %}" 
              alt="{{ recipe.name }}" 
              onerror="window.__imgChain(this)">
       </div>
@@ -223,3 +223,4 @@
   {% endif %}
 </div>
 {% endblock %}
+
