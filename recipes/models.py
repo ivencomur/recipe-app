@@ -51,11 +51,12 @@ class Recipe(models.Model):
     def get_absolute_url(self):
         return reverse('recipes:detail', kwargs={'pk': self.pk})
     def get_image_url(self):
-        '''
-        Get dynamic image URL from Unsplash API or return stored pic.
-        If pic is default placeholder, fetch fresh image from Unsplash.
-        '''
-        if self.pic == '/static/img/no_picture.jpg' or not self.pic:
+        '''Get dynamic image URL from Unsplash API or return stored pic'''
+        # If pic is default placeholder, missing, or a local file path, fetch from Unsplash
+        if (not self.pic or 
+            self.pic == '/static/img/no_picture.jpg' or 
+            self.pic.startswith('recipes/') or
+            self.pic.endswith(('.jpg', '.jpeg', '.png', '.webp', '.gif'))):
             from .utils import get_recipe_image_url
             return get_recipe_image_url(self.name)
         return self.pic
@@ -68,3 +69,5 @@ class RecipeIngredient(models.Model):
 
     class Meta:
         unique_together = ("recipe", "ingredient")
+
+

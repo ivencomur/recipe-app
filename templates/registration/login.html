@@ -1,0 +1,56 @@
+﻿{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .login-container {
+        max-width: 500px;
+        margin: 5rem auto;
+        padding: 3rem;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .login-title {
+        color: #20504b;
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    
+    .login-form input {
+        width: 100%;
+        padding: 0.75rem;
+        margin-bottom: 1rem;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+    }
+    
+    .login-btn {
+        width: 100%;
+        padding: 1rem;
+        background: #ffa061;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    
+    .login-btn:hover {
+        background: #ff8c47;
+    }
+</style>
+
+<div class="login-container">
+    <h2 class="login-title">🍳 Login to Recipe App</h2>
+    
+    <form method="post" class="login-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="login-btn">Login</button>
+    </form>
+</div>
+{% endblock %}

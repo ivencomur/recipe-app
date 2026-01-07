@@ -183,3 +183,4 @@ if os.getenv("CLOUDINARY_URL"):
 # UNSPLASH API CONFIGURATION
 # ============================================
 UNSPLASH_ACCESS_KEY = config('UNSPLASH_ACCESS_KEY', default='')
+

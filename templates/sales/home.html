@@ -1,244 +1,172 @@
-@"
+﻿{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe App - Home</title>
     <style>
-      :root {
-        --primary-color: #20504b;
-        --primary-hover-color: #1a403c;
-        --secondary-color: #f4f4f4;
-        --text-color: #333;
-        --alt-grid-item-text-color: #0056b3;
-        --customized-orange-dark-bg: #ffa061;
-        --error-color: #d9534f;
-      }
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        font-family: "Lato", sans-serif;
-        line-height: 1.6;
-        color: var(--text-color);
-        background-color: #d9e1e5;
-        padding: 20px;
-      }
-      .container {
-        max-width: 8.5in;
-        margin: 0 auto;
-        background: white;
-        padding: 0.75in;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-      }
-      .page-header {
-        background-color: var(--primary-color);
-        color: #fff;
-        padding: 30px 20px;
-        text-align: center;
-        margin: -0.75in -0.75in 30px -0.75in;
-      }
-      .page-header h1 {
-        color: #fff;
-        font-size: 2.5rem;
-        border-bottom: none;
-        margin-bottom: 10px;
-      }
-      .page-header p {
-        color: #d9e1e5;
-        font-size: 1.1rem;
-      }
-      .content {
-        padding: 2rem 0;
-        max-width: 600px;
-        margin: 0 auto;
-        text-align: center;
-      }
-      .welcome-message {
-        margin-bottom: 30px;
-      }
-      .welcome-message h2 {
-        color: var(--primary-color);
-        font-size: 1.8rem;
-        margin-bottom: 15px;
-      }
-      .welcome-message p {
-        color: #555;
-        font-size: 1.1rem;
-        line-height: 1.8;
-        margin-bottom: 10px;
-      }
-      .user-greeting {
-        background-color: #f8f9fa;
-        padding: 20px;
-        border-radius: 5px;
-        margin-bottom: 25px;
-        border-left: 4px solid var(--primary-color);
-      }
-      .user-greeting h3 {
-        color: var(--primary-color);
-        margin-bottom: 10px;
-      }
-      .auth-buttons {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin: 30px 0;
-      }
-      .btn {
-        padding: 12px 30px;
-        border: none;
-        border-radius: 5px;
-        font-size: 1.1rem;
-        font-weight: bold;
-        cursor: pointer;
-        text-decoration: none;
-        transition: background-color 0.2s, transform 0.1s;
-        display: inline-block;
-      }
-      .btn-primary {
-        background-color: var(--primary-color);
-        color: white;
-      }
-      .btn-primary:hover {
-        background-color: var(--primary-hover-color);
-        transform: translateY(-1px);
-      }
-      .btn-success {
-        background-color: #5cb85c;
-        color: white;
-      }
-      .btn-success:hover {
-        background-color: #449d44;
-        transform: translateY(-1px);
-      }
-      .btn-secondary {
-        background-color: #6c757d;
-        color: white;
-      }
-      .btn-secondary:hover {
-        background-color: #5a6268;
-        transform: translateY(-1px);
-      }
-      .btn-recipes {
-        background-color: var(--customized-orange-dark-bg);
-        color: white;
-      }
-      .btn-recipes:hover {
-        background-color: #ff8f4d;
-        transform: translateY(-1px);
-      }
-      .btn-search {
-        background-color: #17a2b8;
-        color: white;
-      }
-      .btn-search:hover {
-        background-color: #138496;
-        transform: translateY(-1px);
-      }
-      .page-footer {
-        background-color: var(--primary-color);
-        color: #fff;
-        padding: 1.5rem 2rem;
-        text-align: center;
-        font-size: 0.875rem;
-        margin: 30px -0.75in -0.75in -0.75in;
-      }
-      .page-footer a {
-        color: var(--customized-orange-dark-bg);
-        font-weight: bold;
-        text-decoration: none;
-      }
-      .page-footer a:hover {
-        color: #fff;
-        text-decoration: underline;
-      }
-      .page-footer .social-links {
-        margin-bottom: 15px;
-      }
-      .page-footer .social-links a {
-        margin: 0 10px;
-      }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #20504b 0%, #2d7067 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            flex: 1;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            padding: 3rem 0;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .welcome-section {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .welcome-message {
+            font-size: 1.3rem;
+            color: #20504b;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: #ffa061;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #ff8c47;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 160, 97, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: #20504b;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #2d7067;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(32, 80, 75, 0.4);
+        }
+
+        .btn-logout {
+            background-color: transparent;
+            color: #ffa061;
+            border: 2px solid #ffa061;
+        }
+
+        .btn-logout:hover {
+            background-color: #ffa061;
+            color: white;
+        }
+
+        .footer {
+            background-color: rgba(0,0,0,0.2);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: auto;
+        }
+
+        .footer a {
+            color: #ffa061;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">
-      <div class="page-header">
-        <h1>🍳 Recipe App</h1>
-        <p>Discover and Share Amazing Recipes</p>
-      </div>
-
-      <div class="content">
-        {% if user.is_authenticated %}
-          <!-- Content for logged-in users -->
-          <div class="user-greeting">
-            <h3>Welcome back, {{ user.username }}! 👋</h3>
-            <p>Ready to explore more delicious recipes?</p>
-          </div>
-          
-          <div class="auth-buttons">
-            <a href="{% url 'recipes:list' %}" class="btn btn-recipes">View All Recipes</a>
-            <a href="{% url 'recipes:search' %}" class="btn btn-search">🔍 Search Recipes</a>
-            <form method="post" action="{% url 'logout' %}" style="display: inline;">
-              {% csrf_token %}
-              <button type="submit" class="btn btn-secondary">Logout</button>
-            </form>
-          </div>
-        {% else %}
-          <!-- Content for visitors (not logged in) -->
-          <div class="welcome-message">
-            <h2>Welcome to Recipe App!</h2>
-            <p>Your ultimate destination for discovering delicious recipes.</p>
-            <p>Join our community to access and share amazing recipes from around the world.</p>
-          </div>
-          
-          <div class="auth-buttons">
-            <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
-            <a href="{% url 'sales:register' %}" class="btn btn-success">Register (New User)</a>
-          </div>
-        {% endif %}
-      </div>
-
-      <div class="page-footer">
-        <div class="social-links">
-          
-            href="https://ivan-cortes-portfolio-v1.onrender.com/"
-            target="_blank"
-            >Portfolio</a
-          >
-          
-            href="https://www.linkedin.com/in/ivan-cortes-murcia-22053953/"
-            target="_blank"
-            >LinkedIn</a
-          >
-          <a href="https://x.com/IVENCOMUR" target="_blank">Twitter</a>
-          <a href="https://github.com/ivencomur" target="_blank">GitHub</a>
+        <div class="header">
+            <h1> Recipe App</h1>
+            <p class="subtitle">Discover and Share Amazing Recipes</p>
         </div>
-        <p>
-          <a href="https://github.com/ivencomur/recipe-app" target="_blank"
-            >Project Repository</a
-          >
-        </p>
-        <p>Python for Web Developers @ CareerFoundry 2025</p>
-      </div>
-    </div>
-  </body>
-</html>
-"@ | Out-File -FilePath "templates/sales/home.html" -Encoding UTF8
 
-Write-Host "✅ Updated home.html with Search Recipes button!" -ForegroundColor Green
-Write-Host ""
-Write-Host "Changes made:" -ForegroundColor Cyan
-Write-Host "  • Added 'Search Recipes' button (🔍) for logged-in users" -ForegroundColor White
-Write-Host "  • Converted logout link to proper form with button" -ForegroundColor White
-Write-Host "  • Added teal styling for search button" -ForegroundColor White
-Write-Host ""
-Write-Host "Now deploy:" -ForegroundColor Yellow
-Write-Host "  git add templates/sales/home.html" -ForegroundColor White
-Write-Host "  git commit -m 'Add Search Recipes button to home page'" -ForegroundColor White
-Write-Host "  git push origin main" -ForegroundColor White
+        <div class="welcome-section">
+            {% if user.is_authenticated %}
+                <p class="welcome-message">Welcome back, {{ user.username }}! </p>
+                <p style="text-align: center; margin-bottom: 2rem;">Ready to explore more delicious recipes?</p>
+                
+                <div class="button-group">
+                    <a href="/recipes/" class="btn btn-primary">View All Recipes</a>
+                    <a href="/recipes/search/" class="btn btn-secondary"> Search Recipes</a>
+                    <form method="post" action="{% url 'logout' %}" style="margin: 0;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-logout">Logout</button>
+                    </form>
+                </div>
+            {% else %}
+                <p class="welcome-message">Welcome to Recipe App! </p>
+                <p style="text-align: center; margin-bottom: 2rem;">Login to explore our collection of amazing recipes.</p>
+                
+                <div class="button-group">
+                    <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>
+            <a href="https://ivan-cortes-portfolio-v1.onrender.com/" target="_blank">Portfolio</a> |
+            <a href="https://www.linkedin.com/in/ivan-cortes-murcia-22053953/" target="_blank">LinkedIn</a> |
+            <a href="https://github.com/ivencomur/recipe-app" target="_blank">GitHub Repository</a>
+        </p>
+        <p style="margin-top: 1rem;">Python for Web Developers @ CareerFoundry 2025</p>
+    </div>
+</body>
+</html>
