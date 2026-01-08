@@ -248,3 +248,5 @@ python-decouple: For environment variable management.
 dj-database-url: For parsing database URLs.
 
 Pandas & Matplotlib: For data visualization.
+
+<!-- Rebuild trigger: 2026-01-07 19:09:56 -->
