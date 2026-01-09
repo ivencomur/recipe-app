@@ -39,3 +39,45 @@ msgstr "Ingredientes"
 
 msgid "Instructions"
 msgstr "Instrucciones"
+
+msgid "Login"
+msgstr "Iniciar Sesión"
+
+msgid "Login to Your Recipe App"
+msgstr "Inicia Sesión en Tu App de Recetas"
+
+msgid "Username"
+msgstr "Nombre de Usuario"
+
+msgid "Password"
+msgstr "Contraseña"
+
+msgid "Don't have an account?"
+msgstr "¿No tienes una cuenta?"
+
+msgid "Register here"
+msgstr "Regístrate aquí"
+
+msgid "Register"
+msgstr "Registrarse"
+
+msgid "Email"
+msgstr "Correo Electrónico"
+
+msgid "Confirm Password"
+msgstr "Confirmar Contraseña"
+
+msgid "Already have an account?"
+msgstr "¿Ya tienes una cuenta?"
+
+msgid "Login here"
+msgstr "Inicia sesión aquí"
+
+msgid "Welcome to Recipe App!"
+msgstr "¡Bienvenido a Recipe App!"
+
+msgid "Discover and Share Amazing Recipes"
+msgstr "Descubre y Comparte Recetas Increíbles"
+
+msgid "explore our collection"
+msgstr "explora nuestra colección"

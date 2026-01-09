@@ -1,4 +1,5 @@
-﻿{% load static %}
+{% load i18n %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -238,7 +239,7 @@
     <div class="container">
         <div class="header">
             <h1> Recipe App</h1>
-            <p class="subtitle">Discover and Share Amazing Recipes</p>
+            <p class="subtitle">{% trans "Discover and Share Amazing Recipes" %}</p>
         </div>
 
         <div class="welcome-section">
@@ -255,8 +256,8 @@
                     </form>
                 </div>
             {% else %}
-                <p class="welcome-message">Welcome to Recipe App! </p>
-                <p style="text-align: center; margin-bottom: 1rem; color: #666;">Login to explore our collection of amazing recipes</p>
+                <p class="welcome-message">{% trans "Welcome to Recipe App!" %} </p>
+                <p style="text-align: center; margin-bottom: 1rem; color: #666;">Login to {% trans "explore our collection" %} of amazing recipes</p>
                 
                 <div class="login-form">
                     {% if error_message %}
@@ -266,11 +267,11 @@
                     <form action="{% url 'login' %}" method="POST">
                         {% csrf_token %}
                         {{ form.as_p }}
-                        <button type="submit" class="login-button">Login</button>
+                        <button type="submit" class="login-button">{% trans "Login" %}</button>
                     </form>
 
                     <div class="register-link">
-                        <p>Don't have an account? <a href="{% url 'sales:register' %}">Register here</a></p>
+                        <p>{% trans "Don't have an account?" %} <a href="{% url 'sales:register' %}">{% trans "Register here" %}</a></p>
                     </div>
                 </div>
             {% endif %}
@@ -291,3 +292,4 @@
     </div>
 </body>
 </html>
+

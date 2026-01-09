@@ -1,9 +1,10 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register</title>
+    <title>{% trans "Register" %}</title>
     <style>
       :root {
         --primary-color: #20504b;
@@ -220,6 +221,7 @@
   <body>
     <div class="container">
       <div class="page-header">
+        {% include 'language_switcher.html' %}
         <h1>Create Your Account</h1>
       </div>
 
@@ -249,7 +251,7 @@
         </form>
 
         <div class="login-link">
-          <p>Already have an account? <a href="{% url 'login' %}">Log in here</a></p>
+          <p>{% trans "Already have an account?" %} <a href="{% url 'login' %}">Log in here</a></p>
         </div>
       </div>
 

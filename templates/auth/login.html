@@ -1,9 +1,10 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
+    <title>{% trans "Login" %}</title>
     <style>
       :root {
         --primary-color: #20504b;
@@ -171,7 +172,8 @@
   <body>
     <div class="container">
       <div class="page-header">
-        <h1>Login to Your Recipe App</h1>
+        {% include 'language_switcher.html' %}
+        <h1>{% trans "Login to Your Recipe App" %}</h1>
       </div>
 
       <div class="content">
@@ -181,11 +183,11 @@
 
         <form action="{% url 'login' %}" method="POST">
           {% csrf_token %} {{ form.as_p }}
-          <button type="submit" class="login-button">Login</button>
+          <button type="submit" class="login-button">{% trans "Login" %}</button>
         </form>
 
         <div class="register-link">
-          <p>Don't have an account? <a href="{% url 'sales:register' %}">Register here</a></p>
+          <p>{% trans "Don't have an account?" %} <a href="{% url 'sales:register' %}">{% trans "Register here" %}</a></p>
         </div>
       </div>
 
@@ -214,4 +216,5 @@
     </div>
   </body>
 </html>
+
 
