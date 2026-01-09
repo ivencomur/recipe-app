@@ -3,16 +3,54 @@
 {% block content %}
 <style>
   .recipe-list-container { max-width: 1400px; margin: 0 auto; padding: 2rem 1rem; position: relative; }
-  .page-header {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 3px solid #ffa061;
+  
+  /* Navigation Bar Styles */
+  .nav-header {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    margin-bottom: 2rem; 
+    padding-bottom: 1rem; 
+    border-bottom: 3px solid #ffa061;
+    flex-wrap: wrap;
+    gap: 15px;
   }
-  .page-title { color: white; font-size: 2.5rem; font-weight: 700; margin: 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.2); }
-  .logout-btn {
-    background: transparent; border: 2px solid #ffa061; color: #ffa061;
-    cursor: pointer; font-weight: 600; padding: 0.75rem 1.5rem; border-radius: 25px; transition: all 0.3s;
+  
+  .page-title { 
+    color: white; 
+    font-size: 2.5rem; 
+    font-weight: 700; 
+    margin: 0; 
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2); 
+    flex-grow: 1;
   }
-  .logout-btn:hover { background-color: #ffa061; color: white; }
+
+  .nav-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .nav-btn {
+    text-decoration: none;
+    background: transparent;
+    border: 2px solid #ffa061;
+    color: #ffa061;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+  }
+
+  .nav-btn:hover { background-color: #ffa061; color: white; }
+  
+  .logout-form { margin: 0; }
+
+  /* Recipe Grid Styles */
   .recipes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
   .recipe-card {
     background: white; border-radius: 12px; overflow: hidden;
@@ -27,12 +65,19 @@
 </style>
 
 <div class="recipe-list-container">
-  <div class="page-header">
+  <div class="nav-header">
     <h1 class="page-title">All Recipes ({{ recipes|length }})</h1>
-    <form method="post" action="{% url 'logout' %}">
-      {% csrf_token %}
-      <button type="submit" class="logout-btn">Logout</button>
-    </form>
+    
+    <div class="nav-buttons">
+      <a href="{% url 'sales:home' %}" class="nav-btn">
+        <span>🏠</span> Home
+      </a>
+      
+      <form method="post" action="{% url 'logout' %}" class="logout-form">
+        {% csrf_token %}
+        <button type="submit" class="nav-btn">Logout</button>
+      </form>
+    </div>
   </div>
 
   <div class="recipes-grid">

@@ -3,14 +3,44 @@
 {% block content %}
 <style>
   .recipe-detail-container { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; position: relative; }
-  .detail-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-  .back-link { color: white; text-decoration: none; font-weight: 600; font-size: 1.2rem; }
-  .back-link:hover { color: #ffa061; }
-  .logout-btn {
-    background: transparent; border: 2px solid #ffa061; color: #ffa061;
-    padding: 8px 16px; border-radius: 20px; cursor: pointer; font-weight: bold;
+  
+  /* Navigation Bar Styles */
+  .detail-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
   }
-  .logout-btn:hover { background-color: #ffa061; color: white; }
+
+  .nav-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .nav-btn {
+    text-decoration: none;
+    background: transparent;
+    border: 2px solid #ffa061;
+    color: #ffa061;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+
+  .nav-btn:hover { background-color: #ffa061; color: white; }
+  
+  .logout-form { margin: 0; }
+
+  /* Recipe Card Styles */
   .recipe-card { background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); overflow: hidden; }
   .recipe-image-container { width: 100%; height: 400px; overflow: hidden; background: #f8f9fa; display: flex; justify-content: center; align-items: center; }
   .recipe-image-container img { width: 100%; height: 100%; object-fit: cover; }
@@ -20,11 +50,20 @@
 
 <div class="recipe-detail-container">
   <div class="detail-header">
-    <a class="back-link" href="{% url 'recipes:list' %}">⬅️ Back to All Recipes</a>
-    <form method="post" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit" class="logout-btn">Logout</button>
-    </form>
+    <a class="nav-btn" href="{% url 'recipes:list' %}">
+      <span>⬅️</span> Back to List
+    </a>
+    
+    <div class="nav-buttons">
+        <a href="{% url 'sales:home' %}" class="nav-btn">
+            <span>🏠</span> Home
+        </a>
+        
+        <form method="post" action="{% url 'logout' %}" class="logout-form">
+            {% csrf_token %}
+            <button type="submit" class="nav-btn">Logout</button>
+        </form>
+    </div>
   </div>
   
   <div class="recipe-card">
