@@ -1,4 +1,5 @@
-﻿{% extends "base.html" %}
+{% load i18n %}
+{% extends "base.html" %}
 {% load static %}
 {% load image_chain %}
 
@@ -173,11 +174,73 @@
       grid-template-columns: repeat(2, 1fr);
     }
   }
+
+/* Language Switcher Styles */
+.language-switcher {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    z-index: 1000;
+}
+
+.language-select {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.language-select:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.language-select option {
+    background-color: #20504b;
+    color: white;
+}
 </style>
 
 <div class="recipe-list-container">
   <!-- Page Header -->
   <div class="page-header">
+<div id="google_translate_element" style="position: absolute; top: 15px; right: 150px;"></div>
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    includedLanguages: 'ar,de,zh-CN,ja,ko,pt,ru,it,nl,pl,tr,vi,th,id,hi,uk,ro,cs,sv,el,he,fa,bn,ta',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false
+  }, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<style>
+#google_translate_element {
+    z-index: 1001;
+}
+.goog-te-banner-frame {
+    display: none !important;
+}
+body {
+    top: 0 !important;
+}
+.goog-te-combo {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+</style>
     <div>
       <h1 class="page-title">
         All Recipes
@@ -187,7 +250,7 @@
     
     <form method="post" action="{% url 'logout' %}">
       {% csrf_token %}
-      <button type="submit" class="logout-btn">Logout</button>
+      <button type="submit" class="logout-btn">{% trans "Logout" %}</button>
     </form>
   </div>
 
@@ -223,4 +286,7 @@
   {% endif %}
 </div>
 {% endblock %}
+
+
+
 

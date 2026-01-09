@@ -1,0 +1,41 @@
+# Spanish translations for Recipe App
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: es\n"
+
+msgid "Recipe Collection"
+msgstr "Colección de Recetas"
+
+msgid "Our Recipe Collection"
+msgstr "Nuestra Colección de Recetas"
+
+msgid "Search Recipes"
+msgstr "Buscar Recetas"
+
+msgid "Logout"
+msgstr "Cerrar Sesión"
+
+msgid "Portfolio"
+msgstr "Portafolio"
+
+msgid "Project Repository"
+msgstr "Repositorio del Proyecto"
+
+msgid "Recipe Details"
+msgstr "Detalles de la Receta"
+
+msgid "Back to All Recipes"
+msgstr "Volver a Todas las Recetas"
+
+msgid "Details"
+msgstr "Detalles"
+
+msgid "Cooking Time"
+msgstr "Tiempo de Cocción"
+
+msgid "Ingredients"
+msgstr "Ingredientes"
+
+msgid "Instructions"
+msgstr "Instrucciones"
