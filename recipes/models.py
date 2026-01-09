@@ -1,4 +1,4 @@
-﻿# recipes/models.py
+# recipes/models.py
 from django.db import models
 from django.core.validators import MinValueValidator
 from django.shortcuts import reverse
@@ -19,7 +19,7 @@ class Recipe(models.Model):
         validators=[MinValueValidator(1)],
         help_text="Total cooking time in minutes",
     )
-    pic = models.CharField(max_length=255, default='/static/img/no_picture.jpg')
+    pic = models.CharField(max_length=500, default='/static/img/no_picture.jpg')
 
     # Many-to-many via a join model so we can store quantity and unit
     ingredients = models.ManyToManyField(
@@ -72,6 +72,7 @@ class RecipeIngredient(models.Model):
 
     class Meta:
         unique_together = ("recipe", "ingredient")
+
 
 
 
