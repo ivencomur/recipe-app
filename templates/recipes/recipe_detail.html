@@ -1,185 +1,51 @@
 {% extends "base.html" %}
 {% load static %}
-{% load i18n %}
-
 {% block content %}
 <style>
-  .recipe-detail-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-    position: relative;
-  }
-
-  /* Header with Back and Logout */
-  .detail-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid #eee;
-  }
-
-  .back-link {
-    color: #20504b;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.1rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: color 0.3s;
-  }
-  
+  .recipe-detail-container { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; position: relative; }
+  .detail-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+  .back-link { color: white; text-decoration: none; font-weight: 600; font-size: 1.2rem; }
   .back-link:hover { color: #ffa061; }
-
-  /* Logout Button Style */
   .logout-btn {
-    background-color: transparent;
-    color: #ffa061;
-    border: 2px solid #ffa061;
-    padding: 8px 16px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s;
+    background: transparent; border: 2px solid #ffa061; color: #ffa061;
+    padding: 8px 16px; border-radius: 20px; cursor: pointer; font-weight: bold;
   }
-
-  .logout-btn:hover {
-    background-color: #ffa061;
-    color: white;
-  }
-
-  /* Language Switcher Position */
-  .lang-switch-container {
-      margin-bottom: 20px;
-      text-align: right;
-  }
-
-  /* Recipe Card */
-  .recipe-card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-  }
-
-  .recipe-image-container {
-    width: 100%;
-    height: 400px;
-    overflow: hidden;
-    background: #f8f9fa;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .recipe-image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
+  .logout-btn:hover { background-color: #ffa061; color: white; }
+  .recipe-card { background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); overflow: hidden; }
+  .recipe-image-container { width: 100%; height: 400px; overflow: hidden; background: #f8f9fa; display: flex; justify-content: center; align-items: center; }
+  .recipe-image-container img { width: 100%; height: 100%; object-fit: cover; }
   .recipe-info { padding: 2rem; }
-
-  .recipe-title {
-    color: #20504b;
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-  }
-
-  /* Floating Navigation */
-  .floating-nav {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    z-index: 1000;
-  }
-
-  .nav-circle {
-    width: 50px;
-    height: 50px;
-    background-color: #20504b;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    font-size: 24px;
-    transition: transform 0.2s, background-color 0.2s;
-  }
-
-  .nav-circle:hover {
-    transform: scale(1.1);
-    background-color: #ffa061;
-  }
+  .recipe-title { color: #20504b; font-size: 2.5rem; margin-bottom: 1rem; }
 </style>
 
 <div class="recipe-detail-container">
-  
-  <div class="lang-switch-container">
-      {% include 'language_switcher.html' %}
-  </div>
-
   <div class="detail-header">
-    <a class="back-link" href="{% url 'recipes:list' %}">
-      <span>⬅️</span> {% trans "Back to All Recipes" %}
-    </a>
-    
-    <form method="post" action="{% url 'logout' %}" style="margin:0;">
+    <a class="back-link" href="{% url 'recipes:list' %}">⬅️ Back to All Recipes</a>
+    <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}
-        <button type="submit" class="logout-btn">{% trans "Logout" %}</button>
+        <button type="submit" class="logout-btn">Logout</button>
     </form>
   </div>
   
   <div class="recipe-card">
     <div class="recipe-image-container">
-      <img src="{{ recipe.pic }}" alt="{{ recipe.name }}" loading="lazy" onerror="this.src='/static/img/no_picture.jpg'">
+      <img src="{{ recipe.pic }}" alt="{{ recipe.name }}" onerror="this.src='/static/img/no_picture.jpg'">
     </div>
-    
     <div class="recipe-info">
       <h1 class="recipe-title">{{ recipe.name }}</h1>
-      
-      {% if recipe.description %}
-      <p>{{ recipe.description }}</p>
-      {% endif %}
-      
-      <div style="margin: 20px 0; padding: 15px; background: #f9f9f9; border-radius: 8px;">
-          <p><strong>⏱️ {% trans "Cooking Time" %}:</strong> {{ recipe.cook_time_minutes }} minutes</p>
-          {% if recipe.difficulty %}
-          <p><strong>📊 {% trans "Difficulty" %}:</strong> {{ recipe.difficulty }}</p>
-          {% endif %}
-      </div>
-      
-      <h3>🥘 {% trans "Ingredients" %}</h3>
+      {% if recipe.description %}<p>{{ recipe.description }}</p>{% endif %}
+      <p><strong>⏱️ Cooking Time:</strong> {{ recipe.cook_time_minutes }} minutes</p>
+      <h3>🥘 Ingredients</h3>
       <ul>
         {% for ri in recipe.recipeingredient_set.all %}
-          <li>
-             <strong>{{ ri.quantity }} {{ ri.unit }}</strong> {{ ri.ingredient.name }}
-          </li>
-        {% empty %}
-          <li>{% trans "No ingredients listed." %}</li>
-        {% endfor %}
+          <li><strong>{{ ri.quantity }} {{ ri.unit }}</strong> {{ ri.ingredient.name }}</li>
+        {% empty %}<li>No ingredients listed.</li>{% endfor %}
       </ul>
-
       {% if recipe.instructions %}
-      <h3 style="margin-top: 20px;">📝 {% trans "Instructions" %}</h3>
+      <h3>📝 Instructions</h3>
       <p>{{ recipe.instructions|linebreaks }}</p>
       {% endif %}
     </div>
   </div>
 </div>
-
-<div class="floating-nav">
-    <a href="{% url 'sales:home' %}" class="nav-circle" title="{% trans 'Go Home' %}">🏠</a>
-    <a href="{% url 'recipes:list' %}" class="nav-circle" title="{% trans 'Recipe List' %}">📋</a>
-</div>
-
 {% endblock %}

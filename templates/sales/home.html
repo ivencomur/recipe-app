@@ -1,12 +1,34 @@
 {% load static %}
-{% load i18n %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% trans "Welcome to Recipe App" %}</title>
+    <title>Welcome to Recipe App</title>
+        <div id="google_translate_element" style="position: absolute; top: 15px; right: 20px; z-index: 9999;"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: true
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <style>
+        .goog-te-gadget-simple {
+            background-color: rgba(255,255,255,0.2) !important;
+            border: 1px solid rgba(255,255,255,0.5) !important;
+            padding: 8px !important;
+            border-radius: 4px !important;
+        }
+        .goog-te-gadget-simple a { color: white !important; text-decoration: none; }
+        .goog-te-gadget-simple .goog-te-menu-value span { color: white !important; }
+        /* Hide Google top bar */
+        .goog-te-banner-frame { display: none !important; }
+        body { top: 0px !important; }
+    </style>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -17,56 +39,15 @@
             flex-direction: column;
             color: white;
         }
-
-        /* LANGUAGE BAR STYLES */
-        .language-bar {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 10px 20px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 20px;
-            position: absolute;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-
-        .native-lang-select {
-            background: transparent;
-            color: white;
-            border: 1px solid rgba(255,255,255,0.5);
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        
-        .native-lang-select option {
-            background: #20504b;
-            color: white;
-        }
-
-        /* CONTAINER STYLES */
         .container {
             max-width: 1200px;
-            margin: 80px auto 0; /* Push down below language bar */
+            margin: 80px auto 0;
             padding: 2rem;
             flex: 1;
             text-align: center;
         }
-
-        .header h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .header .subtitle {
-            font-size: 1.5rem;
-            opacity: 0.9;
-            margin-bottom: 3rem;
-        }
-
+        .header h1 { font-size: 3.5rem; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .header .subtitle { font-size: 1.5rem; opacity: 0.9; margin-bottom: 3rem; }
         .auth-box {
             background: white;
             color: #333;
@@ -76,7 +57,6 @@
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
-
         .btn {
             display: block;
             width: 100%;
@@ -88,72 +68,31 @@
             text-align: center;
             transition: transform 0.2s;
         }
-
         .btn-primary { background-color: #ffa061; color: white; }
         .btn-secondary { background-color: #20504b; color: white; }
         .btn:hover { transform: translateY(-2px); }
-
-        /* GOOGLE TRANSLATE CUSTOMIZATION */
-        .goog-te-gadget-simple {
-            background-color: rgba(255,255,255,0.2) !important;
-            border: 1px solid rgba(255,255,255,0.5) !important;
-            padding: 4px !important;
-            border-radius: 4px !important;
-        }
-        .goog-te-gadget-simple a { color: white !important; }
     </style>
 </head>
 <body>
-    <div class="language-bar">
-        <form action="{% url 'set_language' %}" method="post">
-            {% csrf_token %}
-            <input name="next" type="hidden" value="{{ request.get_full_path|default:"/" }}">
-            <select name="language" onchange="this.form.submit()" class="native-lang-select">
-                {% get_current_language as LANGUAGE_CODE %}
-                {% get_available_languages as LANGUAGES %}
-                {% for lang_code, lang_name in LANGUAGES %}
-                    <option value="{{ lang_code }}" {% if lang_code == LANGUAGE_CODE %}selected{% endif %}>
-                        {{ lang_name }}
-                    </option>
-                {% endfor %}
-            </select>
-        </form>
-
-        <div id="google_translate_element"></div>
-    </div>
-
     <div class="container">
         <div class="header">
-            <h1>{% trans "Recipe App" %}</h1>
-            <p class="subtitle">{% trans "Discover and Share Amazing Recipes" %}</p>
+            <h1>Recipe App</h1>
+            <p class="subtitle">Discover and Share Amazing Recipes</p>
         </div>
-
         <div class="auth-box">
             {% if user.is_authenticated %}
-                <h3>{% trans "Welcome back" %}, {{ user.username }}!</h3>
+                <h3>Welcome back, {{ user.username }}!</h3>
                 <br>
-                <a href="{% url 'recipes:list' %}" class="btn btn-primary">{% trans "View All Recipes" %}</a>
-                <form method="post" action="{% url 'logout' %}">
+                <a href="{% url 'recipes:list' %}" class="btn btn-primary">View All Recipes</a>
+                <form method="post" action="{% url 'logout' %}" style="margin:0;">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-secondary">{% trans "Logout" %}</button>
+                    <button type="submit" class="btn btn-secondary">Logout</button>
                 </form>
             {% else %}
-                <a href="{% url 'login' %}" class="btn btn-primary">{% trans "Login" %}</a>
-                <a href="{% url 'sales:register' %}" class="btn btn-secondary">{% trans "Register" %}</a>
+                <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+                <a href="{% url 'sales:register' %}" class="btn btn-secondary">Register</a>
             {% endif %}
         </div>
     </div>
-
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'ar,de,zh-CN,ja,ko,pt,ru,it,nl,pl,tr,vi,th,id,hi,uk,ro,cs,sv,el,he,fa,bn,ta',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-            }, 'google_translate_element');
-        }
-    </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
-

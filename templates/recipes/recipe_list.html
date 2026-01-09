@@ -1,292 +1,56 @@
-{% load i18n %}
 {% extends "base.html" %}
 {% load static %}
-{% load image_chain %}
-
 {% block content %}
 <style>
-  .recipe-list-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-  }
-
+  .recipe-list-container { max-width: 1400px; margin: 0 auto; padding: 2rem 1rem; position: relative; }
   .page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 3px solid #ffa061;
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 3px solid #ffa061;
   }
-
-  .page-title {
-    color: #20504b;
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin: 0;
-  }
-
+  .page-title { color: white; font-size: 2.5rem; font-weight: 700; margin: 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.2); }
   .logout-btn {
-    background: none;
-    border: 2px solid #ffa061;
-    color: #ffa061;
-    cursor: pointer;
-    font-weight: 600;
-    padding: 0.75rem 1.5rem;
-    border-radius: 25px;
-    transition: all 0.3s ease;
-    font-size: 1rem;
+    background: transparent; border: 2px solid #ffa061; color: #ffa061;
+    cursor: pointer; font-weight: 600; padding: 0.75rem 1.5rem; border-radius: 25px; transition: all 0.3s;
   }
-
-  .logout-btn:hover {
-    background-color: #ffa061;
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(255, 160, 97, 0.3);
-  }
-
-  .recipes-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-  }
-
+  .logout-btn:hover { background-color: #ffa061; color: white; }
+  .recipes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
   .recipe-card {
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+    background: white; border-radius: 12px; overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: transform 0.3s;
   }
-
-  .recipe-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-  }
-
-  .recipe-image-wrapper {
-    position: relative;
-    width: 100%;
-    height: 250px;
-    overflow: hidden;
-    background: #f8f9fa;
-  }
-
-  .recipe-image-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  .recipe-card:hover .recipe-image-wrapper img {
-    transform: scale(1.05);
-  }
-
-  .recipe-card-body {
-    padding: 1.5rem;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .recipe-card-title {
-    margin: 0 0 1rem 0;
-    flex-grow: 1;
-  }
-
-  .recipe-card-title a {
-    color: #20504b;
-    text-decoration: none;
-    font-size: 1.25rem;
-    font-weight: 600;
-    transition: color 0.3s ease;
-  }
-
-  .recipe-card-title a:hover {
-    color: #ffa061;
-  }
-
-  .cooking-time {
-    color: #6c757d;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem;
-    background: #f8f9fa;
-    border-radius: 6px;
-    border-left: 3px solid #ffa061;
-  }
-
-  .cooking-time::before {
-    content: "â±ï¸";
-    font-size: 1.1rem;
-  }
-
-  .no-recipes {
-    text-align: center;
-    padding: 4rem 2rem;
-    color: #6c757d;
-    font-size: 1.2rem;
-  }
-
-  .recipe-count {
-    color: #6c757d;
-    font-size: 1rem;
-    font-weight: 400;
-    margin-left: 1rem;
-  }
-
-  @media (max-width: 768px) {
-    .page-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-
-    .page-title {
-      font-size: 2rem;
-    }
-
-    .logout-btn {
-      width: 100%;
-      text-align: center;
-    }
-
-    .recipes-grid {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-
-    .recipe-image-wrapper {
-      height: 200px;
-    }
-  }
-
-  @media (min-width: 769px) and (max-width: 1024px) {
-    .recipes-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-/* Language Switcher Styles */
-.language-switcher {
-    position: absolute;
-    top: 15px;
-    left: 20px;
-    z-index: 1000;
-}
-
-.language-select {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-weight: bold;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.language-select:hover {
-    background-color: rgba(255, 255, 255, 0.4);
-}
-
-.language-select option {
-    background-color: #20504b;
-    color: white;
-}
+  .recipe-card:hover { transform: translateY(-8px); }
+  .recipe-image-wrapper { height: 250px; overflow: hidden; background: #f8f9fa; }
+  .recipe-image-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+  .recipe-card-body { padding: 1.5rem; }
+  .recipe-card-title a { color: #20504b; text-decoration: none; font-size: 1.25rem; font-weight: 600; }
+  .cooking-time { color: #6c757d; margin-top: 10px; font-size: 0.9rem; }
 </style>
 
 <div class="recipe-list-container">
-  <!-- Page Header -->
   <div class="page-header">
-<div id="google_translate_element" style="position: absolute; top: 15px; right: 150px;"></div>
-<script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({
-    pageLanguage: 'en',
-    includedLanguages: 'ar,de,zh-CN,ja,ko,pt,ru,it,nl,pl,tr,vi,th,id,hi,uk,ro,cs,sv,el,he,fa,bn,ta',
-    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-    autoDisplay: false
-  }, 'google_translate_element');
-}
-</script>
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-<style>
-#google_translate_element {
-    z-index: 1001;
-}
-.goog-te-banner-frame {
-    display: none !important;
-}
-body {
-    top: 0 !important;
-}
-.goog-te-combo {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-weight: bold;
-    font-size: 0.9rem;
-    cursor: pointer;
-}
-</style>
-    <div>
-      <h1 class="page-title">
-        All Recipes
-        <span class="recipe-count">({{ recipes|length }})</span>
-      </h1>
-    </div>
-    
+    <h1 class="page-title">All Recipes ({{ recipes|length }})</h1>
     <form method="post" action="{% url 'logout' %}">
       {% csrf_token %}
-      <button type="submit" class="logout-btn">{% trans "Logout" %}</button>
+      <button type="submit" class="logout-btn">Logout</button>
     </form>
   </div>
 
-  <!-- Recipes Grid -->
-  {% if recipes %}
   <div class="recipes-grid">
     {% for recipe in recipes %}
     <div class="recipe-card">
       <div class="recipe-image-wrapper">
-        <img src="{% if recipe.get_image_url %}{{ recipe.get_image_url }}{% else %}/static/img/no_picture.jpg{% endif %}" 
-             alt="{{ recipe.name }}" 
-             onerror="window.__imgChain(this)">
+        <img src="{{ recipe.get_image_url }}" alt="{{ recipe.name }}" onerror="this.src='/static/img/no_picture.jpg'">
       </div>
-      
       <div class="recipe-card-body">
         <h5 class="recipe-card-title">
-          <a href="{% url 'recipes:recipe_detail' recipe.id %}">{{ recipe.name }}</a>
+          <a href="{% url 'recipes:detail' recipe.id %}">{{ recipe.name }}</a>
         </h5>
-        
         {% if recipe.cook_time_minutes %}
-        <div class="cooking-time">
-          <span>{{ recipe.cook_time_minutes }} minutes</span>
-        </div>
+        <div class="cooking-time">⏱️ {{ recipe.cook_time_minutes }} minutes</div>
         {% endif %}
       </div>
     </div>
     {% endfor %}
   </div>
-  {% else %}
-  <div class="no-recipes">
-    <p>No recipes yet. Check back soon!</p>
-  </div>
-  {% endif %}
 </div>
 {% endblock %}
-
-
-
-

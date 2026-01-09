@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 from .views import login_view, logout_view, logout_success_view, about_me_view
 
 urlpatterns = [
-    path('i18n/', include('django.conf.urls.i18n')),
+    
 
     path('admin/', admin.site.urls),
 
@@ -27,5 +27,6 @@ urlpatterns = [
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
 
 
