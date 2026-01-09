@@ -1,38 +1,58 @@
-{% load i18n %}
 {% load static %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipe App - Home</title>
+    <title>{% trans "Welcome to Recipe App" %}</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #20504b 0%, #2d7067 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            color: white;
         }
 
+        /* LANGUAGE BAR STYLES */
+        .language-bar {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 20px;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .native-lang-select {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.5);
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .native-lang-select option {
+            background: #20504b;
+            color: white;
+        }
+
+        /* CONTAINER STYLES */
         .container {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 80px auto 0; /* Push down below language bar */
             padding: 2rem;
             flex: 1;
-        }
-
-        .header {
             text-align: center;
-            color: white;
-            padding: 3rem 0;
         }
 
         .header h1 {
@@ -44,252 +64,95 @@
         .header .subtitle {
             font-size: 1.5rem;
             opacity: 0.9;
+            margin-bottom: 3rem;
         }
 
-        .welcome-section {
+        .auth-box {
             background: white;
+            color: #333;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 2rem;
             border-radius: 15px;
-            padding: 3rem;
-            margin: 2rem 0;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
-        .welcome-message {
-            font-size: 1.3rem;
-            color: #20504b;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        /* Login Form Styles */
-        .login-form {
-            max-width: 400px;
-            margin: 2rem auto;
-        }
-
-        .login-form form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .login-form form p {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .login-form label {
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #20504b;
-        }
-
-        .login-form input {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 1rem;
-            width: 100%;
-        }
-
-        .register-link {
-            text-align: center;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        .register-link p {
-            color: #666;
-            font-size: 0.95rem;
-        }
-
-        .register-link a {
-            color: #20504b;
-            font-weight: bold;
-            text-decoration: none;
-        }
-
-        .register-link a:hover {
-            color: #ffa061;
-            text-decoration: underline;
-        }
-
-        /* Button Styles */
-        .button-group {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
         .btn {
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            background-color: #ffa061;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: #ff8c47;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 160, 97, 0.4);
-        }
-
-        .btn-secondary {
-            background-color: #20504b;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background-color: #2d7067;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(32, 80, 75, 0.4);
-        }
-
-        .btn-logout {
-            background-color: transparent;
-            color: #ffa061;
-            border: 2px solid #ffa061;
-        }
-
-        .btn-logout:hover {
-            background-color: #ffa061;
-            color: white;
-        }
-
-        .login-button {
-            background-color: #20504b;
-            color: white;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            display: block;
             width: 100%;
-        }
-
-        .login-button:hover {
-            background-color: #2d7067;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(32, 80, 75, 0.4);
-        }
-
-        /* Footer Styles */
-        .footer {
-            background-color: rgba(0,0,0,0.2);
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            margin-top: auto;
-        }
-
-        .footer .social-links {
-            margin-bottom: 15px;
-        }
-
-        .footer .social-links a {
-            color: #ffa061;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
             text-decoration: none;
-            margin: 0 10px;
             font-weight: bold;
-        }
-
-        .footer .social-links a:hover {
-            color: white;
-            text-decoration: underline;
-        }
-
-        .footer p {
-            margin-top: 10px;
-        }
-
-        .footer a {
-            color: #ffa061;
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
-
-        .error-message {
-            color: #d9534f;
-            background-color: #fddede;
-            border: 1px solid #d9534f;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 1rem;
             text-align: center;
+            transition: transform 0.2s;
         }
+
+        .btn-primary { background-color: #ffa061; color: white; }
+        .btn-secondary { background-color: #20504b; color: white; }
+        .btn:hover { transform: translateY(-2px); }
+
+        /* GOOGLE TRANSLATE CUSTOMIZATION */
+        .goog-te-gadget-simple {
+            background-color: rgba(255,255,255,0.2) !important;
+            border: 1px solid rgba(255,255,255,0.5) !important;
+            padding: 4px !important;
+            border-radius: 4px !important;
+        }
+        .goog-te-gadget-simple a { color: white !important; }
     </style>
 </head>
 <body>
+    <div class="language-bar">
+        <form action="{% url 'set_language' %}" method="post">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="{{ redirect_to }}">
+            <select name="language" onchange="this.form.submit()" class="native-lang-select">
+                {% get_current_language as LANGUAGE_CODE %}
+                {% get_available_languages as LANGUAGES %}
+                {% for lang_code, lang_name in LANGUAGES %}
+                    <option value="{{ lang_code }}" {% if lang_code == LANGUAGE_CODE %}selected{% endif %}>
+                        {{ lang_name }} (Native)
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+
+        <div id="google_translate_element"></div>
+    </div>
+
     <div class="container">
         <div class="header">
-            <h1> Recipe App</h1>
+            <h1>{% trans "Recipe App" %}</h1>
             <p class="subtitle">{% trans "Discover and Share Amazing Recipes" %}</p>
         </div>
 
-        <div class="welcome-section">
+        <div class="auth-box">
             {% if user.is_authenticated %}
-                <p class="welcome-message">Welcome back, {{ user.username }}! </p>
-                <p style="text-align: center; margin-bottom: 2rem;">Ready to explore more delicious recipes?</p>
-                
-                <div class="button-group">
-                    <a href="/recipes/" class="btn btn-primary">View All Recipes</a>
-                    <a href="/recipes/search/" class="btn btn-secondary"> Search Recipes</a>
-                    <form method="post" action="{% url 'logout' %}" style="margin: 0;">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-logout">Logout</button>
-                    </form>
-                </div>
+                <h3>{% trans "Welcome back" %}, {{ user.username }}!</h3>
+                <br>
+                <a href="{% url 'recipes:recipe_list' %}" class="btn btn-primary">{% trans "View All Recipes" %}</a>
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-secondary">{% trans "Logout" %}</button>
+                </form>
             {% else %}
-                <p class="welcome-message">{% trans "Welcome to Recipe App!" %} </p>
-                <p style="text-align: center; margin-bottom: 1rem; color: #666;">Login to {% trans "explore our collection" %} of amazing recipes</p>
-                
-                <div class="login-form">
-                    {% if error_message %}
-                    <div class="error-message">{{ error_message }}</div>
-                    {% endif %}
-
-                    <form action="{% url 'login' %}" method="POST">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit" class="login-button">{% trans "Login" %}</button>
-                    </form>
-
-                    <div class="register-link">
-                        <p>{% trans "Don't have an account?" %} <a href="{% url 'sales:register' %}">{% trans "Register here" %}</a></p>
-                    </div>
-                </div>
+                <a href="{% url 'login' %}" class="btn btn-primary">{% trans "Login" %}</a>
+                <a href="{% url 'sales:register' %}" class="btn btn-secondary">{% trans "Register" %}</a>
             {% endif %}
         </div>
     </div>
 
-    <div class="footer">
-        <div class="social-links">
-            <a href="https://ivan-cortes-portfolio-v1.onrender.com/" target="_blank">Portfolio</a>
-            <a href="https://www.linkedin.com/in/ivan-cortes-murcia-22053953/" target="_blank">LinkedIn</a>
-            <a href="https://x.com/IVENCOMUR" target="_blank">Twitter</a>
-            <a href="https://github.com/ivencomur" target="_blank">GitHub</a>
-        </div>
-        <p>
-            <a href="https://github.com/ivencomur/recipe-app" target="_blank">Project Repository</a>
-        </p>
-        <p style="margin-top: 1rem;">Python for Web Developers @ CareerFoundry 2025</p>
-    </div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'ar,de,zh-CN,ja,ko,pt,ru,it,nl,pl,tr,vi,th,id,hi,uk,ro,cs,sv,el,he,fa,bn,ta',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
-
