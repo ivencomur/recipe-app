@@ -113,7 +113,7 @@
                 {% get_available_languages as LANGUAGES %}
                 {% for lang_code, lang_name in LANGUAGES %}
                     <option value="{{ lang_code }}" {% if lang_code == LANGUAGE_CODE %}selected{% endif %}>
-                        {{ lang_name }} (Native)
+                        {{ lang_name }}
                     </option>
                 {% endfor %}
             </select>
@@ -132,7 +132,7 @@
             {% if user.is_authenticated %}
                 <h3>{% trans "Welcome back" %}, {{ user.username }}!</h3>
                 <br>
-                <a href="{% url 'recipes:recipe_list' %}" class="btn btn-primary">{% trans "View All Recipes" %}</a>
+                <a href="{% url 'recipes:list' %}" class="btn btn-primary">{% trans "View All Recipes" %}</a>
                 <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-secondary">{% trans "Logout" %}</button>
