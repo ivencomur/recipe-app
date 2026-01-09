@@ -215,4 +215,4 @@ class RecipeListView(LoginRequiredMixin, ListView):
 # Shows details of one recipe
 class RecipeDetailView(LoginRequiredMixin, DetailView):
     model = Recipe
-    template_name = 'recipes/recipes_detail.html'
+    template_name = 'recipes/recipe_detail.html'
