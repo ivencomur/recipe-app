@@ -1,237 +1,185 @@
-{% load i18n %}
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ recipe.name }} - Recipe Details</title>
-    <style>
-        :root {
-            --primary-color: #20504b;
-            --primary-hover-color: #1a403c;
-            --secondary-color: #f4f4f4;
-            --text-color: #333;
-            --customized-orange-dark-bg: #ffa061;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: "Lato", sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: #d9e1e5;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-        .back-link {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
-            margin-bottom: 20px;
-            display: inline-block;
-            font-size: 1.1rem;
-        }
-        .back-link:hover { color: var(--customized-orange-dark-bg); }
-        .recipe-header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 20px;
-            border-radius: 5px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        .recipe-header h1 {
-            color: white;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        .recipe-image-container {
-            width: 100%;
-            max-height: 500px;
-            overflow: hidden;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            background: var(--secondary-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .recipe-image-container img {
-            width: 100%;
-            height: auto;
-            max-height: 500px;
-            object-fit: cover;
-            display: block;
-        }
-        .recipe-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        .info-card {
-            background: var(--secondary-color);
-            padding: 20px;
-            border-radius: 5px;
-            border-left: 4px solid var(--primary-color);
-        }
-        .info-card h3 {
-            color: var(--primary-color);
-            margin-bottom: 10px;
-            font-size: 1.3rem;
-        }
-        .info-card p {
-            font-size: 1.1rem;
-            color: var(--text-color);
-        }
-        .section {
-            margin-bottom: 30px;
-        }
-        .section h2 {
-            color: var(--primary-color);
-            border-bottom: 3px solid var(--primary-color);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-        .ingredients-list {
-            list-style: none;
-            padding: 0;
-        }
-        .ingredients-list li {
-            background: var(--secondary-color);
-            padding: 12px 15px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            border-left: 3px solid var(--customized-orange-dark-bg);
-        }
-        .floating-nav {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 1000;
-        }
-        .floating-nav a {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 12px;
-            border-radius: 50%;
-            text-decoration: none;
-            font-weight: bold;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-            font-size: 20px;
-            text-align: center;
-            width: 50px;
-            height: 50px;
-            line-height: 26px;
-        }
-        .floating-nav a:hover {
-            background-color: var(--customized-orange-dark-bg);
-            transform: translateY(-2px);
-        }
-    
-/* Language Switcher Styles */
-.language-switcher {
-    position: absolute;
-    top: 15px;
-    left: 20px;
-    z-index: 1000;
-}
+{% load i18n %}
 
-.language-select {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-weight: bold;
-    font-size: 0.9rem;
+{% block content %}
+<style>
+  .recipe-detail-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    position: relative;
+  }
+
+  /* Header with Back and Logout */
+  .detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #eee;
+  }
+
+  .back-link {
+    color: #20504b;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s;
+  }
+  
+  .back-link:hover { color: #ffa061; }
+
+  /* Logout Button Style */
+  .logout-btn {
+    background-color: transparent;
+    color: #ffa061;
+    border: 2px solid #ffa061;
+    padding: 8px 16px;
+    border-radius: 20px;
     cursor: pointer;
-    transition: background-color 0.2s;
-}
+    font-weight: bold;
+    transition: all 0.3s;
+  }
 
-.language-select:hover {
-    background-color: rgba(255, 255, 255, 0.4);
-}
+  .logout-btn:hover {
+    background-color: #ffa061;
+    color: white;
+  }
 
-.language-select option {
+  /* Language Switcher Position */
+  .lang-switch-container {
+      margin-bottom: 20px;
+      text-align: right;
+  }
+
+  /* Recipe Card */
+  .recipe-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+
+  .recipe-image-container {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    background: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .recipe-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .recipe-info { padding: 2rem; }
+
+  .recipe-title {
+    color: #20504b;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  /* Floating Navigation */
+  .floating-nav {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 1000;
+  }
+
+  .nav-circle {
+    width: 50px;
+    height: 50px;
     background-color: #20504b;
     color: white;
-}
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    font-size: 24px;
+    transition: transform 0.2s, background-color 0.2s;
+  }
+
+  .nav-circle:hover {
+    transform: scale(1.1);
+    background-color: #ffa061;
+  }
 </style>
-</head>
-<body>
-    <div class="container">
-        <a href="{% url 'recipes:list' %}" class="back-link">&laquo; Back to All Recipes</a>
-        
-        <div class="recipe-header">
-            <h1>{{ recipe.name }}</h1>
-        </div>
 
-        <div class="recipe-image-container">
-            <img src="{{ recipe.pic }}" alt="{{ recipe.name }}" loading="lazy" onerror="this.src='/static/img/no_picture.jpg'">
-        </div>
+<div class="recipe-detail-container">
+  
+  <div class="lang-switch-container">
+      {% include 'language_switcher.html' %}
+  </div>
 
-        <div class="recipe-info">
-            <div class="info-card">
-                <h3> Cooking Time</h3>
-                <p>{{ recipe.cook_time_minutes }} minutes</p>
-            </div>
-            
-            <div class="info-card">
-                <h3> Difficulty</h3>
-                <p>{{ recipe.difficulty }}</p>
-            </div>
-            
-            {% if recipe.created_at %}
-            <div class="info-card">
-                <h3> Added</h3>
-                <p>{{ recipe.created_at|date:"M d, Y" }}</p>
-            </div>
-            {% endif %}
-        </div>
-
-        {% if recipe.description %}
-        <div class="section">
-            <h2> Description</h2>
-            <p>{{ recipe.description }}</p>
-        </div>
-        {% endif %}
-
-        <div class="section">
-            <h2> Ingredients</h2>
-            <ul class="ingredients-list">
-                {% for ri in recipe.recipeingredient_set.all %}
-                    <li>
-                        <strong>{{ ri.quantity }} {{ ri.unit }}</strong> {{ ri.ingredient.name }}
-                    </li>
-                {% empty %}
-                    <li>No ingredients listed yet.</li>
-                {% endfor %}
-            </ul>
-        </div>
+  <div class="detail-header">
+    <a class="back-link" href="{% url 'recipes:list' %}">
+      <span>⬅️</span> {% trans "Back to All Recipes" %}
+    </a>
+    
+    <form method="post" action="{% url 'logout' %}" style="margin:0;">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">{% trans "Logout" %}</button>
+    </form>
+  </div>
+  
+  <div class="recipe-card">
+    <div class="recipe-image-container">
+      <img src="{{ recipe.pic }}" alt="{{ recipe.name }}" loading="lazy" onerror="this.src='/static/img/no_picture.jpg'">
     </div>
+    
+    <div class="recipe-info">
+      <h1 class="recipe-title">{{ recipe.name }}</h1>
+      
+      {% if recipe.description %}
+      <p>{{ recipe.description }}</p>
+      {% endif %}
+      
+      <div style="margin: 20px 0; padding: 15px; background: #f9f9f9; border-radius: 8px;">
+          <p><strong>⏱️ {% trans "Cooking Time" %}:</strong> {{ recipe.cook_time_minutes }} minutes</p>
+          {% if recipe.difficulty %}
+          <p><strong>📊 {% trans "Difficulty" %}:</strong> {{ recipe.difficulty }}</p>
+          {% endif %}
+      </div>
+      
+      <h3>🥘 {% trans "Ingredients" %}</h3>
+      <ul>
+        {% for ri in recipe.recipeingredient_set.all %}
+          <li>
+             <strong>{{ ri.quantity }} {{ ri.unit }}</strong> {{ ri.ingredient.name }}
+          </li>
+        {% empty %}
+          <li>{% trans "No ingredients listed." %}</li>
+        {% endfor %}
+      </ul>
 
-    <div class="floating-nav">
-        <a href="{% url 'sales:home' %}" title="Go to Home"></a>
-        <a href="{% url 'recipes:list' %}" title="All Recipes"></a>
+      {% if recipe.instructions %}
+      <h3 style="margin-top: 20px;">📝 {% trans "Instructions" %}</h3>
+      <p>{{ recipe.instructions|linebreaks }}</p>
+      {% endif %}
     </div>
-</body>
-</html>
+  </div>
+</div>
 
+<div class="floating-nav">
+    <a href="{% url 'sales:home' %}" class="nav-circle" title="{% trans 'Go Home' %}">🏠</a>
+    <a href="{% url 'recipes:list' %}" class="nav-circle" title="{% trans 'Recipe List' %}">📋</a>
+</div>
 
-
-
-
-
-
+{% endblock %}

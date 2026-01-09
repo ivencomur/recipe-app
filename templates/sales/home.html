@@ -107,7 +107,7 @@
     <div class="language-bar">
         <form action="{% url 'set_language' %}" method="post">
             {% csrf_token %}
-            <input name="next" type="hidden" value="{{ redirect_to }}">
+            <input name="next" type="hidden" value="{{ request.get_full_path|default:"/" }}">
             <select name="language" onchange="this.form.submit()" class="native-lang-select">
                 {% get_current_language as LANGUAGE_CODE %}
                 {% get_available_languages as LANGUAGES %}
@@ -156,3 +156,4 @@
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
+
