@@ -1,4 +1,4 @@
-﻿# recipes/urls.py
+# recipes/urls.py
 
 from django.urls import path
 # Import all necessary views from the views module
@@ -8,7 +8,10 @@ app_name = 'recipes' # Define the namespace for this app
 
 from .debug_view import debug_images
 
+from recipes.update_images_view import update_images_view
+
 urlpatterns = [
+    path('update-images/', update_images_view, name='update_images'),
     path('debug/', debug_images, name='debug'),
     # Path for the recipe list page (e.g., /recipes/)
     path('', RecipeListView.as_view(), name='list'),
@@ -23,3 +26,4 @@ urlpatterns = [
     # but your views.py uses a Class-Based View RecipeDetailView.
  
 ]
+
