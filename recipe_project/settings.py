@@ -47,10 +47,10 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'django.middleware.locale.LocaleMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # ADDED FOR PRODUCTION STATIC FILES
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',  # <--- CRITICAL: Must be here
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -194,6 +194,7 @@ if os.getenv("CLOUDINARY_URL"):
 # UNSPLASH API CONFIGURATION
 # ============================================
 UNSPLASH_ACCESS_KEY = config('UNSPLASH_ACCESS_KEY', default='')
+
 
 
 

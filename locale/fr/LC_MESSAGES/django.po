@@ -1,38 +1,43 @@
-# French translations for Recipe App
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fr\n"
 
-msgid "Recipe Collection"
-msgstr "Collection de Recettes"
+msgid "Welcome to Recipe App"
+msgstr "Bienvenue sur Recipe App"
 
-msgid "Our Recipe Collection"
-msgstr "Notre Collection de Recettes"
+msgid "Recipe App"
+msgstr "Recipe App"
 
-msgid "Search Recipes"
-msgstr "Rechercher des Recettes"
+msgid "Discover and Share Amazing Recipes"
+msgstr "Découvrez et Partagez des Recettes Incroyables"
+
+msgid "Welcome back"
+msgstr "Bon retour"
+
+msgid "View All Recipes"
+msgstr "Voir Toutes les Recettes"
 
 msgid "Logout"
 msgstr "Se Déconnecter"
 
-msgid "Portfolio"
-msgstr "Portfolio"
+msgid "Login"
+msgstr "Connexion"
 
-msgid "Project Repository"
-msgstr "Dépôt du Projet"
+msgid "Register"
+msgstr "S'inscrire"
 
-msgid "Recipe Details"
-msgstr "Détails de la Recette"
+msgid "Search Recipes"
+msgstr "Rechercher des Recettes"
 
 msgid "Back to All Recipes"
 msgstr "Retour à Toutes les Recettes"
 
-msgid "Details"
-msgstr "Détails"
-
 msgid "Cooking Time"
 msgstr "Temps de Cuisson"
+
+msgid "Difficulty"
+msgstr "Difficulté"
 
 msgid "Ingredients"
 msgstr "Ingrédients"
@@ -40,44 +45,11 @@ msgstr "Ingrédients"
 msgid "Instructions"
 msgstr "Instructions"
 
-msgid "Login"
-msgstr "Connexion"
+msgid "No ingredients listed."
+msgstr "Aucun ingrédient listé."
 
-msgid "Login to Your Recipe App"
-msgstr "Connectez-vous à Votre App de Recettes"
+msgid "Go Home"
+msgstr "Accueil"
 
-msgid "Username"
-msgstr "Nom d'utilisateur"
-
-msgid "Password"
-msgstr "Mot de passe"
-
-msgid "Don't have an account?"
-msgstr "Vous n'avez pas de compte?"
-
-msgid "Register here"
-msgstr "Inscrivez-vous ici"
-
-msgid "Register"
-msgstr "S'inscrire"
-
-msgid "Email"
-msgstr "Email"
-
-msgid "Confirm Password"
-msgstr "Confirmer le mot de passe"
-
-msgid "Already have an account?"
-msgstr "Vous avez déjà un compte?"
-
-msgid "Login here"
-msgstr "Connectez-vous ici"
-
-msgid "Welcome to Recipe App!"
-msgstr "Bienvenue sur Recipe App!"
-
-msgid "Discover and Share Amazing Recipes"
-msgstr "Découvrez et Partagez des Recettes Incroyables"
-
-msgid "explore our collection"
-msgstr "explorez notre collection"
+msgid "Recipe List"
+msgstr "Liste des Recettes"
